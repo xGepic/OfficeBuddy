@@ -28,8 +28,8 @@ internal readonly record struct ImageTurn(bool Mirrored, int Rotation)
 }
 
 /// <summary>
-/// A JPG or PNG image added to Images to PDF, such as a phone photo of a letter. Its content is read
-/// fully into memory, like a Document's.
+/// A JPG or PNG image added to Images to PDF or opened in Resize image, such as a phone photo of a
+/// letter. Its content is read fully into memory, like a Document's.
 /// </summary>
 public sealed class ImageFile
 {
@@ -39,9 +39,13 @@ public sealed class ImageFile
     private readonly int _storedWidth;
     private readonly int _storedHeight;
 
-    private ImageFile(string filePath, byte[] content, int storedWidth, int storedHeight, ImageTurn turn)
+    // As close to the original as a JPG gets without becoming much bigger.
+    private const float JpegQuality = 0.92f;
+
+    private ImageFile(string filePath, bool isPng, byte[] content, int storedWidth, int storedHeight, ImageTurn turn)
     {
         FilePath = filePath;
+        IsPng = isPng;
         Content = content;
         (_storedWidth, _storedHeight) = (storedWidth, storedHeight);
         Turn = turn;
@@ -54,6 +58,9 @@ public sealed class ImageFile
     public string NameWithoutExtension => Path.GetFileNameWithoutExtension(FilePath);
 
     public string? Folder => Path.GetDirectoryName(FilePath);
+
+    /// <summary>A PNG image; otherwise a JPG. Told by content, not by name.</summary>
+    public bool IsPng { get; }
 
     /// <summary>The width in pixels, the right way up.</summary>
     public int Width => Turn.SwapsSides ? _storedHeight : _storedWidth;
@@ -105,7 +112,8 @@ public sealed class ImageFile
         }
 
         // Recognised by content, not by name: a HEIC photo renamed to .jpg is still not a JPG.
-        if (!content.AsSpan().StartsWith(JpegStart) && !content.AsSpan().StartsWith(PngStart))
+        var isPng = content.AsSpan().StartsWith(PngStart);
+        if (!isPng && !content.AsSpan().StartsWith(JpegStart))
         {
             throw new LoadFailedException(LoadFailureReason.Unsupported);
         }
@@ -116,7 +124,7 @@ public sealed class ImageFile
             var decoder = await BitmapDecoder.CreateAsync(stream);
             var turn = ImageTurn.FromExifOrientation(await ReadExifOrientationAsync(decoder));
             var readable = await Task.Run(() => CanEmbed(content)) ? content : await ToPngAsync(decoder);
-            return new ImageFile(filePath, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn);
+            return new ImageFile(filePath, isPng, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn);
         }
         catch (Exception)
         {
@@ -166,6 +174,38 @@ public sealed class ImageFile
         return await EncodePngAsync(bitmap);
     }
 
+    /// <summary>
+    /// The image the right way up at exactly <paramref name="width"/> by <paramref name="height"/>
+    /// pixels, as a file of its own kind: a PNG stays a PNG, keeping its transparency, a JPG stays a
+    /// JPG. Photo details such as the date taken are not carried over.
+    /// </summary>
+    internal async Task<byte[]> ResizeAsync(int width, int height)
+    {
+        using var source = await ToStreamAsync(Content);
+        var decoder = await BitmapDecoder.CreateAsync(source);
+        var transform = new BitmapTransform
+        {
+            // Scaled in stored pixels, then mirrored and rotated the right way up. The turn is applied
+            // here rather than from the EXIF data, which a content converted to PNG no longer has.
+            ScaledWidth = (uint)(Turn.SwapsSides ? height : width),
+            ScaledHeight = (uint)(Turn.SwapsSides ? width : height),
+            Flip = Turn.Mirrored ? BitmapFlip.Horizontal : BitmapFlip.None,
+            Rotation = Turn.Rotation switch
+            {
+                90 => BitmapRotation.Clockwise90Degrees,
+                180 => BitmapRotation.Clockwise180Degrees,
+                270 => BitmapRotation.Clockwise270Degrees,
+                _ => BitmapRotation.None,
+            },
+            InterpolationMode = BitmapInterpolationMode.Fant,
+        };
+        // Premultiplied, so scaling doesn't leave dark fringes along transparent edges.
+        using var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8,
+            IsPng ? BitmapAlphaMode.Premultiplied : BitmapAlphaMode.Ignore,
+            transform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
+        return IsPng ? await EncodePngAsync(bitmap) : await EncodeJpegAsync(bitmap);
+    }
+
     private static async Task<ushort> ReadExifOrientationAsync(BitmapDecoder decoder)
     {
         try
@@ -207,11 +247,25 @@ public sealed class ImageFile
         var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, output);
         encoder.SetSoftwareBitmap(bitmap);
         await encoder.FlushAsync();
+        return await ReadAllAsync(output);
+    }
 
-        var png = new byte[output.Size];
+    private static async Task<byte[]> EncodeJpegAsync(SoftwareBitmap bitmap)
+    {
+        using var output = new InMemoryRandomAccessStream();
+        var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, output,
+            [new("ImageQuality", new BitmapTypedValue(JpegQuality, Windows.Foundation.PropertyType.Single))]);
+        encoder.SetSoftwareBitmap(bitmap);
+        await encoder.FlushAsync();
+        return await ReadAllAsync(output);
+    }
+
+    private static async Task<byte[]> ReadAllAsync(InMemoryRandomAccessStream output)
+    {
+        var content = new byte[output.Size];
         output.Seek(0);
-        await output.ReadAsync(png.AsBuffer(), (uint)png.Length, InputStreamOptions.None);
-        return png;
+        await output.ReadAsync(content.AsBuffer(), (uint)content.Length, InputStreamOptions.None);
+        return content;
     }
 
     private static async Task<InMemoryRandomAccessStream> ToStreamAsync(byte[] content)

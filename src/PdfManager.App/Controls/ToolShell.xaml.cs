@@ -137,13 +137,14 @@ public sealed partial class ToolShell : UserControl
     public void ShowInfo(string message) => ShowMessage(InfoBarSeverity.Informational, message);
 
     /// <summary>
-    /// Saves the Tool's result to one file: asks where with a save dialog that opens in
+    /// Saves the Tool's result to one file: asks where with a save dialog for
+    /// <paramref name="fileType"/> (a PDF Document unless the Tool says otherwise) that opens in
     /// <paramref name="folder"/> with <paramref name="fileName"/> filled in, then runs
     /// <paramref name="save"/> while the screen is busy and reports how it went. Never throws.
     /// </summary>
-    internal Task SaveToFileAsync(string? folder, string fileName, Func<string, Task> save) =>
+    internal Task SaveToFileAsync(string? folder, string fileName, Func<string, Task> save, FileFilter? fileType = null) =>
         SaveThroughDialogAsync(
-            () => FileDialogs.SaveFile(App.MainWindow.Handle, Strings.Get("SaveDialogTitle"), FileFilter.Pdf, folder, fileName),
+            () => FileDialogs.SaveFile(App.MainWindow.Handle, Strings.Get("SaveDialogTitle"), fileType ?? FileFilter.Pdf, folder, fileName),
             // The save dialog itself asks before overwriting.
             _ => Task.FromResult(true),
             async path =>
@@ -366,12 +367,12 @@ public sealed partial class ToolShell : UserControl
     }
 
     /// <summary>
-    /// For Tools that work on one Document: opens the first of <paramref name="paths"/> with
-    /// <paramref name="open"/> after asking to discard unsaved changes, while the screen is busy,
+    /// For Tools that work on one Document (or one image): opens the first of <paramref name="paths"/>
+    /// with <paramref name="open"/> after asking to discard unsaved changes, while the screen is busy,
     /// and explains what went wrong. Says so if more than one file was given.
     /// </summary>
-    /// <returns>Whether a Document was opened.</returns>
-    public async Task<bool> OpenDocumentAsync(IReadOnlyList<string> paths, Func<string, Task<LoadFailure?>> open)
+    /// <returns>Whether the file was opened.</returns>
+    public async Task<bool> OpenOneAsync(IReadOnlyList<string> paths, Func<string, Task<LoadFailure?>> open)
     {
         // Opening another Document replaces the current one and its changes.
         if (paths.Count == 0 || !await ConfirmDiscardAsync())
@@ -380,7 +381,7 @@ public sealed partial class ToolShell : UserControl
         }
 
         LoadFailure? failure;
-        using (ShowBusy(Strings.Get("BusyOpening")))
+        using (ShowBusy(Strings.Get(Opens.BusyOpeningOneKey)))
         {
             failure = await open(paths[0]);
         }
@@ -393,7 +394,7 @@ public sealed partial class ToolShell : UserControl
 
         if (paths.Count > 1)
         {
-            ShowInfo(Strings.Format("OneDocumentOnly", Path.GetFileName(paths[0])));
+            ShowInfo(Strings.Format(Opens.OneOnlyKey, Path.GetFileName(paths[0])));
         }
         return true;
     }

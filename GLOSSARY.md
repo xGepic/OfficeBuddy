@@ -76,6 +76,10 @@ _Avoid_: Convert, import images
 Saving one or more Pages as image files. UI term: *Seite als Bild*.
 _Avoid_: Export, render, screenshot
 
+**Resize image**:
+Saving one JPG or PNG image at a different size in pixels, given either as a percentage or as a width and height, keeping its proportions unless the user turns that off. The result keeps the image's format and is written the right way up. UI term: *Bildgröße ändern*.
+_Avoid_: Scale, shrink image, compress image
+
 **Protected Document**:
 A Document that needs a password to open. The app refuses to work on it and does not try to remove the password.
 _Avoid_: Encrypted PDF, locked file

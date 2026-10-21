@@ -35,6 +35,8 @@
   <data name="ToolImagesToPdfDescription" xml:space="preserve"><value>Fotos und Bilder zu einer PDF-Datei zusammenfassen</value></data>
   <data name="ToolPageToImageName" xml:space="preserve"><value>Seite als Bild</value></data>
   <data name="ToolPageToImageDescription" xml:space="preserve"><value>Seiten als JPG-Bild speichern</value></data>
+  <data name="ToolResizeImageName" xml:space="preserve"><value>Bildgröße ändern</value></data>
+  <data name="ToolResizeImageDescription" xml:space="preserve"><value>Fotos und Bilder verkleinern oder vergrößern</value></data>
 
   <!-- Shared Tool frame -->
   <data name="ToolShellBack.Text" xml:space="preserve"><value>Zurück</value></data>
@@ -54,6 +56,7 @@
   <data name="SaveDialogTitle" xml:space="preserve"><value>Speichern unter</value></data>
   <data name="PdfFilterName" xml:space="preserve"><value>PDF-Dokumente</value></data>
   <data name="JpegFilterName" xml:space="preserve"><value>JPG-Bilder</value></data>
+  <data name="PngFilterName" xml:space="preserve"><value>PNG-Bilder</value></data>
   <data name="DropToOpen" xml:space="preserve"><value>Öffnen</value></data>
   <data name="DropToOpenIn" xml:space="preserve"><value>Öffnen mit „{0}“</value></data>
   <data name="LoadFailedProtectedOne" xml:space="preserve"><value>{0} ist mit einem Passwort geschützt und kann deshalb hier nicht bearbeitet werden.</value></data>
@@ -98,6 +101,8 @@
   <data name="PagesSelectedOne" xml:space="preserve"><value>1 Seite ausgewählt</value></data>
   <data name="PagesSelectedMany" xml:space="preserve"><value>{0} Seiten ausgewählt</value></data>
   <data name="OneDocumentOnly" xml:space="preserve"><value>Hier wird immer ein Dokument bearbeitet. Geöffnet wurde „{0}“.</value></data>
+  <data name="OneImageOnly" xml:space="preserve"><value>Hier wird immer ein Bild bearbeitet. Geöffnet wurde „{0}“.</value></data>
+  <data name="BusyOpeningImage" xml:space="preserve"><value>Bild wird geöffnet …</value></data>
 
   <!-- Merge -->
   <data name="MergeTitle" xml:space="preserve"><value>PDF-Dateien zusammenfügen</value></data>
@@ -153,6 +158,21 @@
   <data name="BusyOpeningImages" xml:space="preserve"><value>Bilder werden geöffnet …</value></data>
   <data name="ImagesToPdfSave.Text" xml:space="preserve"><value>Als PDF speichern</value></data>
   <data name="ImagesToPdfSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF speichern</value></data>
+
+  <!-- Resize image -->
+  <data name="ResizeImageTitle" xml:space="preserve"><value>Bildgröße ändern</value></data>
+  <data name="ResizeImageEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es einfach hierher.</value></data>
+  <data name="ResizeOriginalSize" xml:space="preserve"><value>Jetzt {0:N0} × {1:N0} Pixel</value></data>
+  <data name="ResizeByPercentage.Content" xml:space="preserve"><value>Größe in Prozent</value></data>
+  <data name="ResizePercentageBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Größe in Prozent</value></data>
+  <data name="ResizePercentageHint.Text" xml:space="preserve"><value>% – 50 % ist halb so breit und hoch, 200 % doppelt so groß.</value></data>
+  <data name="ResizeByPixels.Content" xml:space="preserve"><value>Breite und Höhe in Pixel</value></data>
+  <data name="ResizeWidthBox.Header" xml:space="preserve"><value>Breite (Pixel)</value></data>
+  <data name="ResizeHeightBox.Header" xml:space="preserve"><value>Höhe (Pixel)</value></data>
+  <data name="ResizeKeepProportions.Content" xml:space="preserve"><value>Seitenverhältnis beibehalten (Bild nicht verzerren)</value></data>
+  <data name="ResizeNewSize" xml:space="preserve"><value>Neue Größe: {0:N0} × {1:N0} Pixel</value></data>
+  <data name="ResizeImageSave.Text" xml:space="preserve"><value>In neuer Größe speichern</value></data>
+  <data name="ResizeImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In neuer Größe speichern</value></data>
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>

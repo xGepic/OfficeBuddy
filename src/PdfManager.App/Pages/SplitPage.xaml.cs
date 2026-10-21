@@ -31,7 +31,7 @@ public sealed partial class SplitPage : Page
 
     private async void Shell_FilesOpened(object? sender, IReadOnlyList<string> paths) => await OpenAsync(paths);
 
-    private Task OpenAsync(IReadOnlyList<string> paths) => Shell.OpenDocumentAsync(paths, _session.OpenAsync);
+    private Task OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
 
     // Without reordering, the position of the Page after the gap is its index: where the Split point goes.
     private void PageThumbnails_GapClicked(object? sender, int pageIndex) => _session.ToggleSplitPoint(pageIndex);

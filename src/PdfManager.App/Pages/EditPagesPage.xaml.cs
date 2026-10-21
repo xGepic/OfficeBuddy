@@ -37,7 +37,7 @@ public sealed partial class EditPagesPage : Page
     {
         var progress = new Progress<BlankPageProgress>(done =>
             Shell.UpdateBusyMessage(Strings.Format("BusyFindingBlankPages", done.Checked, done.Total)));
-        if (await Shell.OpenDocumentAsync(paths, path => _session.OpenAsync(path, progress)))
+        if (await Shell.OpenOneAsync(paths, path => _session.OpenAsync(path, progress)))
         {
             ShowBlankPagesBanner();
         }

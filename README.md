@@ -1,6 +1,6 @@
 # PDF-Manager
 
-A German Windows desktop app that makes everyday PDF tasks simple for people who are not computer experts. It opens on a start screen with seven large tiles, one per task. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
+A German Windows desktop app that makes everyday PDF tasks simple for people who are not computer experts. It opens on a start screen with eight large tiles, one per task. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
 
 | Tile | What it does |
 |---|---|
@@ -11,6 +11,7 @@ A German Windows desktop app that makes everyday PDF tasks simple for people who
 | **Verkleinern** | Make a PDF small enough to send by email (under 10 MB), or split it into email-sized Parts |
 | **Bilder zu PDF** | Turn phone photos and other JPG/PNG images into one PDF, one A4 Page each, the right way up |
 | **Seite als Bild** | Save Pages as JPG images |
+| **Bildgröße ändern** | Make a photo or other JPG/PNG image smaller or bigger, by percentage or by width and height in pixels |
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.
 
