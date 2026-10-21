@@ -78,10 +78,22 @@
                     Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <FontIcon FontSize="18" Glyph="&#xE73F;" />
-                        <TextBlock x:ConnectionId='16' x:Name="CompressButtonText" />
+                        <TextBlock x:ConnectionId='17' x:Name="CompressButtonText" />
                     </StackPanel>
                 </Button>
                 <Button x:ConnectionId='15'
+                    x:Name="SaveAsPartsButton"
+                    x:Uid="CompressSaveAsPartsButton"
+                                             
+                    Padding="24,10"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon FontSize="18" Glyph="&#xE8C6;" />
+                        <TextBlock x:Uid="CompressSaveAsParts" />
+                    </StackPanel>
+                </Button>
+                <Button x:ConnectionId='16'
                     x:Name="SaveButton"
                     x:Uid="CompressSaveButton"
                                       
