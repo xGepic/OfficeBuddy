@@ -143,11 +143,6 @@ public sealed class Document
 
     private static PdfDocument OpenForImport(byte[] content, PdfPasswordProvider passwordProvider) =>
         PdfReader.Open(new MemoryStream(content, writable: false), PdfDocumentOpenMode.Import, passwordProvider);
-
-    private sealed class LoadFailedException(LoadFailureReason reason) : Exception
-    {
-        public LoadFailureReason Reason { get; } = reason;
-    }
 }
 
 /// <summary>The Documents that were opened and the files that could not be opened.</summary>

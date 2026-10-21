@@ -81,15 +81,6 @@ public sealed class ImagesToPdfSession() : ToolSession<ImmutableList<ImageFile>>
         var (width, height) = (image.Width * scale, image.Height * scale);
 
         using var graphics = XGraphics.FromPdfPage(page);
-        using var picture = XImage.FromStream(new MemoryStream(image.Content, writable: false));
-        // Around the centre of the Page: turned as the photo's EXIF data says, drawn as stored.
-        graphics.TranslateTransform(pageWidth / 2, pageHeight / 2);
-        graphics.RotateTransform(image.Turn.Rotation);
-        if (image.Turn.Mirrored)
-        {
-            graphics.ScaleTransform(-1, 1);
-        }
-        var (storedWidth, storedHeight) = image.Turn.SwapsSides ? (height, width) : (width, height);
-        graphics.DrawImage(picture, -storedWidth / 2, -storedHeight / 2, storedWidth, storedHeight);
+        image.Draw(graphics, new XPoint(pageWidth / 2, pageHeight / 2), width, height);
     }
 }

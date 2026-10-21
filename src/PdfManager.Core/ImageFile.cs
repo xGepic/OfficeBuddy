@@ -65,9 +65,9 @@ public sealed class ImageFile
     public bool IsLandscape => Width > Height;
 
     /// <summary>The image as PDFsharp can embed it: usually the file itself, pixels as stored.</summary>
-    internal byte[] Content { get; }
+    private byte[] Content { get; }
 
-    internal ImageTurn Turn { get; }
+    private ImageTurn Turn { get; }
 
     /// <summary>
     /// Opens the files as images, in the given order. A file that cannot be opened is reported with
@@ -79,20 +79,19 @@ public sealed class ImageFile
         var failures = new List<LoadFailure>();
         foreach (var filePath in filePaths)
         {
-            var (image, failure) = await LoadAsync(filePath);
-            if (image is not null)
+            try
             {
-                images.Add(image);
+                images.Add(await LoadAsync(filePath));
             }
-            else
+            catch (LoadFailedException ex)
             {
-                failures.Add(new LoadFailure(filePath, failure));
+                failures.Add(new LoadFailure(filePath, ex.Reason));
             }
         }
         return new ImageLoadResult(images, failures);
     }
 
-    private static async Task<(ImageFile? Image, LoadFailureReason Failure)> LoadAsync(string filePath)
+    private static async Task<ImageFile> LoadAsync(string filePath)
     {
         byte[] content;
         try
@@ -102,13 +101,13 @@ public sealed class ImageFile
         catch (Exception)
         {
             // Gone, in use by another program, no permission to read it, or an unusable path.
-            return (null, LoadFailureReason.Damaged);
+            throw new LoadFailedException(LoadFailureReason.Damaged);
         }
 
         // Recognised by content, not by name: a HEIC photo renamed to .jpg is still not a JPG.
         if (!content.AsSpan().StartsWith(JpegStart) && !content.AsSpan().StartsWith(PngStart))
         {
-            return (null, LoadFailureReason.Unsupported);
+            throw new LoadFailedException(LoadFailureReason.Unsupported);
         }
 
         try
@@ -117,13 +116,33 @@ public sealed class ImageFile
             var decoder = await BitmapDecoder.CreateAsync(stream);
             var turn = ImageTurn.FromExifOrientation(await ReadExifOrientationAsync(decoder));
             var readable = await Task.Run(() => CanEmbed(content)) ? content : await ToPngAsync(decoder);
-            return (new ImageFile(filePath, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn), default);
+            return new ImageFile(filePath, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn);
         }
         catch (Exception)
         {
             // Cut off or otherwise broken: Windows can't decode it.
-            return (null, LoadFailureReason.Damaged);
+            throw new LoadFailedException(LoadFailureReason.Damaged);
         }
+    }
+
+    /// <summary>
+    /// Draws the image the right way up, <paramref name="width"/> by <paramref name="height"/> points,
+    /// centred on <paramref name="centre"/>. The file's own pixels are embedded as they are and
+    /// turned as the photo's EXIF data says.
+    /// </summary>
+    internal void Draw(XGraphics graphics, XPoint centre, double width, double height)
+    {
+        using var picture = XImage.FromStream(new MemoryStream(Content, writable: false));
+        var state = graphics.Save();
+        graphics.TranslateTransform(centre.X, centre.Y);
+        graphics.RotateTransform(Turn.Rotation);
+        if (Turn.Mirrored)
+        {
+            graphics.ScaleTransform(-1, 1);
+        }
+        var (storedWidth, storedHeight) = Turn.SwapsSides ? (height, width) : (width, height);
+        graphics.DrawImage(picture, -storedWidth / 2, -storedHeight / 2, storedWidth, storedHeight);
+        graphics.Restore(state);
     }
 
     /// <summary>

@@ -61,9 +61,9 @@
   <data name="LoadFailedDamagedOne" xml:space="preserve"><value>{0} ist beschädigt oder kann nicht gelesen werden. Vielleicht ist die Datei unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
   <data name="LoadFailedDamagedMany" xml:space="preserve"><value>Diese Dateien sind beschädigt oder können nicht gelesen werden: {0}. Vielleicht sind sie unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
   <data name="LoadFailedUnsupportedOne" xml:space="preserve"><value>{0} ist keine PDF-Datei. Hier können nur PDF-Dateien geöffnet werden.</value></data>
+  <data name="LoadFailedUnsupportedMany" xml:space="preserve"><value>Diese Dateien sind keine PDF-Dateien: {0}. Hier können nur PDF-Dateien geöffnet werden.</value></data>
   <data name="LoadFailedNotAnImageOne" xml:space="preserve"><value>{0} ist kein JPG- oder PNG-Bild. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
   <data name="LoadFailedNotAnImageMany" xml:space="preserve"><value>Diese Dateien sind keine JPG- oder PNG-Bilder: {0}. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
-  <data name="LoadFailedUnsupportedMany" xml:space="preserve"><value>Diese Dateien sind keine PDF-Dateien: {0}. Hier können nur PDF-Dateien geöffnet werden.</value></data>
   <data name="SavedAs" xml:space="preserve"><value>Gespeichert als „{0}“ im Ordner {1}</value></data>
   <data name="SaveFailed" xml:space="preserve"><value>„{0}“ konnte nicht gespeichert werden. Vielleicht ist die Datei noch in einem anderen Programm geöffnet oder schreibgeschützt, oder der Ordner darf nicht verändert werden. Bitte versuchen Sie es mit einem anderen Namen oder Ordner.</value></data>
   <data name="SaveSeveralDialogTitle" xml:space="preserve"><value>Ordner und Namen für die Dateien wählen</value></data>

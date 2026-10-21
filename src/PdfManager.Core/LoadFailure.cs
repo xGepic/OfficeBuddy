@@ -13,6 +13,12 @@ public enum LoadFailureReason
     Unsupported,
 }
 
+/// <summary>Thrown while opening a file that can't be used, and caught where the files are opened.</summary>
+internal sealed class LoadFailedException(LoadFailureReason reason) : Exception
+{
+    public LoadFailureReason Reason { get; } = reason;
+}
+
 /// <summary>A file the user tried to open that was not added, and why.</summary>
 public sealed record LoadFailure(string FilePath, LoadFailureReason Reason)
 {
