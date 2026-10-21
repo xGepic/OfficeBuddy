@@ -1,0 +1,10 @@
+App.xbf
+Controls\PageGrid.xbf
+Controls\ToolShell.xbf
+MainWindow.xbf
+Pages\EditPagesPage.xbf
+Pages\ExtractPagesPage.xbf
+Pages\MergePage.xbf
+Pages\PageToImagePage.xbf
+Pages\SplitPage.xbf
+Pages\StartPage.xbf

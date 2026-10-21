@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page x:ConnectionId='1'
+    x:Class="PdfManager.App.Pages.MergePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:PdfManager.App.Controls"
+    xmlns:pages="using:PdfManager.App.Pages">
+
+    <controls:ToolShell x:ConnectionId='2' x:Name="Shell"                                                                    >
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel x:ConnectionId='3'
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE8C8;" />
+                    <TextBlock
+                        x:Uid="MergeEmptyHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:ConnectionId='4' x:Name="ListArea" RowSpacing="8" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Uid="MergeOrderHint" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                    <ListView x:ConnectionId='5'
+                        x:Name="DocumentList"
+                        Grid.Row="1"
+                        AllowDrop="True"
+                        CanDragItems="True"
+                        CanReorderItems="True"
+                                                                            
+                                                                          
+                                                    
+                        SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="0,4" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate                             >
+                                <Grid x:ConnectionId='7'
+                                    Padding="16,12"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    ColumnSpacing="16"
+                                    CornerRadius="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock x:ConnectionId='8'
+                                        MinWidth="28"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource SubtitleTextBlockStyle}"
+                                                                     />
+                                    <Grid Grid.Column="1" Width="48" Height="64">
+                                        <FontIcon x:ConnectionId='12'
+                                            FontSize="32"
+                                            Glyph="&#xEA90;"
+                                                                                                     />
+                                        <Image x:ConnectionId='13'                                          Stretch="Uniform" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                        <TextBlock x:ConnectionId='10'
+                                            FontWeight="SemiBold"
+                                                                
+                                            TextTrimming="CharacterEllipsis" />
+                                        <TextBlock x:ConnectionId='11' Foreground="{ThemeResource TextFillColorSecondaryBrush}"                               />
+                                    </StackPanel>
+                                    <Button x:ConnectionId='9'
+                                        Grid.Column="3"
+                                                                                        
+                                                            
+                                        Padding="10"
+                                                      
+                                                                                     >
+                                        <FontIcon FontSize="18" Glyph="&#xE74D;" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:ConnectionId='14'
+                    x:Name="NeedTwoHint"
+                    x:Uid="MergeNeedTwo"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Button x:ConnectionId='15'
+                    x:Name="SaveButton"
+                    x:Uid="MergeSaveButton"
+                    Grid.Column="1"
+                                      
+                    IsEnabled="False"
+                    Padding="24,10"
+                    Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                        <TextBlock x:Uid="MergeSave" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>
+

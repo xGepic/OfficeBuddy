@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Stay on 6.2.x: from 6.5 on, PDFsharp is AGPL-3.0 with a runtime license check. -->
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <!-- Not used directly: overrides the vulnerable 8.0.1 that PDFsharp pulls in (GHSA-2fmv-rv2c-59x7, GHSA-846f-f764-76mx). -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Ghostscript for Compress (ADR-0001), copied next to every app and test build that uses Core. -->
+    <None Include="..\..\third_party\Ghostscript\gswin64c.exe;..\..\third_party\Ghostscript\gsdll64.dll;..\..\third_party\Ghostscript\COPYING"
+          Link="Ghostscript\%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
