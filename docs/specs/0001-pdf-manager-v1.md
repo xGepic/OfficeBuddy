@@ -18,7 +18,7 @@ A German-language Windows 11 desktop app, **Office Buddy**, that works entirely 
 | *Aufteilen* | Split |
 | *Verkleinern* | Compress |
 | *Bilder zu PDF* | Images to PDF |
-| *Seite als Bild* | Page to image |
+| *PDF als Bild* | Page to image |
 
 Each Tool is its own screen. It goes from opening a Document, through choosing what to do with clickable page thumbnails, to saving the result with a pre-filled save dialog. Everything can be undone until the result is saved. Compress aims for the Email size target (10 MB) so the result can be sent almost anywhere. If a Document cannot get that small, the app offers to split it into Parts that each fit.
 
@@ -136,7 +136,7 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 78. As a parent, I want to remove an image I added by mistake, so that it isn't included.
 79. As a parent, I want a friendly message when I add an unsupported file, such as HEIC, so that I know which formats work.
 
-### Page to image (*Seite als Bild*)
+### Page to image (*PDF als Bild*)
 
 80. As a parent, I want to select one or more Pages and save them as JPG images, so that I can send or use a page as a picture.
 81. As a parent, I want the images to be sharp enough to read and print without choosing any settings, so that it just works.

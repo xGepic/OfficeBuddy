@@ -10,7 +10,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Aufteilen** | Split a PDF into several Parts |
 | **Verkleinern** | Make a PDF small enough to send by email (under 10 MB), or split it into email-sized Parts |
 | **Bilder zu PDF** | Turn phone photos and other JPG/PNG images into one PDF, one A4 Page each, the right way up |
-| **Seite als Bild** | Save Pages as JPG images |
+| **PDF als Bild** | Save Pages as JPG images |
 | **Bildgröße ändern** | Make a photo or other JPG/PNG image smaller or bigger, by percentage or by width and height in pixels |
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.

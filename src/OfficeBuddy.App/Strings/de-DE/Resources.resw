@@ -18,7 +18,7 @@
 
   <!-- Start screen -->
   <data name="StartHeading.Text" xml:space="preserve"><value>Was möchten Sie tun?</value></data>
-  <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine PDF-Datei direkt auf eine Kachel.</value></data>
+  <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine Datei direkt auf eine Kachel.</value></data>
   <data name="StartComingSoon" xml:space="preserve"><value>Bald verfügbar</value></data>
 
   <data name="ToolMergeName" xml:space="preserve"><value>Zusammenfügen</value></data>
@@ -33,7 +33,7 @@
   <data name="ToolCompressDescription" xml:space="preserve"><value>Eine PDF-Datei so verkleinern, dass sie per E-Mail verschickt werden kann</value></data>
   <data name="ToolImagesToPdfName" xml:space="preserve"><value>Bilder zu PDF</value></data>
   <data name="ToolImagesToPdfDescription" xml:space="preserve"><value>Fotos und Bilder zu einer PDF-Datei zusammenfassen</value></data>
-  <data name="ToolPageToImageName" xml:space="preserve"><value>Seite als Bild</value></data>
+  <data name="ToolPageToImageName" xml:space="preserve"><value>PDF als Bild</value></data>
   <data name="ToolPageToImageDescription" xml:space="preserve"><value>Seiten als JPG-Bild speichern</value></data>
   <data name="ToolResizeImageName" xml:space="preserve"><value>Bildgröße ändern</value></data>
   <data name="ToolResizeImageDescription" xml:space="preserve"><value>Fotos und Bilder verkleinern oder vergrößern</value></data>

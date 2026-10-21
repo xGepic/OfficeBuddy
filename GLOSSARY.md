@@ -73,7 +73,7 @@ Turning one or more photos or image files into a single Document, one image per 
 _Avoid_: Convert, import images
 
 **Page to image**:
-Saving one or more Pages as image files. UI term: *Seite als Bild*.
+Saving one or more Pages as image files. UI term: *PDF als Bild*.
 _Avoid_: Export, render, screenshot
 
 **Resize image**:
