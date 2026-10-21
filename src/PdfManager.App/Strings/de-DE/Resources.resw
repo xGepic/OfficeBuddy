@@ -49,6 +49,8 @@
   <data name="DiscardMessage" xml:space="preserve"><value>Ihre Änderungen sind noch nicht gespeichert. Wenn Sie fortfahren, gehen sie verloren.</value></data>
   <data name="DiscardConfirm" xml:space="preserve"><value>Verwerfen</value></data>
   <data name="OpenDialogTitle" xml:space="preserve"><value>PDF-Dateien öffnen</value></data>
+  <data name="OpenImagesDialogTitle" xml:space="preserve"><value>Bilder öffnen</value></data>
+  <data name="ImagesFilterName" xml:space="preserve"><value>Bilder (JPG, PNG)</value></data>
   <data name="SaveDialogTitle" xml:space="preserve"><value>Speichern unter</value></data>
   <data name="PdfFilterName" xml:space="preserve"><value>PDF-Dokumente</value></data>
   <data name="JpegFilterName" xml:space="preserve"><value>JPG-Bilder</value></data>
@@ -59,6 +61,8 @@
   <data name="LoadFailedDamagedOne" xml:space="preserve"><value>{0} ist beschädigt oder kann nicht gelesen werden. Vielleicht ist die Datei unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
   <data name="LoadFailedDamagedMany" xml:space="preserve"><value>Diese Dateien sind beschädigt oder können nicht gelesen werden: {0}. Vielleicht sind sie unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
   <data name="LoadFailedUnsupportedOne" xml:space="preserve"><value>{0} ist keine PDF-Datei. Hier können nur PDF-Dateien geöffnet werden.</value></data>
+  <data name="LoadFailedNotAnImageOne" xml:space="preserve"><value>{0} ist kein JPG- oder PNG-Bild. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
+  <data name="LoadFailedNotAnImageMany" xml:space="preserve"><value>Diese Dateien sind keine JPG- oder PNG-Bilder: {0}. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
   <data name="LoadFailedUnsupportedMany" xml:space="preserve"><value>Diese Dateien sind keine PDF-Dateien: {0}. Hier können nur PDF-Dateien geöffnet werden.</value></data>
   <data name="SavedAs" xml:space="preserve"><value>Gespeichert als „{0}“ im Ordner {1}</value></data>
   <data name="SaveFailed" xml:space="preserve"><value>„{0}“ konnte nicht gespeichert werden. Vielleicht ist die Datei noch in einem anderen Programm geöffnet oder schreibgeschützt, oder der Ordner darf nicht verändert werden. Bitte versuchen Sie es mit einem anderen Namen oder Ordner.</value></data>
@@ -77,6 +81,7 @@
   <data name="BusySaving" xml:space="preserve"><value>Wird gespeichert …</value></data>
   <data name="PageCountOne" xml:space="preserve"><value>1 Seite</value></data>
   <data name="PageCountMany" xml:space="preserve"><value>{0} Seiten</value></data>
+  <data name="RemoveFromList" xml:space="preserve"><value>Entfernen</value></data>
   <data name="SizeKilobytes" xml:space="preserve"><value>{0:N0} KB</value></data>
   <data name="SizeMegabytes" xml:space="preserve"><value>{0:N1} MB</value></data>
   <data name="PageNumber" xml:space="preserve"><value>Seite {0}</value></data>
@@ -101,7 +106,6 @@
   <data name="MergeNeedTwo.Text" xml:space="preserve"><value>Fügen Sie mindestens zwei Dokumente hinzu.</value></data>
   <data name="MergeSave.Text" xml:space="preserve"><value>Zusammenfügen und speichern</value></data>
   <data name="MergeSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zusammenfügen und speichern</value></data>
-  <data name="MergeRemove" xml:space="preserve"><value>Entfernen</value></data>
 
   <!-- Edit pages -->
   <data name="EditPagesTitle" xml:space="preserve"><value>Seiten bearbeiten</value></data>
@@ -139,6 +143,16 @@
   <data name="BusySavingImages" xml:space="preserve"><value>Bild {0} von {1} wird gespeichert …</value></data>
   <data name="PageToImageSave.Text" xml:space="preserve"><value>Als Bild speichern</value></data>
   <data name="PageToImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als Bild speichern</value></data>
+
+  <!-- Images to PDF -->
+  <data name="ImagesToPdfTitle" xml:space="preserve"><value>Bilder zu einer PDF-Datei zusammenfassen</value></data>
+  <data name="ImagesToPdfEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie Fotos oder Bilder (JPG oder PNG) – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="ImagesToPdfOrderHint.Text" xml:space="preserve"><value>Jedes Bild wird eine A4-Seite. Ziehen Sie die Bilder in die gewünschte Reihenfolge.</value></data>
+  <data name="ImagePagePortrait" xml:space="preserve"><value>Seite im Hochformat</value></data>
+  <data name="ImagePageLandscape" xml:space="preserve"><value>Seite im Querformat</value></data>
+  <data name="BusyOpeningImages" xml:space="preserve"><value>Bilder werden geöffnet …</value></data>
+  <data name="ImagesToPdfSave.Text" xml:space="preserve"><value>Als PDF speichern</value></data>
+  <data name="ImagesToPdfSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF speichern</value></data>
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>

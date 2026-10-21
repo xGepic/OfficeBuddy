@@ -27,7 +27,7 @@ public sealed class ToolTile(string glyph, string resourceKey, Type? pageType)
         new("", "ExtractPages", typeof(ExtractPagesPage)),
         new("", "Split", typeof(SplitPage)),
         new("", "Compress", typeof(CompressPage)),
-        new("", "ImagesToPdf", null),
+        new("", "ImagesToPdf", typeof(ImagesToPdfPage)),
         new("", "PageToImage", typeof(PageToImagePage)),
     ];
 }

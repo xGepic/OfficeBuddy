@@ -153,5 +153,5 @@ public sealed class MergeCard(Document document, int index) : INotifyPropertyCha
 
     public string PageCountText => Strings.PageCount(Document.PageCount);
 
-    public string RemoveLabel => Strings.Get("MergeRemove");
+    public string RemoveLabel => Strings.Get("RemoveFromList");
 }

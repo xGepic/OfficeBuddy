@@ -77,6 +77,9 @@ public sealed partial class ToolShell : UserControl
         set => SetValue(FooterProperty, value);
     }
 
+    /// <summary>What Öffnen offers and which files count as unsupported: PDF Documents unless the Tool says otherwise.</summary>
+    internal OpenableFiles Opens { get; set; } = OpenableFiles.Documents;
+
     /// <summary>The Tool's session, which the undo/redo buttons and the discard prompt work on.</summary>
     public IToolSession? Session
     {
@@ -257,13 +260,13 @@ public sealed partial class ToolShell : UserControl
         ShowError(string.Join("\n", sentences));
     }
 
-    private static string DescribeLoadFailures(LoadFailureReason reason, IReadOnlyList<LoadFailure> failures)
+    private string DescribeLoadFailures(LoadFailureReason reason, IReadOnlyList<LoadFailure> failures)
     {
         var (one, many) = reason switch
         {
             LoadFailureReason.Protected => ("LoadFailedProtectedOne", "LoadFailedProtectedMany"),
             LoadFailureReason.Damaged => ("LoadFailedDamagedOne", "LoadFailedDamagedMany"),
-            LoadFailureReason.Unsupported => ("LoadFailedUnsupportedOne", "LoadFailedUnsupportedMany"),
+            LoadFailureReason.Unsupported => (Opens.UnsupportedOneKey, Opens.UnsupportedManyKey),
             _ => throw new ArgumentOutOfRangeException(nameof(reason)),
         };
         var names = string.Join(", ", failures.Select(failure => $"„{failure.FileName}“"));
@@ -406,7 +409,7 @@ public sealed partial class ToolShell : UserControl
         IReadOnlyList<string> paths;
         try
         {
-            paths = FileDialogs.OpenFiles(App.MainWindow.Handle, Strings.Get("OpenDialogTitle"), FileFilter.Pdf);
+            paths = FileDialogs.OpenFiles(App.MainWindow.Handle, Strings.Get(Opens.DialogTitleKey), Opens.Filter);
         }
         catch (COMException)
         {

@@ -621,3 +621,8 @@ E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.1
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\qualifiers.txt.intermediate
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\MultipleQualifiersPerDimensionFound.txt
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\PdfManager.App.sourcelink.json
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Pages\ImagesToPdfPage.xbf
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\Pages\ImagesToPdfPage.g.i.cs
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\Pages\ImagesToPdfPage.g.cs
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\Pages\ImagesToPdfPage.xaml
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Debug\net10.0-windows10.0.19041.0\win-x64\Pages\ImagesToPdfPage.xbf

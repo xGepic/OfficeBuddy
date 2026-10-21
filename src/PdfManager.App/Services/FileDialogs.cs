@@ -219,5 +219,7 @@ internal sealed record FileFilter(string Name, string Pattern, string DefaultExt
 
     public static FileFilter Jpeg => new(Strings.Get("JpegFilterName"), "*.jpg", "jpg");
 
+    public static FileFilter Images => new(Strings.Get("ImagesFilterName"), "*.jpg;*.jpeg;*.png", "jpg");
+
     internal FileDialogs.FilterSpec ToSpec() => new() { Name = Name, Spec = Pattern };
 }
