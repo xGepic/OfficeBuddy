@@ -48,29 +48,48 @@
                             VerticalContentAlignment="Top"
                                                             
                                                                      
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                                               
-                            CornerRadius="8"
+                            CornerRadius="12"
                                                     
                                             
                                                             
                             Padding="20,18"
                                           >
-                            <Grid ColumnSpacing="16">
+                            <Button.Resources>
+                                <!-- Hovered, a tile lights up blue at its edge. -->
+                                <StaticResource x:Key="ButtonBackgroundPointerOver" ResourceKey="TileBackgroundPointerOverBrush" />
+                                <StaticResource x:Key="ButtonBackgroundPressed" ResourceKey="TileBackgroundPressedBrush" />
+                                <StaticResource x:Key="ButtonBorderBrushPointerOver" ResourceKey="AccentFillColorDefaultBrush" />
+                                <StaticResource x:Key="ButtonBorderBrushPressed" ResourceKey="AccentFillColorDefaultBrush" />
+                            </Button.Resources>
+                            <Grid ColumnSpacing="18">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <FontIcon x:ConnectionId='8'
+                                <Border
+                                    Width="60"
+                                    Height="60"
                                     VerticalAlignment="Top"
-                                    FontSize="36"
-                                                           />
-                                <StackPanel Grid.Column="1" Spacing="4">
-                                    <TextBlock x:ConnectionId='9'
+                                    Background="{ThemeResource TileIconBadgeBrush}"
+                                    CornerRadius="14">
+                                    <FontIcon x:ConnectionId='11'
+                                        FontSize="30"
+                                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                               />
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                                    <TextBlock x:ConnectionId='8'
                                         Style="{StaticResource SubtitleTextBlockStyle}"
                                                             
                                         TextWrapping="Wrap" />
-                                    <TextBlock x:ConnectionId='10'                             TextWrapping="Wrap" />
-                                    <TextBlock x:ConnectionId='11'
+                                    <TextBlock x:ConnectionId='9'
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                   
+                                        TextWrapping="Wrap" />
+                                    <TextBlock x:ConnectionId='10'
                                         FontStyle="Italic"
                                                                       
                                                                                    />

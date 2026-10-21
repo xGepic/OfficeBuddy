@@ -226,7 +226,7 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[60];
+            _typeNameTable = new string[59];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -259,36 +259,35 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
             _typeNameTable[29] = "Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings";
             _typeNameTable[30] = "PdfManager.App.Controls.ToolShell";
             _typeNameTable[31] = "PdfManager.Core.IToolSession";
-            _typeNameTable[32] = "Microsoft.UI.Xaml.Media.MicaBackdrop";
-            _typeNameTable[33] = "Microsoft.UI.Xaml.Media.SystemBackdrop";
-            _typeNameTable[34] = "Microsoft.UI.Composition.SystemBackdrops.MicaKind";
-            _typeNameTable[35] = "PdfManager.App.MainWindow";
-            _typeNameTable[36] = "Microsoft.UI.Xaml.Window";
-            _typeNameTable[37] = "System.IntPtr";
-            _typeNameTable[38] = "PdfManager.App.Pages.CompressPage";
-            _typeNameTable[39] = "Microsoft.UI.Xaml.Controls.Page";
-            _typeNameTable[40] = "PdfManager.App.Pages.EditPagesPage";
-            _typeNameTable[41] = "PdfManager.App.Pages.ExtractPagesPage";
-            _typeNameTable[42] = "PdfManager.App.Pages.ImagesToPdfPage";
-            _typeNameTable[43] = "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.ImageCard>";
-            _typeNameTable[44] = "System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.ImageCard>";
-            _typeNameTable[45] = "PdfManager.App.Pages.ImageCard";
-            _typeNameTable[46] = "PdfManager.Core.ImageFile";
-            _typeNameTable[47] = "PdfManager.App.Pages.MergePage";
-            _typeNameTable[48] = "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.MergeCard>";
-            _typeNameTable[49] = "System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.MergeCard>";
-            _typeNameTable[50] = "PdfManager.App.Pages.MergeCard";
-            _typeNameTable[51] = "PdfManager.Core.Document";
-            _typeNameTable[52] = "PdfManager.App.Pages.PageToImagePage";
-            _typeNameTable[53] = "PdfManager.App.Pages.SplitPage";
-            _typeNameTable[54] = "PdfManager.App.Controls.TileGrid";
-            _typeNameTable[55] = "Microsoft.UI.Xaml.Controls.Panel";
-            _typeNameTable[56] = "PdfManager.App.Pages.StartPage";
-            _typeNameTable[57] = "System.Collections.Generic.IReadOnlyList`1<PdfManager.App.ToolTile>";
-            _typeNameTable[58] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[59] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[32] = "PdfManager.App.MainWindow";
+            _typeNameTable[33] = "Microsoft.UI.Xaml.Window";
+            _typeNameTable[34] = "System.IntPtr";
+            _typeNameTable[35] = "PdfManager.App.Pages.CompressPage";
+            _typeNameTable[36] = "Microsoft.UI.Xaml.Controls.Page";
+            _typeNameTable[37] = "PdfManager.App.Pages.EditPagesPage";
+            _typeNameTable[38] = "PdfManager.App.Pages.ExtractPagesPage";
+            _typeNameTable[39] = "PdfManager.App.Pages.ImagesToPdfPage";
+            _typeNameTable[40] = "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.ImageCard>";
+            _typeNameTable[41] = "System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.ImageCard>";
+            _typeNameTable[42] = "PdfManager.App.Pages.ImageCard";
+            _typeNameTable[43] = "PdfManager.Core.ImageFile";
+            _typeNameTable[44] = "PdfManager.App.Pages.MergePage";
+            _typeNameTable[45] = "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.MergeCard>";
+            _typeNameTable[46] = "System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.MergeCard>";
+            _typeNameTable[47] = "PdfManager.App.Pages.MergeCard";
+            _typeNameTable[48] = "PdfManager.Core.Document";
+            _typeNameTable[49] = "PdfManager.App.Pages.PageToImagePage";
+            _typeNameTable[50] = "PdfManager.App.Pages.SplitPage";
+            _typeNameTable[51] = "PdfManager.App.Controls.TileGrid";
+            _typeNameTable[52] = "Microsoft.UI.Xaml.Controls.Panel";
+            _typeNameTable[53] = "PdfManager.App.Pages.StartPage";
+            _typeNameTable[54] = "System.Collections.Generic.IReadOnlyList`1<PdfManager.App.ToolTile>";
+            _typeNameTable[55] = "Windows.UI.Color";
+            _typeNameTable[56] = "Byte";
+            _typeNameTable[57] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[58] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
 
-            _typeTable = new global::System.Type[60];
+            _typeTable = new global::System.Type[59];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -321,34 +320,33 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
             _typeTable[29] = typeof(global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings);
             _typeTable[30] = typeof(global::PdfManager.App.Controls.ToolShell);
             _typeTable[31] = typeof(global::PdfManager.Core.IToolSession);
-            _typeTable[32] = typeof(global::Microsoft.UI.Xaml.Media.MicaBackdrop);
-            _typeTable[33] = typeof(global::Microsoft.UI.Xaml.Media.SystemBackdrop);
-            _typeTable[34] = typeof(global::Microsoft.UI.Composition.SystemBackdrops.MicaKind);
-            _typeTable[35] = typeof(global::PdfManager.App.MainWindow);
-            _typeTable[36] = typeof(global::Microsoft.UI.Xaml.Window);
-            _typeTable[37] = typeof(global::System.IntPtr);
-            _typeTable[38] = typeof(global::PdfManager.App.Pages.CompressPage);
-            _typeTable[39] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
-            _typeTable[40] = typeof(global::PdfManager.App.Pages.EditPagesPage);
-            _typeTable[41] = typeof(global::PdfManager.App.Pages.ExtractPagesPage);
-            _typeTable[42] = typeof(global::PdfManager.App.Pages.ImagesToPdfPage);
-            _typeTable[43] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>);
-            _typeTable[44] = typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>);
-            _typeTable[45] = typeof(global::PdfManager.App.Pages.ImageCard);
-            _typeTable[46] = typeof(global::PdfManager.Core.ImageFile);
-            _typeTable[47] = typeof(global::PdfManager.App.Pages.MergePage);
-            _typeTable[48] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>);
-            _typeTable[49] = typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>);
-            _typeTable[50] = typeof(global::PdfManager.App.Pages.MergeCard);
-            _typeTable[51] = typeof(global::PdfManager.Core.Document);
-            _typeTable[52] = typeof(global::PdfManager.App.Pages.PageToImagePage);
-            _typeTable[53] = typeof(global::PdfManager.App.Pages.SplitPage);
-            _typeTable[54] = typeof(global::PdfManager.App.Controls.TileGrid);
-            _typeTable[55] = typeof(global::Microsoft.UI.Xaml.Controls.Panel);
-            _typeTable[56] = typeof(global::PdfManager.App.Pages.StartPage);
-            _typeTable[57] = typeof(global::System.Collections.Generic.IReadOnlyList<global::PdfManager.App.ToolTile>);
-            _typeTable[58] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[59] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[32] = typeof(global::PdfManager.App.MainWindow);
+            _typeTable[33] = typeof(global::Microsoft.UI.Xaml.Window);
+            _typeTable[34] = typeof(global::System.IntPtr);
+            _typeTable[35] = typeof(global::PdfManager.App.Pages.CompressPage);
+            _typeTable[36] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
+            _typeTable[37] = typeof(global::PdfManager.App.Pages.EditPagesPage);
+            _typeTable[38] = typeof(global::PdfManager.App.Pages.ExtractPagesPage);
+            _typeTable[39] = typeof(global::PdfManager.App.Pages.ImagesToPdfPage);
+            _typeTable[40] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>);
+            _typeTable[41] = typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>);
+            _typeTable[42] = typeof(global::PdfManager.App.Pages.ImageCard);
+            _typeTable[43] = typeof(global::PdfManager.Core.ImageFile);
+            _typeTable[44] = typeof(global::PdfManager.App.Pages.MergePage);
+            _typeTable[45] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>);
+            _typeTable[46] = typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>);
+            _typeTable[47] = typeof(global::PdfManager.App.Pages.MergeCard);
+            _typeTable[48] = typeof(global::PdfManager.Core.Document);
+            _typeTable[49] = typeof(global::PdfManager.App.Pages.PageToImagePage);
+            _typeTable[50] = typeof(global::PdfManager.App.Pages.SplitPage);
+            _typeTable[51] = typeof(global::PdfManager.App.Controls.TileGrid);
+            _typeTable[52] = typeof(global::Microsoft.UI.Xaml.Controls.Panel);
+            _typeTable[53] = typeof(global::PdfManager.App.Pages.StartPage);
+            _typeTable[54] = typeof(global::System.Collections.Generic.IReadOnlyList<global::PdfManager.App.ToolTile>);
+            _typeTable[55] = typeof(global::Windows.UI.Color);
+            _typeTable[56] = typeof(global::System.Byte);
+            _typeTable[57] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[58] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -391,22 +389,21 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
         private object Activate_20_InfoBar() { return new global::Microsoft.UI.Xaml.Controls.InfoBar(); }
         private object Activate_29_InfoBarTemplateSettings() { return new global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings(); }
         private object Activate_30_ToolShell() { return new global::PdfManager.App.Controls.ToolShell(); }
-        private object Activate_32_MicaBackdrop() { return new global::Microsoft.UI.Xaml.Media.MicaBackdrop(); }
-        private object Activate_35_MainWindow() { return new global::PdfManager.App.MainWindow(); }
-        private object Activate_38_CompressPage() { return new global::PdfManager.App.Pages.CompressPage(); }
-        private object Activate_40_EditPagesPage() { return new global::PdfManager.App.Pages.EditPagesPage(); }
-        private object Activate_41_ExtractPagesPage() { return new global::PdfManager.App.Pages.ExtractPagesPage(); }
-        private object Activate_42_ImagesToPdfPage() { return new global::PdfManager.App.Pages.ImagesToPdfPage(); }
-        private object Activate_43_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>(); }
-        private object Activate_44_Collection() { return new global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>(); }
-        private object Activate_47_MergePage() { return new global::PdfManager.App.Pages.MergePage(); }
-        private object Activate_48_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>(); }
-        private object Activate_49_Collection() { return new global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>(); }
-        private object Activate_52_PageToImagePage() { return new global::PdfManager.App.Pages.PageToImagePage(); }
-        private object Activate_53_SplitPage() { return new global::PdfManager.App.Pages.SplitPage(); }
-        private object Activate_54_TileGrid() { return new global::PdfManager.App.Controls.TileGrid(); }
-        private object Activate_56_StartPage() { return new global::PdfManager.App.Pages.StartPage(); }
-        private object Activate_58_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_32_MainWindow() { return new global::PdfManager.App.MainWindow(); }
+        private object Activate_35_CompressPage() { return new global::PdfManager.App.Pages.CompressPage(); }
+        private object Activate_37_EditPagesPage() { return new global::PdfManager.App.Pages.EditPagesPage(); }
+        private object Activate_38_ExtractPagesPage() { return new global::PdfManager.App.Pages.ExtractPagesPage(); }
+        private object Activate_39_ImagesToPdfPage() { return new global::PdfManager.App.Pages.ImagesToPdfPage(); }
+        private object Activate_40_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>(); }
+        private object Activate_41_Collection() { return new global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>(); }
+        private object Activate_44_MergePage() { return new global::PdfManager.App.Pages.MergePage(); }
+        private object Activate_45_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>(); }
+        private object Activate_46_Collection() { return new global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>(); }
+        private object Activate_49_PageToImagePage() { return new global::PdfManager.App.Pages.PageToImagePage(); }
+        private object Activate_50_SplitPage() { return new global::PdfManager.App.Pages.SplitPage(); }
+        private object Activate_51_TileGrid() { return new global::PdfManager.App.Controls.TileGrid(); }
+        private object Activate_53_StartPage() { return new global::PdfManager.App.Pages.StartPage(); }
+        private object Activate_57_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_ProgressRing() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressRing).TypeHandle);
         private void StaticInitializer_7_ProgressRingTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.ProgressRingTemplateSettings).TypeHandle);
@@ -423,30 +420,30 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
         private void StaticInitializer_29_InfoBarTemplateSettings() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.InfoBarTemplateSettings).TypeHandle);
         private void StaticInitializer_30_ToolShell() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Controls.ToolShell).TypeHandle);
         private void StaticInitializer_31_IToolSession() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.Core.IToolSession).TypeHandle);
-        private void StaticInitializer_32_MicaBackdrop() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Media.MicaBackdrop).TypeHandle);
-        private void StaticInitializer_34_MicaKind() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Composition.SystemBackdrops.MicaKind).TypeHandle);
-        private void StaticInitializer_35_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.MainWindow).TypeHandle);
-        private void StaticInitializer_37_IntPtr() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.IntPtr).TypeHandle);
-        private void StaticInitializer_38_CompressPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.CompressPage).TypeHandle);
-        private void StaticInitializer_40_EditPagesPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.EditPagesPage).TypeHandle);
-        private void StaticInitializer_41_ExtractPagesPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ExtractPagesPage).TypeHandle);
-        private void StaticInitializer_42_ImagesToPdfPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ImagesToPdfPage).TypeHandle);
-        private void StaticInitializer_43_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>).TypeHandle);
-        private void StaticInitializer_44_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>).TypeHandle);
-        private void StaticInitializer_45_ImageCard() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ImageCard).TypeHandle);
-        private void StaticInitializer_46_ImageFile() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.Core.ImageFile).TypeHandle);
-        private void StaticInitializer_47_MergePage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.MergePage).TypeHandle);
-        private void StaticInitializer_48_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>).TypeHandle);
-        private void StaticInitializer_49_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>).TypeHandle);
-        private void StaticInitializer_50_MergeCard() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.MergeCard).TypeHandle);
-        private void StaticInitializer_51_Document() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.Core.Document).TypeHandle);
-        private void StaticInitializer_52_PageToImagePage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.PageToImagePage).TypeHandle);
-        private void StaticInitializer_53_SplitPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.SplitPage).TypeHandle);
-        private void StaticInitializer_54_TileGrid() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Controls.TileGrid).TypeHandle);
-        private void StaticInitializer_56_StartPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.StartPage).TypeHandle);
-        private void StaticInitializer_57_IReadOnlyList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IReadOnlyList<global::PdfManager.App.ToolTile>).TypeHandle);
-        private void StaticInitializer_58_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_59_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_32_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.MainWindow).TypeHandle);
+        private void StaticInitializer_34_IntPtr() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.IntPtr).TypeHandle);
+        private void StaticInitializer_35_CompressPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.CompressPage).TypeHandle);
+        private void StaticInitializer_37_EditPagesPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.EditPagesPage).TypeHandle);
+        private void StaticInitializer_38_ExtractPagesPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ExtractPagesPage).TypeHandle);
+        private void StaticInitializer_39_ImagesToPdfPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ImagesToPdfPage).TypeHandle);
+        private void StaticInitializer_40_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.ImageCard>).TypeHandle);
+        private void StaticInitializer_41_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.ImageCard>).TypeHandle);
+        private void StaticInitializer_42_ImageCard() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.ImageCard).TypeHandle);
+        private void StaticInitializer_43_ImageFile() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.Core.ImageFile).TypeHandle);
+        private void StaticInitializer_44_MergePage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.MergePage).TypeHandle);
+        private void StaticInitializer_45_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::PdfManager.App.Pages.MergeCard>).TypeHandle);
+        private void StaticInitializer_46_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::PdfManager.App.Pages.MergeCard>).TypeHandle);
+        private void StaticInitializer_47_MergeCard() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.MergeCard).TypeHandle);
+        private void StaticInitializer_48_Document() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.Core.Document).TypeHandle);
+        private void StaticInitializer_49_PageToImagePage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.PageToImagePage).TypeHandle);
+        private void StaticInitializer_50_SplitPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.SplitPage).TypeHandle);
+        private void StaticInitializer_51_TileGrid() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Controls.TileGrid).TypeHandle);
+        private void StaticInitializer_53_StartPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::PdfManager.App.Pages.StartPage).TypeHandle);
+        private void StaticInitializer_54_IReadOnlyList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IReadOnlyList<global::PdfManager.App.ToolTile>).TypeHandle);
+        private void StaticInitializer_55_Color() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Windows.UI.Color).TypeHandle);
+        private void StaticInitializer_56_Byte() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Byte).TypeHandle);
+        private void StaticInitializer_57_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_58_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -466,31 +463,31 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
             var newItem = (global::PdfManager.App.Controls.PageThumbnail)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_43_ObservableCollection(object instance, object item)
+        private void VectorAdd_40_ObservableCollection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::PdfManager.App.Pages.ImageCard>)instance;
             var newItem = (global::PdfManager.App.Pages.ImageCard)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_44_Collection(object instance, object item)
+        private void VectorAdd_41_Collection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::PdfManager.App.Pages.ImageCard>)instance;
             var newItem = (global::PdfManager.App.Pages.ImageCard)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_48_ObservableCollection(object instance, object item)
+        private void VectorAdd_45_ObservableCollection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::PdfManager.App.Pages.MergeCard>)instance;
             var newItem = (global::PdfManager.App.Pages.MergeCard)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_49_Collection(object instance, object item)
+        private void VectorAdd_46_Collection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::PdfManager.App.Pages.MergeCard>)instance;
             var newItem = (global::PdfManager.App.Pages.MergeCard)item;
             collection.Add(newItem);
         }
-        private void VectorAdd_59_IList(object instance, object item)
+        private void VectorAdd_58_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -738,104 +735,84 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 32:   //  Microsoft.UI.Xaml.Media.MicaBackdrop
-                userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Media.SystemBackdrop"));
-                userType.Activator = Activate_32_MicaBackdrop;
-                userType.StaticInitializer = StaticInitializer_32_MicaBackdrop;
-                userType.AddMemberName("Kind");
-                xamlType = userType;
-                break;
-
-            case 33:   //  Microsoft.UI.Xaml.Media.SystemBackdrop
-                xamlType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 34:   //  Microsoft.UI.Composition.SystemBackdrops.MicaKind
-                userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Enum"));
-                userType.StaticInitializer = StaticInitializer_34_MicaKind;
-                userType.AddEnumValue("Base", global::Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base);
-                userType.AddEnumValue("BaseAlt", global::Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt);
-                xamlType = userType;
-                break;
-
-            case 35:   //  PdfManager.App.MainWindow
+            case 32:   //  PdfManager.App.MainWindow
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Window"));
-                userType.Activator = Activate_35_MainWindow;
-                userType.StaticInitializer = StaticInitializer_35_MainWindow;
+                userType.Activator = Activate_32_MainWindow;
+                userType.StaticInitializer = StaticInitializer_32_MainWindow;
                 userType.AddMemberName("Handle");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 36:   //  Microsoft.UI.Xaml.Window
+            case 33:   //  Microsoft.UI.Xaml.Window
                 xamlType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 37:   //  System.IntPtr
+            case 34:   //  System.IntPtr
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.StaticInitializer = StaticInitializer_37_IntPtr;
+                userType.StaticInitializer = StaticInitializer_34_IntPtr;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 38:   //  PdfManager.App.Pages.CompressPage
+            case 35:   //  PdfManager.App.Pages.CompressPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_38_CompressPage;
-                userType.StaticInitializer = StaticInitializer_38_CompressPage;
+                userType.Activator = Activate_35_CompressPage;
+                userType.StaticInitializer = StaticInitializer_35_CompressPage;
                 userType.AddMemberName("ThumbnailWidth");
                 userType.AddMemberName("ThumbnailHeight");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 39:   //  Microsoft.UI.Xaml.Controls.Page
+            case 36:   //  Microsoft.UI.Xaml.Controls.Page
                 xamlType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 40:   //  PdfManager.App.Pages.EditPagesPage
+            case 37:   //  PdfManager.App.Pages.EditPagesPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_40_EditPagesPage;
-                userType.StaticInitializer = StaticInitializer_40_EditPagesPage;
+                userType.Activator = Activate_37_EditPagesPage;
+                userType.StaticInitializer = StaticInitializer_37_EditPagesPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 41:   //  PdfManager.App.Pages.ExtractPagesPage
+            case 38:   //  PdfManager.App.Pages.ExtractPagesPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_41_ExtractPagesPage;
-                userType.StaticInitializer = StaticInitializer_41_ExtractPagesPage;
+                userType.Activator = Activate_38_ExtractPagesPage;
+                userType.StaticInitializer = StaticInitializer_38_ExtractPagesPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 42:   //  PdfManager.App.Pages.ImagesToPdfPage
+            case 39:   //  PdfManager.App.Pages.ImagesToPdfPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_42_ImagesToPdfPage;
-                userType.StaticInitializer = StaticInitializer_42_ImagesToPdfPage;
+                userType.Activator = Activate_39_ImagesToPdfPage;
+                userType.StaticInitializer = StaticInitializer_39_ImagesToPdfPage;
                 userType.AddMemberName("Cards");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 43:   //  System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.ImageCard>
+            case 40:   //  System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.ImageCard>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.ImageCard>"));
-                userType.StaticInitializer = StaticInitializer_43_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_43_ObservableCollection;
+                userType.StaticInitializer = StaticInitializer_40_ObservableCollection;
+                userType.CollectionAdd = VectorAdd_40_ObservableCollection;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 44:   //  System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.ImageCard>
+            case 41:   //  System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.ImageCard>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_44_Collection;
-                userType.StaticInitializer = StaticInitializer_44_Collection;
-                userType.CollectionAdd = VectorAdd_44_Collection;
+                userType.Activator = Activate_41_Collection;
+                userType.StaticInitializer = StaticInitializer_41_Collection;
+                userType.CollectionAdd = VectorAdd_41_Collection;
                 xamlType = userType;
                 break;
 
-            case 45:   //  PdfManager.App.Pages.ImageCard
+            case 42:   //  PdfManager.App.Pages.ImageCard
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_45_ImageCard;
+                userType.StaticInitializer = StaticInitializer_42_ImageCard;
                 userType.AddMemberName("Image");
                 userType.AddMemberName("Index");
                 userType.AddMemberName("Thumbnail");
@@ -848,41 +825,41 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 46:   //  PdfManager.Core.ImageFile
+            case 43:   //  PdfManager.Core.ImageFile
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_46_ImageFile;
+                userType.StaticInitializer = StaticInitializer_43_ImageFile;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 47:   //  PdfManager.App.Pages.MergePage
+            case 44:   //  PdfManager.App.Pages.MergePage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_47_MergePage;
-                userType.StaticInitializer = StaticInitializer_47_MergePage;
+                userType.Activator = Activate_44_MergePage;
+                userType.StaticInitializer = StaticInitializer_44_MergePage;
                 userType.AddMemberName("Cards");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 48:   //  System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.MergeCard>
+            case 45:   //  System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.MergeCard>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.MergeCard>"));
-                userType.StaticInitializer = StaticInitializer_48_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_48_ObservableCollection;
+                userType.StaticInitializer = StaticInitializer_45_ObservableCollection;
+                userType.CollectionAdd = VectorAdd_45_ObservableCollection;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 49:   //  System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.MergeCard>
+            case 46:   //  System.Collections.ObjectModel.Collection`1<PdfManager.App.Pages.MergeCard>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_49_Collection;
-                userType.StaticInitializer = StaticInitializer_49_Collection;
-                userType.CollectionAdd = VectorAdd_49_Collection;
+                userType.Activator = Activate_46_Collection;
+                userType.StaticInitializer = StaticInitializer_46_Collection;
+                userType.CollectionAdd = VectorAdd_46_Collection;
                 xamlType = userType;
                 break;
 
-            case 50:   //  PdfManager.App.Pages.MergeCard
+            case 47:   //  PdfManager.App.Pages.MergeCard
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_50_MergeCard;
+                userType.StaticInitializer = StaticInitializer_47_MergeCard;
                 userType.AddMemberName("Document");
                 userType.AddMemberName("Index");
                 userType.AddMemberName("Thumbnail");
@@ -895,62 +872,79 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 51:   //  PdfManager.Core.Document
+            case 48:   //  PdfManager.Core.Document
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.StaticInitializer = StaticInitializer_51_Document;
+                userType.StaticInitializer = StaticInitializer_48_Document;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 52:   //  PdfManager.App.Pages.PageToImagePage
+            case 49:   //  PdfManager.App.Pages.PageToImagePage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_52_PageToImagePage;
-                userType.StaticInitializer = StaticInitializer_52_PageToImagePage;
+                userType.Activator = Activate_49_PageToImagePage;
+                userType.StaticInitializer = StaticInitializer_49_PageToImagePage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 53:   //  PdfManager.App.Pages.SplitPage
+            case 50:   //  PdfManager.App.Pages.SplitPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_53_SplitPage;
-                userType.StaticInitializer = StaticInitializer_53_SplitPage;
+                userType.Activator = Activate_50_SplitPage;
+                userType.StaticInitializer = StaticInitializer_50_SplitPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 54:   //  PdfManager.App.Controls.TileGrid
+            case 51:   //  PdfManager.App.Controls.TileGrid
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Panel"));
-                userType.Activator = Activate_54_TileGrid;
-                userType.StaticInitializer = StaticInitializer_54_TileGrid;
+                userType.Activator = Activate_51_TileGrid;
+                userType.StaticInitializer = StaticInitializer_51_TileGrid;
                 userType.AddMemberName("FitHeight");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 55:   //  Microsoft.UI.Xaml.Controls.Panel
+            case 52:   //  Microsoft.UI.Xaml.Controls.Panel
                 xamlType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 56:   //  PdfManager.App.Pages.StartPage
+            case 53:   //  PdfManager.App.Pages.StartPage
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_56_StartPage;
-                userType.StaticInitializer = StaticInitializer_56_StartPage;
+                userType.Activator = Activate_53_StartPage;
+                userType.StaticInitializer = StaticInitializer_53_StartPage;
                 userType.AddMemberName("Tiles");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 57:   //  System.Collections.Generic.IReadOnlyList`1<PdfManager.App.ToolTile>
+            case 54:   //  System.Collections.Generic.IReadOnlyList`1<PdfManager.App.ToolTile>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_57_IReadOnlyList;
+                userType.StaticInitializer = StaticInitializer_54_IReadOnlyList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 58:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 55:   //  Windows.UI.Color
+                userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.StaticInitializer = StaticInitializer_55_Color;
+                userType.AddMemberName("A");
+                userType.AddMemberName("R");
+                userType.AddMemberName("G");
+                userType.AddMemberName("B");
+                xamlType = userType;
+                break;
+
+            case 56:   //  Byte
+                userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
+                userType.StaticInitializer = StaticInitializer_56_Byte;
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 57:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_58_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_58_TreeViewNode;
+                userType.Activator = Activate_57_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_57_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -962,10 +956,10 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 59:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 58:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_59_IList;
-                userType.CollectionAdd = VectorAdd_59_IList;
+                userType.StaticInitializer = StaticInitializer_58_IList;
+                userType.CollectionAdd = VectorAdd_58_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
@@ -1408,192 +1402,222 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
             var that = (global::PdfManager.App.Controls.ToolShell)instance;
             that.Session = (global::PdfManager.Core.IToolSession)Value;
         }
-        private object get_48_MicaBackdrop_Kind(object instance)
-        {
-            var that = (global::Microsoft.UI.Xaml.Media.MicaBackdrop)instance;
-            return that.Kind;
-        }
-        private void set_48_MicaBackdrop_Kind(object instance, object Value)
-        {
-            var that = (global::Microsoft.UI.Xaml.Media.MicaBackdrop)instance;
-            that.Kind = (global::Microsoft.UI.Composition.SystemBackdrops.MicaKind)Value;
-        }
-        private object get_49_MainWindow_Handle(object instance)
+        private object get_48_MainWindow_Handle(object instance)
         {
             var that = (global::PdfManager.App.MainWindow)instance;
             return that.Handle;
         }
-        private object get_50_CompressPage_ThumbnailWidth(object instance)
+        private object get_49_CompressPage_ThumbnailWidth(object instance)
         {
             var that = (global::PdfManager.App.Pages.CompressPage)instance;
             return that.ThumbnailWidth;
         }
-        private object get_51_CompressPage_ThumbnailHeight(object instance)
+        private object get_50_CompressPage_ThumbnailHeight(object instance)
         {
             var that = (global::PdfManager.App.Pages.CompressPage)instance;
             return that.ThumbnailHeight;
         }
-        private object get_52_ImagesToPdfPage_Cards(object instance)
+        private object get_51_ImagesToPdfPage_Cards(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImagesToPdfPage)instance;
             return that.Cards;
         }
-        private object get_53_ImageCard_Image(object instance)
+        private object get_52_ImageCard_Image(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.Image;
         }
-        private object get_54_ImageCard_Index(object instance)
+        private object get_53_ImageCard_Index(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.Index;
         }
-        private object get_55_ImageCard_Thumbnail(object instance)
+        private object get_54_ImageCard_Thumbnail(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.Thumbnail;
         }
-        private void set_55_ImageCard_Thumbnail(object instance, object Value)
+        private void set_54_ImageCard_Thumbnail(object instance, object Value)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             that.Thumbnail = (global::Microsoft.UI.Xaml.Media.ImageSource)Value;
         }
-        private object get_56_ImageCard_PlaceholderVisibility(object instance)
+        private object get_55_ImageCard_PlaceholderVisibility(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.PlaceholderVisibility;
         }
-        private object get_57_ImageCard_PositionText(object instance)
+        private object get_56_ImageCard_PositionText(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.PositionText;
         }
-        private object get_58_ImageCard_Name(object instance)
+        private object get_57_ImageCard_Name(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.Name;
         }
-        private object get_59_ImageCard_PageText(object instance)
+        private object get_58_ImageCard_PageText(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.PageText;
         }
-        private object get_60_ImageCard_RemoveLabel(object instance)
+        private object get_59_ImageCard_RemoveLabel(object instance)
         {
             var that = (global::PdfManager.App.Pages.ImageCard)instance;
             return that.RemoveLabel;
         }
-        private object get_61_MergePage_Cards(object instance)
+        private object get_60_MergePage_Cards(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergePage)instance;
             return that.Cards;
         }
-        private object get_62_MergeCard_Document(object instance)
+        private object get_61_MergeCard_Document(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.Document;
         }
-        private object get_63_MergeCard_Index(object instance)
+        private object get_62_MergeCard_Index(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.Index;
         }
-        private object get_64_MergeCard_Thumbnail(object instance)
+        private object get_63_MergeCard_Thumbnail(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.Thumbnail;
         }
-        private void set_64_MergeCard_Thumbnail(object instance, object Value)
+        private void set_63_MergeCard_Thumbnail(object instance, object Value)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             that.Thumbnail = (global::Microsoft.UI.Xaml.Media.ImageSource)Value;
         }
-        private object get_65_MergeCard_PlaceholderVisibility(object instance)
+        private object get_64_MergeCard_PlaceholderVisibility(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.PlaceholderVisibility;
         }
-        private object get_66_MergeCard_PositionText(object instance)
+        private object get_65_MergeCard_PositionText(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.PositionText;
         }
-        private object get_67_MergeCard_Name(object instance)
+        private object get_66_MergeCard_Name(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.Name;
         }
-        private object get_68_MergeCard_PageCountText(object instance)
+        private object get_67_MergeCard_PageCountText(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.PageCountText;
         }
-        private object get_69_MergeCard_RemoveLabel(object instance)
+        private object get_68_MergeCard_RemoveLabel(object instance)
         {
             var that = (global::PdfManager.App.Pages.MergeCard)instance;
             return that.RemoveLabel;
         }
-        private object get_70_TileGrid_FitHeight(object instance)
+        private object get_69_TileGrid_FitHeight(object instance)
         {
             var that = (global::PdfManager.App.Controls.TileGrid)instance;
             return that.FitHeight;
         }
-        private void set_70_TileGrid_FitHeight(object instance, object Value)
+        private void set_69_TileGrid_FitHeight(object instance, object Value)
         {
             var that = (global::PdfManager.App.Controls.TileGrid)instance;
             that.FitHeight = (global::System.Double)Value;
         }
-        private object get_71_StartPage_Tiles(object instance)
+        private object get_70_StartPage_Tiles(object instance)
         {
             var that = (global::PdfManager.App.Pages.StartPage)instance;
             return that.Tiles;
         }
-        private object get_72_TreeViewNode_Children(object instance)
+        private object get_71_Color_A(object instance)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            return that.A;
+        }
+        private void set_71_Color_A(object instance, object Value)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            that.A = (global::System.Byte)Value;
+        }
+        private object get_72_Color_R(object instance)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            return that.R;
+        }
+        private void set_72_Color_R(object instance, object Value)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            that.R = (global::System.Byte)Value;
+        }
+        private object get_73_Color_G(object instance)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            return that.G;
+        }
+        private void set_73_Color_G(object instance, object Value)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            that.G = (global::System.Byte)Value;
+        }
+        private object get_74_Color_B(object instance)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            return that.B;
+        }
+        private void set_74_Color_B(object instance, object Value)
+        {
+            var that = (global::Windows.UI.Color)instance;
+            that.B = (global::System.Byte)Value;
+        }
+        private object get_75_TreeViewNode_Children(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Children;
         }
-        private object get_73_TreeViewNode_Content(object instance)
+        private object get_76_TreeViewNode_Content(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Content;
         }
-        private void set_73_TreeViewNode_Content(object instance, object Value)
+        private void set_76_TreeViewNode_Content(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.Content = (global::System.Object)Value;
         }
-        private object get_74_TreeViewNode_Depth(object instance)
+        private object get_77_TreeViewNode_Depth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Depth;
         }
-        private object get_75_TreeViewNode_HasChildren(object instance)
+        private object get_78_TreeViewNode_HasChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasChildren;
         }
-        private object get_76_TreeViewNode_HasUnrealizedChildren(object instance)
+        private object get_79_TreeViewNode_HasUnrealizedChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasUnrealizedChildren;
         }
-        private void set_76_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
+        private void set_79_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.HasUnrealizedChildren = (global::System.Boolean)Value;
         }
-        private object get_77_TreeViewNode_IsExpanded(object instance)
+        private object get_80_TreeViewNode_IsExpanded(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.IsExpanded;
         }
-        private void set_77_TreeViewNode_IsExpanded(object instance, object Value)
+        private void set_80_TreeViewNode_IsExpanded(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.IsExpanded = (global::System.Boolean)Value;
         }
-        private object get_78_TreeViewNode_Parent(object instance)
+        private object get_81_TreeViewNode_Parent(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Parent;
@@ -1917,195 +1941,212 @@ namespace PdfManager.App.PdfManager_App_XamlTypeInfo
                 xamlMember.Getter = get_47_ToolShell_Session;
                 xamlMember.Setter = set_47_ToolShell_Session;
                 break;
-            case "Microsoft.UI.Xaml.Media.MicaBackdrop.Kind":
-                userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Media.MicaBackdrop");
-                xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Kind", "Microsoft.UI.Composition.SystemBackdrops.MicaKind");
-                xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_48_MicaBackdrop_Kind;
-                xamlMember.Setter = set_48_MicaBackdrop_Kind;
-                break;
             case "PdfManager.App.MainWindow.Handle":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.MainWindow");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Handle", "System.IntPtr");
-                xamlMember.Getter = get_49_MainWindow_Handle;
+                xamlMember.Getter = get_48_MainWindow_Handle;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.CompressPage.ThumbnailWidth":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.CompressPage");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "ThumbnailWidth", "Double");
-                xamlMember.Getter = get_50_CompressPage_ThumbnailWidth;
+                xamlMember.Getter = get_49_CompressPage_ThumbnailWidth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.CompressPage.ThumbnailHeight":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.CompressPage");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "ThumbnailHeight", "Double");
-                xamlMember.Getter = get_51_CompressPage_ThumbnailHeight;
+                xamlMember.Getter = get_50_CompressPage_ThumbnailHeight;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImagesToPdfPage.Cards":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImagesToPdfPage");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Cards", "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.ImageCard>");
-                xamlMember.Getter = get_52_ImagesToPdfPage_Cards;
+                xamlMember.Getter = get_51_ImagesToPdfPage_Cards;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.Image":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Image", "PdfManager.Core.ImageFile");
-                xamlMember.Getter = get_53_ImageCard_Image;
+                xamlMember.Getter = get_52_ImageCard_Image;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.Index":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Index", "Int32");
-                xamlMember.Getter = get_54_ImageCard_Index;
+                xamlMember.Getter = get_53_ImageCard_Index;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.Thumbnail":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Thumbnail", "Microsoft.UI.Xaml.Media.ImageSource");
-                xamlMember.Getter = get_55_ImageCard_Thumbnail;
-                xamlMember.Setter = set_55_ImageCard_Thumbnail;
+                xamlMember.Getter = get_54_ImageCard_Thumbnail;
+                xamlMember.Setter = set_54_ImageCard_Thumbnail;
                 break;
             case "PdfManager.App.Pages.ImageCard.PlaceholderVisibility":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PlaceholderVisibility", "Microsoft.UI.Xaml.Visibility");
-                xamlMember.Getter = get_56_ImageCard_PlaceholderVisibility;
+                xamlMember.Getter = get_55_ImageCard_PlaceholderVisibility;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.PositionText":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PositionText", "String");
-                xamlMember.Getter = get_57_ImageCard_PositionText;
+                xamlMember.Getter = get_56_ImageCard_PositionText;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.Name":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Name", "String");
-                xamlMember.Getter = get_58_ImageCard_Name;
+                xamlMember.Getter = get_57_ImageCard_Name;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.PageText":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PageText", "String");
-                xamlMember.Getter = get_59_ImageCard_PageText;
+                xamlMember.Getter = get_58_ImageCard_PageText;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.ImageCard.RemoveLabel":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.ImageCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "RemoveLabel", "String");
-                xamlMember.Getter = get_60_ImageCard_RemoveLabel;
+                xamlMember.Getter = get_59_ImageCard_RemoveLabel;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergePage.Cards":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergePage");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Cards", "System.Collections.ObjectModel.ObservableCollection`1<PdfManager.App.Pages.MergeCard>");
-                xamlMember.Getter = get_61_MergePage_Cards;
+                xamlMember.Getter = get_60_MergePage_Cards;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.Document":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Document", "PdfManager.Core.Document");
-                xamlMember.Getter = get_62_MergeCard_Document;
+                xamlMember.Getter = get_61_MergeCard_Document;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.Index":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Index", "Int32");
-                xamlMember.Getter = get_63_MergeCard_Index;
+                xamlMember.Getter = get_62_MergeCard_Index;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.Thumbnail":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Thumbnail", "Microsoft.UI.Xaml.Media.ImageSource");
-                xamlMember.Getter = get_64_MergeCard_Thumbnail;
-                xamlMember.Setter = set_64_MergeCard_Thumbnail;
+                xamlMember.Getter = get_63_MergeCard_Thumbnail;
+                xamlMember.Setter = set_63_MergeCard_Thumbnail;
                 break;
             case "PdfManager.App.Pages.MergeCard.PlaceholderVisibility":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PlaceholderVisibility", "Microsoft.UI.Xaml.Visibility");
-                xamlMember.Getter = get_65_MergeCard_PlaceholderVisibility;
+                xamlMember.Getter = get_64_MergeCard_PlaceholderVisibility;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.PositionText":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PositionText", "String");
-                xamlMember.Getter = get_66_MergeCard_PositionText;
+                xamlMember.Getter = get_65_MergeCard_PositionText;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.Name":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Name", "String");
-                xamlMember.Getter = get_67_MergeCard_Name;
+                xamlMember.Getter = get_66_MergeCard_Name;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.PageCountText":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "PageCountText", "String");
-                xamlMember.Getter = get_68_MergeCard_PageCountText;
+                xamlMember.Getter = get_67_MergeCard_PageCountText;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Pages.MergeCard.RemoveLabel":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.MergeCard");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "RemoveLabel", "String");
-                xamlMember.Getter = get_69_MergeCard_RemoveLabel;
+                xamlMember.Getter = get_68_MergeCard_RemoveLabel;
                 xamlMember.SetIsReadOnly();
                 break;
             case "PdfManager.App.Controls.TileGrid.FitHeight":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Controls.TileGrid");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "FitHeight", "Double");
-                xamlMember.Getter = get_70_TileGrid_FitHeight;
-                xamlMember.Setter = set_70_TileGrid_FitHeight;
+                xamlMember.Getter = get_69_TileGrid_FitHeight;
+                xamlMember.Setter = set_69_TileGrid_FitHeight;
                 break;
             case "PdfManager.App.Pages.StartPage.Tiles":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("PdfManager.App.Pages.StartPage");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Tiles", "System.Collections.Generic.IReadOnlyList`1<PdfManager.App.ToolTile>");
-                xamlMember.Getter = get_71_StartPage_Tiles;
+                xamlMember.Getter = get_70_StartPage_Tiles;
                 xamlMember.SetIsReadOnly();
+                break;
+            case "Windows.UI.Color.A":
+                userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
+                xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "A", "Byte");
+                xamlMember.Getter = get_71_Color_A;
+                xamlMember.Setter = set_71_Color_A;
+                break;
+            case "Windows.UI.Color.R":
+                userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
+                xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "R", "Byte");
+                xamlMember.Getter = get_72_Color_R;
+                xamlMember.Setter = set_72_Color_R;
+                break;
+            case "Windows.UI.Color.G":
+                userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
+                xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "G", "Byte");
+                xamlMember.Getter = get_73_Color_G;
+                xamlMember.Setter = set_73_Color_G;
+                break;
+            case "Windows.UI.Color.B":
+                userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Windows.UI.Color");
+                xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "B", "Byte");
+                xamlMember.Getter = get_74_Color_B;
+                xamlMember.Setter = set_74_Color_B;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Children":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
-                xamlMember.Getter = get_72_TreeViewNode_Children;
+                xamlMember.Getter = get_75_TreeViewNode_Children;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Content":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Content", "Object");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_73_TreeViewNode_Content;
-                xamlMember.Setter = set_73_TreeViewNode_Content;
+                xamlMember.Getter = get_76_TreeViewNode_Content;
+                xamlMember.Setter = set_76_TreeViewNode_Content;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Depth":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_74_TreeViewNode_Depth;
+                xamlMember.Getter = get_77_TreeViewNode_Depth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasChildren":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_75_TreeViewNode_HasChildren;
+                xamlMember.Getter = get_78_TreeViewNode_HasChildren;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasUnrealizedChildren":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
-                xamlMember.Getter = get_76_TreeViewNode_HasUnrealizedChildren;
-                xamlMember.Setter = set_76_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Getter = get_79_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Setter = set_79_TreeViewNode_HasUnrealizedChildren;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.IsExpanded":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_77_TreeViewNode_IsExpanded;
-                xamlMember.Setter = set_77_TreeViewNode_IsExpanded;
+                xamlMember.Getter = get_80_TreeViewNode_IsExpanded;
+                xamlMember.Setter = set_80_TreeViewNode_IsExpanded;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Parent":
                 userType = (global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::PdfManager.App.PdfManager_App_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember.Getter = get_78_TreeViewNode_Parent;
+                xamlMember.Getter = get_81_TreeViewNode_Parent;
                 xamlMember.SetIsReadOnly();
                 break;
             }

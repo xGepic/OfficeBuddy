@@ -629,3 +629,6 @@ E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Release\net10.0-windows10.0
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\bin\Release\net10.0-windows10.0.19041.0\win-x64\Ghostscript\msvcp140.dll
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\bin\Release\net10.0-windows10.0.19041.0\win-x64\Ghostscript\vcruntime140.dll
 E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\bin\Release\net10.0-windows10.0.19041.0\win-x64\Ghostscript\vcruntime140_1.dll
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\bin\Release\net10.0-windows10.0.19041.0\win-x64\Themes\Blue.xbf
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Release\net10.0-windows10.0.19041.0\win-x64\Themes\Blue.xaml
+E:\ClaudeProjects\PDF-Manager\src\PdfManager.App\obj\Release\net10.0-windows10.0.19041.0\win-x64\Themes\Blue.xbf
