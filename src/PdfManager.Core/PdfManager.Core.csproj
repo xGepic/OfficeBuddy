@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <!-- Ghostscript for Compress (ADR-0001), copied next to every app and test build that uses Core. -->
-    <None Include="..\..\third_party\Ghostscript\gswin64c.exe;..\..\third_party\Ghostscript\gsdll64.dll;..\..\third_party\Ghostscript\COPYING"
+    <None Include="..\..\third_party\Ghostscript\gswin64c.exe;..\..\third_party\Ghostscript\*.dll;..\..\third_party\Ghostscript\COPYING"
           Link="Ghostscript\%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

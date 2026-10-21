@@ -6,11 +6,15 @@
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <RootNamespace>PdfManager.App</RootNamespace>
     <AssemblyName>PdfManager</AssemblyName>
+    <!-- Raise for every installer handed out; the setup takes its version from here. -->
+    <Version>1.0.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x64</Platforms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
+    <!-- Not for MSIX: without it, dotnet publish leaves out the app's compiled XAML and resources. -->
+    <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <SelfContained>true</SelfContained>
     <DefaultLanguage>de-DE</DefaultLanguage>
