@@ -153,6 +153,12 @@
   <data name="CompressReached" xml:space="preserve"><value>Jetzt ist das Dokument klein genug für E-Mails. Speichern Sie es, um es zu verschicken.</value></data>
   <data name="CompressReachedLightly" xml:space="preserve"><value>Das Dokument ist jetzt noch etwas kleiner.</value></data>
   <data name="CompressNotReached" xml:space="preserve"><value>Kleiner geht es nicht, ohne dass Text unleserlich wird. Für viele E-Mail-Postfächer ist das Dokument noch zu groß.</value></data>
+  <data name="CompressPartsPossible" xml:space="preserve"><value>Sie können es aber in {0} Teile aufteilen, die jeweils in eine E-Mail passen.</value></data>
+  <data name="CompressPageTooLargeOne" xml:space="preserve"><value>Seite {0} ist schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="CompressPageTooLargeMany" xml:space="preserve"><value>Die Seiten {0} sind schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="BusyPlanningParts" xml:space="preserve"><value>Teile für E-Mails werden zusammengestellt … Seite {0} von {1}</value></data>
+  <data name="CompressSaveAsParts.Text" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>
+  <data name="CompressSaveAsPartsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>
   <data name="CompressNotSmaller" xml:space="preserve"><value>Dieses Dokument lässt sich nicht weiter verkleinern.</value></data>
   <data name="CompressFailed" xml:space="preserve"><value>„{0}“ konnte nicht verkleinert werden.</value></data>
   <data name="CompressSave.Text" xml:space="preserve"><value>Verkleinertes Dokument speichern</value></data>

@@ -42,8 +42,9 @@ public sealed partial class CompressPage : Page
     private async void Compress_Click(object sender, RoutedEventArgs e)
     {
         CompressButton.IsEnabled = false;
-        var progress = new Progress<CompressProgress>(at => Shell.UpdateBusyMessage(
-            Strings.Format(at.Step == 1 ? "BusyCompressing" : "BusyCompressingMore", at.Page, at.PageCount)));
+        var progress = new Progress<CompressProgress>(at => Shell.UpdateBusyMessage(Strings.Format(
+            at.PlanningParts ? "BusyPlanningParts" : at.Step == 1 ? "BusyCompressing" : "BusyCompressingMore",
+            at.Page, at.PageCount)));
         try
         {
             using (Shell.ShowBusy(Strings.Get("BusyCompressingStarted")))
@@ -63,6 +64,14 @@ public sealed partial class CompressPage : Page
     {
         SaveButton.IsEnabled = false;
         await Shell.SaveToFileAsync(_session.SuggestedFolder, _session.SuggestedFileName!, _session.SaveAsync);
+        Refresh();
+    }
+
+    private async void SaveAsParts_Click(object sender, RoutedEventArgs e)
+    {
+        SaveAsPartsButton.IsEnabled = false;
+        await Shell.SaveToFolderAsync(
+            _session.SuggestedFolder, _session.SuggestedBaseName!, FileFilter.Pdf, _session.PartFileNamesFor, _session.SaveAsPartsAsync);
         Refresh();
     }
 
@@ -92,11 +101,10 @@ public sealed partial class CompressPage : Page
         if (result is not null)
         {
             SizesText.Text = Strings.Format("CompressSizes", Strings.FileSize(result.OriginalSize), Strings.FileSize(result.CompressedSize));
-            ResultText.Text = Strings.Get(
-                !result.IsSmaller ? "CompressNotSmaller"
-                : _session.IsAlreadySmallEnough ? "CompressReachedLightly"
-                : result.ReachedTarget ? "CompressReached"
-                : "CompressNotReached");
+            ResultText.Text = _session.IsAlreadySmallEnough
+                ? Strings.Get(result.IsSmaller ? "CompressReachedLightly" : "CompressNotSmaller")
+                : result.ReachedTarget ? Strings.Get("CompressReached")
+                : $"{Strings.Get("CompressNotReached")} {DescribeParts(result)}";
         }
 
         CompressButtonText.Text = Strings.Get(_session.IsAlreadySmallEnough ? "CompressLightly" : "CompressStart");
@@ -105,7 +113,19 @@ public sealed partial class CompressPage : Page
         CompressButton.IsEnabled = _session.CanCompress;
         SaveButton.Visibility = result is null ? Visibility.Collapsed : Visibility.Visible;
         SaveButton.IsEnabled = _session.CanSave;
+        // Splitting into Parts is what helps when the whole is too big; saving it whole stays possible.
+        SaveAsPartsButton.Visibility = _session.CanSaveAsParts ? Visibility.Visible : Visibility.Collapsed;
+        SaveAsPartsButton.IsEnabled = _session.CanSaveAsParts;
+        SaveButton.Style = (Style)Application.Current.Resources[_session.CanSaveAsParts ? "DefaultButtonStyle" : "AccentButtonStyle"];
     }
+
+    /// <summary>Into how many Parts the result can be split, or which Pages are too big for that.</summary>
+    private static string DescribeParts(CompressResult result) => result.OversizedPageNumbers switch
+    {
+        [] => Strings.Format("CompressPartsPossible", result.PartCount),
+        [var number] => Strings.Format("CompressPageTooLargeOne", number),
+        var numbers => Strings.Format("CompressPageTooLargeMany", string.Join(", ", numbers)),
+    };
 
     /// <summary>Shows the first Page of the Document, unless another one was opened meanwhile.</summary>
     private async Task ShowThumbnailAsync(Document document)

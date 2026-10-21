@@ -15,7 +15,8 @@ internal static class DocumentWriter
         await File.WriteAllBytesAsync(path, content);
     }
 
-    private static byte[] Build(IEnumerable<PlannedPage> pages)
+    /// <summary>Builds the Document in memory, as the content of a PDF file.</summary>
+    public static byte[] Build(IEnumerable<PlannedPage> pages)
     {
         using var output = new PdfDocument();
         Document? currentSource = null;

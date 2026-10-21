@@ -102,6 +102,16 @@ public sealed class Document
     }
 
     /// <summary>
+    /// A Document made by the app itself, such as a compressed one, under the name of the file it
+    /// came from.
+    /// </summary>
+    internal static Document FromContent(string filePath, byte[] content)
+    {
+        using var pdf = OpenForImport(content, args => args.Abort = true);
+        return new Document(filePath, content, pdf.PageCount);
+    }
+
+    /// <summary>
     /// Renders a Page (by its index in this Document) as a PNG image that fits inside the given
     /// pixel size, keeping its proportions and with its own rotation applied.
     /// </summary>

@@ -123,9 +123,9 @@ public sealed class CompressSessionTests : IDisposable
 
         await session.CompressAsync(new SynchronousProgress<CompressProgress>(reported.Add));
 
-        // All three attempts were made, and the last one is kept (ticket 10 splits it into Parts).
+        // All three attempts were made, and the last one is kept.
         Assert.False(session.Result!.ReachedTarget);
-        Assert.Equal(3, reported[^1].Step);
+        Assert.Contains(reported, progress => progress.Step == 3);
         Assert.True(session.Result.CompressedSize >= CompressSession.EmailSizeTarget);
     }
 
@@ -145,5 +145,57 @@ public sealed class CompressSessionTests : IDisposable
         Assert.All(reported, progress => Assert.Equal(1, progress.Step));
         Assert.All(SavedDocument.ReadImageResolutions(output), dpi => Assert.InRange(dpi, 145, 155));
         Assert.True(session.Result!.IsSmaller);
+    }
+
+    [Fact]
+    public async Task A_scan_that_cannot_get_under_10_MB_can_be_saved_as_Parts_that_each_fit_an_email()
+    {
+        var scan = await SamplePdfs.CreateDetailedLowResolutionScanAsync(_folder.Path, "Fotos.pdf", pageCount: 25);
+        var session = new CompressSession();
+        await session.OpenAsync(scan);
+
+        await session.CompressAsync();
+        Assert.False(session.Result!.ReachedTarget);
+        Assert.True(session.CanSaveAsParts);
+
+        var output = Directory.CreateDirectory(_folder.File("Teile")).FullName;
+        var names = session.PartFileNamesFor("Fotos");
+        var written = await session.SaveAsPartsAsync(output, "Fotos");
+
+        // About 23 MB in Parts under 10 MB: at least three, numbered in page order.
+        Assert.InRange(names.Count, 3, 9);
+        Assert.Equal(Enumerable.Range(1, names.Count).Select(number => $"Fotos - Teil {number}.pdf"), names);
+        Assert.Equal(names.Select(name => Path.Combine(output, name)), written);
+        Assert.All(written, path => Assert.InRange(new FileInfo(path).Length, 1, CompressSession.EmailSizeTarget - 1));
+        Assert.Equal(Enumerable.Range(1, 25).Select(number => $"F{number}"), written.SelectMany(SavedDocument.ReadLabels));
+        Assert.False(session.HasUnsavedChanges);
+    }
+
+    [Fact]
+    public async Task A_Page_too_big_for_an_email_on_its_own_is_named_instead_of_being_split_off()
+    {
+        var scan = await SamplePdfs.CreateDetailedLowResolutionScanAsync(_folder.Path, "Plan.pdf", pageCount: 3, posterPageNumber: 2);
+        var session = new CompressSession();
+        await session.OpenAsync(scan);
+
+        await session.CompressAsync();
+
+        Assert.False(session.Result!.ReachedTarget);
+        Assert.False(session.CanSaveAsParts);
+        Assert.Equal([2], session.Result.OversizedPageNumbers);
+    }
+
+    [Fact]
+    public async Task A_Document_that_reached_the_target_is_not_offered_as_Parts()
+    {
+        var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2");
+        var session = new CompressSession();
+        await session.OpenAsync(invoice);
+
+        await session.CompressAsync();
+
+        Assert.True(session.Result!.ReachedTarget);
+        Assert.False(session.CanSaveAsParts);
+        Assert.Empty(session.Result.OversizedPageNumbers);
     }
 }

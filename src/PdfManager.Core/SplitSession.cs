@@ -3,7 +3,10 @@ using System.Collections.Immutable;
 namespace PdfManager.Core;
 
 /// <summary>Consecutive Pages, by index from <paramref name="First"/> to <paramref name="Last"/> inclusive.</summary>
-public readonly record struct PageRange(int First, int Last);
+public readonly record struct PageRange(int First, int Last)
+{
+    internal IEnumerable<int> Indexes => Enumerable.Range(First, Last - First + 1);
+}
 
 /// <summary>
 /// The state of the Split Tool: one Document and the Split points that cut it into Parts, or
@@ -80,9 +83,7 @@ public sealed class SplitSession() : DocumentSession<SplitSession.Plan>(new Plan
     {
         var (document, plan, parts) = (Document!, State, Parts);
         var written = await SeveralFiles.WriteAsync(folder, FileNamesFor(baseName), (i, path) =>
-            DocumentWriter.WriteAsync(path, Enumerable.Range(parts[i].First, parts[i].Last - parts[i].First + 1)
-                .Select(index => new PlannedPage(document, index))
-                .ToList()));
+            DocumentWriter.WriteAsync(path, parts[i].Indexes.Select(index => new PlannedPage(document, index)).ToList()));
         MarkSaved(plan);
         return written;
     }

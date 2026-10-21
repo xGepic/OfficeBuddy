@@ -82,6 +82,18 @@
                     </StackPanel>
                 </Button>
                 <Button
+                    x:Name="SaveAsPartsButton"
+                    x:Uid="CompressSaveAsPartsButton"
+                    Click="SaveAsParts_Click"
+                    Padding="24,10"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon FontSize="18" Glyph="&#xE8C6;" />
+                        <TextBlock x:Uid="CompressSaveAsParts" />
+                    </StackPanel>
+                </Button>
+                <Button
                     x:Name="SaveButton"
                     x:Uid="CompressSaveButton"
                     Click="Save_Click"

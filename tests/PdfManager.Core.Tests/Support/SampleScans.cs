@@ -18,36 +18,53 @@ public static partial class SamplePdfs
     /// real sheets. About 3 MB per Page.
     /// </summary>
     public static Task<string> CreateColourScanAsync(string folder, string fileName, int pageCount) =>
-        CreateScanAsync(folder, fileName, pageCount, i => EncodeJpegAsync(DrawScannedLetter(seed: i), ScanWidth, ScanHeight));
+        CreateScanAsync(folder, fileName, pageCount, async i =>
+            new ScannedPage(await EncodeJpegAsync(DrawScannedLetter(seed: i), ScanWidth, ScanHeight), A4, Label: null));
 
     /// <summary>
     /// A scan of <paramref name="pageCount"/> A4 Pages that is already at a low resolution (90 dpi)
     /// and full of fine colour detail, like photos of gravel: Compress cannot make it much smaller.
-    /// Just under 1 MB per Page.
+    /// Just under 1 MB per Page. Every Page carries a label, F1, F2, … Page
+    /// <paramref name="posterPageNumber"/>, if given, is a 1 × 1 m poster of about 15 MB instead.
     /// </summary>
-    public static Task<string> CreateDetailedLowResolutionScanAsync(string folder, string fileName, int pageCount)
+    public static Task<string> CreateDetailedLowResolutionScanAsync(
+        string folder, string fileName, int pageCount, int? posterPageNumber = null)
     {
-        const int width = 744, height = 1052;
         var random = new Random(815);
-        return CreateScanAsync(folder, fileName, pageCount, _ =>
+        return CreateScanAsync(folder, fileName, pageCount, async i =>
         {
+            var isPoster = i + 1 == posterPageNumber;
+            var size = isPoster ? new XSize(XUnit.FromMillimeter(1000).Point, XUnit.FromMillimeter(1000).Point) : A4;
+            // 90 pixels per inch of the Page.
+            var (width, height) = ((int)(size.Width / 72 * 90), (int)(size.Height / 72 * 90));
             var pixels = new byte[width * height * 4];
             random.NextBytes(pixels);
-            return EncodeJpegAsync(pixels, width, height);
+            return new ScannedPage(await EncodeJpegAsync(pixels, width, height), size, $"F{i + 1}");
         });
     }
 
-    /// <summary>A Document of A4 Pages, each filled by one JPEG image, the way a scanner writes them.</summary>
-    private static async Task<string> CreateScanAsync(string folder, string fileName, int pageCount, Func<int, Task<byte[]>> scanPage)
+    private static readonly XSize A4 = new(XUnit.FromMillimeter(210).Point, XUnit.FromMillimeter(297).Point);
+
+    /// <summary>One scanned Page: its image, the Page's size, and a label to tell it apart, if any.</summary>
+    private sealed record ScannedPage(byte[] Jpeg, XSize Size, string? Label);
+
+    /// <summary>A Document of Pages, each filled by one JPEG image the way a scanner writes them.</summary>
+    private static async Task<string> CreateScanAsync(
+        string folder, string fileName, int pageCount, Func<int, Task<ScannedPage>> scanPage)
     {
         using var document = new PdfDocument();
         for (var i = 0; i < pageCount; i++)
         {
+            var scanned = await scanPage(i);
             var page = document.AddPage();
-            var jpeg = await scanPage(i);
+            (page.Width, page.Height) = (XUnit.FromPoint(scanned.Size.Width), XUnit.FromPoint(scanned.Size.Height));
             using var graphics = XGraphics.FromPdfPage(page);
-            using var image = XImage.FromStream(new MemoryStream(jpeg));
+            using var image = XImage.FromStream(new MemoryStream(scanned.Jpeg));
             graphics.DrawImage(image, 0, 0, page.Width.Point, page.Height.Point);
+            if (scanned.Label is not null)
+            {
+                DrawLabel(graphics, scanned.Label);
+            }
         }
 
         var path = Path.Combine(folder, fileName);

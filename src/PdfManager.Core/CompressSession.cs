@@ -2,9 +2,10 @@ namespace PdfManager.Core;
 
 /// <summary>
 /// How far Compress has got: working on Page <paramref name="Page"/> of <paramref name="PageCount"/>
-/// in its <paramref name="Step"/>th attempt (each stronger than the one before).
+/// in its <paramref name="Step"/>th attempt (each stronger than the one before), or, after the last
+/// attempt, sorting the Pages into Parts that each fit an email (<paramref name="PlanningParts"/>).
 /// </summary>
-public readonly record struct CompressProgress(int Step, int Page, int PageCount);
+public readonly record struct CompressProgress(int Step, int Page, int PageCount, bool PlanningParts = false);
 
 /// <summary>What Compress made of a Document: how big it was and is now.</summary>
 public sealed record CompressResult(long OriginalSize, long CompressedSize, bool ReachedTarget)
@@ -15,7 +16,21 @@ public sealed record CompressResult(long OriginalSize, long CompressedSize, bool
     /// </summary>
     public bool IsSmaller => CompressedSize < OriginalSize;
 
+    /// <summary>
+    /// How many Parts that each fit an email the result can be saved as: 0 if it fits one email
+    /// already, or can't be split because of <see cref="OversizedPageNumbers"/>.
+    /// </summary>
+    public int PartCount => Parts.Count;
+
+    /// <summary>
+    /// The numbers of the Pages that are too big for an email even on their own, which keeps the
+    /// result from being split into Parts.
+    /// </summary>
+    public IReadOnlyList<int> OversizedPageNumbers { get; init; } = [];
+
     internal byte[] Content { get; init; } = [];
+
+    internal IReadOnlyList<EmailPart> Parts { get; init; } = [];
 }
 
 /// <summary>
@@ -42,6 +57,9 @@ public sealed class CompressSession() : DocumentSession<CompressResult?>(null)
     public bool CanCompress => Document is not null && State is null;
 
     public bool CanSave => State is { IsSmaller: true };
+
+    /// <summary>Whether the result, still too big for one email, can be saved as several Parts that each fit one.</summary>
+    public bool CanSaveAsParts => State is { PartCount: > 0 };
 
     /// <summary>E.g. <c>Rechnung (verkleinert).pdf</c>.</summary>
     public string? SuggestedFileName => Document is null ? null : $"{Document.NameWithoutExtension} (verkleinert).pdf";
@@ -83,6 +101,16 @@ public sealed class CompressSession() : DocumentSession<CompressResult?>(null)
                     break;
                 }
             }
+
+            // A Document that fit an email before Compress needs no Parts, whatever the light compression made of it.
+            if (!result!.ReachedTarget && !IsAlreadySmallEnough)
+            {
+                var compressed = Document.FromContent(document.FilePath, result.Content);
+                var (parts, oversized) = await Task.Run(() => EmailParts.Plan(compressed, EmailSizeTarget,
+                    page => progress?.Report(new CompressProgress(resolutions.Length, page, compressed.PageCount, PlanningParts: true))));
+                // One Part would be the whole Document again, rebuilt just under the target: not worth calling a split.
+                result = result with { Parts = parts.Count >= 2 ? parts : [], OversizedPageNumbers = oversized };
+            }
             Apply(result);
         }
         finally
@@ -97,5 +125,28 @@ public sealed class CompressSession() : DocumentSession<CompressResult?>(null)
         var result = State!;
         await File.WriteAllBytesAsync(outputPath, result.Content);
         MarkSaved(result);
+    }
+
+    /// <summary>The names of the files <see cref="SaveAsPartsAsync"/> writes with this base name, so existing ones can be checked first.</summary>
+    public IReadOnlyList<string> PartFileNamesFor(string baseName) => PartFiles.Names(baseName, State?.PartCount ?? 0);
+
+    /// <summary>
+    /// Saves the result as Parts that each fit an email into <paramref name="folder"/>, all or nothing.
+    /// </summary>
+    /// <returns>The paths of the files written, Part by Part.</returns>
+    public async Task<IReadOnlyList<string>> SaveAsPartsAsync(string folder, string baseName)
+    {
+        var result = State!;
+        var written = await SeveralFiles.WriteAsync(folder, PartFileNamesFor(baseName), async (i, path) =>
+        {
+            await File.WriteAllBytesAsync(path, result.Parts[i].Content);
+            // A Part over the target would bounce just like the whole Document.
+            if (new FileInfo(path).Length >= EmailSizeTarget)
+            {
+                throw new InvalidOperationException($"Part {i + 1} came out over the Email size target.");
+            }
+        });
+        MarkSaved(result);
+        return written;
     }
 }
