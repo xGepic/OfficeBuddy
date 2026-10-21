@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PdfManager.Core.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02285a9fbbc01159259d7ee471e64ec89b35c7a7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d989327da5376bf4b52a5887b71b1b9d977fbd31")]
 [assembly: System.Reflection.AssemblyProductAttribute("PdfManager.Core.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PdfManager.Core.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

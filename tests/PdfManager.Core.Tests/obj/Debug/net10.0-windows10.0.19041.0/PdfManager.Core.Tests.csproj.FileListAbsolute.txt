@@ -124,3 +124,6 @@ E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-wind
 E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-windows10.0.19041.0\Ghostscript\gsdll64.dll
 E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-windows10.0.19041.0\Ghostscript\COPYING
 E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\obj\Debug\net10.0-windows10.0.19041.0\PdfManager.Core.Tests.sourcelink.json
+E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-windows10.0.19041.0\Ghostscript\msvcp140.dll
+E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-windows10.0.19041.0\Ghostscript\vcruntime140.dll
+E:\ClaudeProjects\PDF-Manager\tests\PdfManager.Core.Tests\bin\Debug\net10.0-windows10.0.19041.0\Ghostscript\vcruntime140_1.dll

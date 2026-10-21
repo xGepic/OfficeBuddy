@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="PdfManager.App.Pages.ExtractPagesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:PdfManager.App.Controls">
+
+    <controls:ToolShell x:ConnectionId='2' x:Name="Shell"                                                                    >
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel x:ConnectionId='3'
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE8A5;" />
+                    <TextBlock
+                        x:Uid="OpenDocumentHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:ConnectionId='4' x:Name="PagesArea" RowSpacing="12" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        x:Uid="ExtractPagesHint"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+
+                    <controls:PageGrid x:ConnectionId='5'
+                        x:Name="PageThumbnails"
+                        Grid.Row="1"
+                        CanReorder="False"
+                        SelectByToggling="True"
+                                                                           />
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:ConnectionId='6'
+                    x:Name="SelectionText"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Button x:ConnectionId='7'
+                    x:Name="SaveButton"
+                    x:Uid="ExtractPagesSaveButton"
+                    Grid.Column="1"
+                                      
+                    IsEnabled="False"
+                    Padding="24,10"
+                    Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                        <TextBlock x:Uid="ExtractPagesSave" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>
+
