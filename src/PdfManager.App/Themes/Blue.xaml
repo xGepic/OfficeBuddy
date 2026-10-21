@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The app's blue look, for Windows' light and dark mode alike. It overrides WinUI's accent and
+    surface colours, so every screen picks it up without styles of its own.
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- One blue for all accents, whatever accent colour Windows is set to. -->
+    <Color x:Key="SystemAccentColor">#2B6FD6</Color>
+    <Color x:Key="SystemAccentColorLight1">#4A88E6</Color>
+    <Color x:Key="SystemAccentColorLight2">#79A8F0</Color>
+    <Color x:Key="SystemAccentColorLight3">#A9C8F6</Color>
+    <Color x:Key="SystemAccentColorDark1">#1F5BB8</Color>
+    <Color x:Key="SystemAccentColorDark2">#184A96</Color>
+    <Color x:Key="SystemAccentColorDark3">#113770</Color>
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <LinearGradientBrush x:Key="AppBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#F4F8FE" />
+                <GradientStop Offset="1" Color="#E4EDFA" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="CardBackgroundFillColorDefaultBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="CardStrokeColorDefaultBrush" Color="#D2DFF2" />
+            <SolidColorBrush x:Key="SolidBackgroundFillColorBaseBrush" Color="#F7FAFE" />
+            <SolidColorBrush x:Key="TileBackgroundPointerOverBrush" Color="#EEF4FD" />
+            <SolidColorBrush x:Key="TileBackgroundPressedBrush" Color="#E2ECFB" />
+            <SolidColorBrush x:Key="TileIconBadgeBrush" Color="#E1ECFB" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <LinearGradientBrush x:Key="AppBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#0F1A2C" />
+                <GradientStop Offset="1" Color="#14233B" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="CardBackgroundFillColorDefaultBrush" Color="#1A2A45" />
+            <SolidColorBrush x:Key="CardStrokeColorDefaultBrush" Color="#2A3F63" />
+            <SolidColorBrush x:Key="SolidBackgroundFillColorBaseBrush" Color="#16253E" />
+            <SolidColorBrush x:Key="TileBackgroundPointerOverBrush" Color="#213558" />
+            <SolidColorBrush x:Key="TileBackgroundPressedBrush" Color="#1C2E4C" />
+            <SolidColorBrush x:Key="TileIconBadgeBrush" Color="#23406C" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="TileBackgroundPointerOverBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+            <SolidColorBrush x:Key="TileBackgroundPressedBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+            <SolidColorBrush x:Key="TileIconBadgeBrush" Color="{ThemeResource SystemColorWindowColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="Themes/Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Somewhat larger than the WinUI default of 14, for comfortable reading. -->

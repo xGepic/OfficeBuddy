@@ -18,7 +18,11 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
         Title = Strings.Get("AppTitle");
+        AppTitleText.Text = Title;
         Handle = WindowNative.GetWindowHandle(this);
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(AppTitleBar);
+        AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
 
         var workArea = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Primary).WorkArea;
         var scale = MonitorScale();
