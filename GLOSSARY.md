@@ -1,6 +1,6 @@
-# PDF-Manager
+# Office Buddy
 
-A German-language Windows desktop tool that lets non-expert users reshape PDF files they received by email or produced with a scanner, entirely on their own computer.
+A German-language Windows desktop tool that lets non-expert users reshape PDF files they received by email or produced with a scanner, and resize or convert photos and images, entirely on their own computer.
 
 ## Language
 

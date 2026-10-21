@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OfficeBuddy.App/OfficeBuddy.App.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/OfficeBuddy.Core/OfficeBuddy.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OfficeBuddy.Core.Tests/OfficeBuddy.Core.Tests.csproj" />
+  </Folder>
+</Solution>

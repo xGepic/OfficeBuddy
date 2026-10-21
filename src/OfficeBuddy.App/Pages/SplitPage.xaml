@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.SplitPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:OfficeBuddy.App.Controls">
+
+    <controls:ToolShell x:Name="Shell" BackRequested="Shell_BackRequested" FilesOpened="Shell_FilesOpened">
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE8C6;" />
+                    <TextBlock
+                        x:Uid="OpenDocumentHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:Name="PagesArea" RowSpacing="12" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ToggleSwitch x:Name="EachPageSwitch" x:Uid="SplitEachPage" Toggled="EachPageSwitch_Toggled" />
+
+                    <TextBlock
+                        x:Uid="SplitHint"
+                        Grid.Row="1"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+
+                    <controls:PageGrid
+                        x:Name="PageThumbnails"
+                        Grid.Row="2"
+                        AllowSelection="False"
+                        CanReorder="False"
+                        GapClicked="PageThumbnails_GapClicked" />
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="PartsText"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Button
+                    x:Name="SaveButton"
+                    x:Uid="SplitSaveButton"
+                    Grid.Column="1"
+                    Click="Save_Click"
+                    IsEnabled="False"
+                    Padding="24,10"
+                    Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                        <TextBlock x:Uid="SplitSave" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>

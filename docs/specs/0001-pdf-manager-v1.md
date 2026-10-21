@@ -1,4 +1,4 @@
-# PDF-Manager v1
+# Office Buddy v1
 
 ## Problem Statement
 
@@ -8,7 +8,7 @@ The tools they could use today are either online services (bills, medical letter
 
 ## Solution
 
-A German-language Windows 11 desktop app, **PDF-Manager**, that works entirely on their computer. It opens on a clean start screen with seven large tiles, one per Tool:
+A German-language Windows 11 desktop app, **Office Buddy**, that works entirely on their computer. It opens on a clean start screen with seven large tiles, one per Tool:
 
 | Tile | Tool |
 |---|---|
@@ -145,7 +145,7 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 ### Installation and maintenance
 
 83. As the maintainer, I want to install the app with a single setup file that needs nothing else on the computer, so that installing during a visit or remote session is quick.
-84. As the maintainer, I want the setup to create a Start-menu and desktop shortcut called "PDF-Manager", so that my parents find the app easily.
+84. As the maintainer, I want the setup to create a Start-menu and desktop shortcut called "Office Buddy", so that my parents find the app easily.
 85. As the maintainer, I want to update by running a newer setup over the old installation, so that updating is just as simple.
 86. As the maintainer, I want an uninstall entry in Windows settings, so that the app can be removed cleanly.
 87. As a parent, I want the app never to send anything over the internet, so that my private Documents stay on my computer.
@@ -155,15 +155,15 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 
 ### Platform and delivery
 - Windows 11 only, .NET 10, WinUI 3 (Windows App SDK), built as an **unpackaged, self-contained** app so the .NET runtime and Windows App SDK ship with it.
-- Delivered as one self-contained `PdfManager.exe` that runs without installing; shortcuts are made by hand. Updates replace the exe. No installer, no auto-updater, no MSIX, no Store. (Originally an Inno Setup installer with shortcuts and an uninstall entry; dropped in favour of the single exe.)
+- Delivered as one self-contained `OfficeBuddy.exe` that runs without installing; shortcuts are made by hand. Updates replace the exe. No installer, no auto-updater, no MSIX, no Store. (Originally an Inno Setup installer with shortcuts and an uninstall entry; dropped in favour of the single exe.)
 - Fully offline: no network access of any kind.
 - German-only UI, no localisation layer beyond keeping strings in one resource file. Base font size somewhat larger than WinUI's default. Respects the Windows text scaling and theme settings.
 - No file association, no "Open with" registration, no Explorer context-menu entries. Documents are opened only through the *Öffnen* button, by dragging into a Tool screen, or by dropping onto a start-screen tile.
 
 ### Architecture
-- **`PdfManager.Core`** holds all PDF logic and all Tool state, with no UI dependencies. It targets the Windows-specific .NET framework so it can use `Windows.Data.Pdf`.
-- **`PdfManager.App`** is the WinUI 3 app: start screen, one screen per Tool, dialogs. It stays thin. Screens display a Core session and forward user actions to it; they contain no PDF or state logic of their own.
-- **`PdfManager.Core.Tests`** holds xUnit tests against Core.
+- **`OfficeBuddy.Core`** holds all PDF logic and all Tool state, with no UI dependencies. It targets the Windows-specific .NET framework so it can use `Windows.Data.Pdf`.
+- **`OfficeBuddy.App`** is the WinUI 3 app: start screen, one screen per Tool, dialogs. It stays thin. Screens display a Core session and forward user actions to it; they contain no PDF or state logic of their own.
+- **`OfficeBuddy.Core.Tests`** holds xUnit tests against Core.
 - Seven separate Tool screens per ADR-0002, with Edit pages combining Remove pages, Rotate and Reorder.
 
 ### Tool sessions (the Core interface)
@@ -211,7 +211,7 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 
 ## Testing Decisions
 
-- **One test seam: the Tool sessions in `PdfManager.Core`.** Tests act like a user, through exactly the calls the UI makes: load, mark, rotate, move, undo, save. Then they assert on the Documents written to disk. They never reach into session internals.
+- **One test seam: the Tool sessions in `OfficeBuddy.Core`.** Tests act like a user, through exactly the calls the UI makes: load, mark, rotate, move, undo, save. Then they assert on the Documents written to disk. They never reach into session internals.
 - **A good test describes behaviour the parent would notice.** Examples: "removing page 2 and rotating page 3, then undoing the rotation, saves a 3-page Document with pages S1, S3, S4, none rotated", or "a 30 MB colour scan compresses to under 10 MB". Tests must not break if the internal page model or Ghostscript arguments change, as long as the outcome is the same.
 - **Sample Documents** are kept in the test project. Every Page carries a large unique label (e.g. "S3"), so tests can check page identity and order by reading text from the output. Rotation and page count are read with PDFsharp. The set:
   - a digital invoice with selectable text, which must stay selectable after Compress

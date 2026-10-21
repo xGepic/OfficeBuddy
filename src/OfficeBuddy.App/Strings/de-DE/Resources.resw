@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- App -->
+  <data name="AppTitle" xml:space="preserve"><value>Office Buddy</value></data>
+
+  <!-- Start screen -->
+  <data name="StartHeading.Text" xml:space="preserve"><value>Was möchten Sie tun?</value></data>
+  <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine PDF-Datei direkt auf eine Kachel.</value></data>
+  <data name="StartComingSoon" xml:space="preserve"><value>Bald verfügbar</value></data>
+
+  <data name="ToolMergeName" xml:space="preserve"><value>Zusammenfügen</value></data>
+  <data name="ToolMergeDescription" xml:space="preserve"><value>Mehrere PDF-Dateien zu einer einzigen verbinden</value></data>
+  <data name="ToolEditPagesName" xml:space="preserve"><value>Seiten bearbeiten</value></data>
+  <data name="ToolEditPagesDescription" xml:space="preserve"><value>Seiten drehen, sortieren, entfernen – leere Seiten werden automatisch erkannt</value></data>
+  <data name="ToolExtractPagesName" xml:space="preserve"><value>Seiten herauslösen</value></data>
+  <data name="ToolExtractPagesDescription" xml:space="preserve"><value>Ausgewählte Seiten als neue PDF-Datei speichern</value></data>
+  <data name="ToolSplitName" xml:space="preserve"><value>Aufteilen</value></data>
+  <data name="ToolSplitDescription" xml:space="preserve"><value>Eine PDF-Datei in mehrere Teile zerlegen</value></data>
+  <data name="ToolCompressName" xml:space="preserve"><value>Verkleinern</value></data>
+  <data name="ToolCompressDescription" xml:space="preserve"><value>Eine PDF-Datei so verkleinern, dass sie per E-Mail verschickt werden kann</value></data>
+  <data name="ToolImagesToPdfName" xml:space="preserve"><value>Bilder zu PDF</value></data>
+  <data name="ToolImagesToPdfDescription" xml:space="preserve"><value>Fotos und Bilder zu einer PDF-Datei zusammenfassen</value></data>
+  <data name="ToolPageToImageName" xml:space="preserve"><value>Seite als Bild</value></data>
+  <data name="ToolPageToImageDescription" xml:space="preserve"><value>Seiten als JPG-Bild speichern</value></data>
+  <data name="ToolResizeImageName" xml:space="preserve"><value>Bildgröße ändern</value></data>
+  <data name="ToolResizeImageDescription" xml:space="preserve"><value>Fotos und Bilder verkleinern oder vergrößern</value></data>
+
+  <!-- Shared Tool frame -->
+  <data name="ToolShellBack.Text" xml:space="preserve"><value>Zurück</value></data>
+  <data name="ToolShellOpen.Text" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="ToolShellBackButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zurück</value></data>
+  <data name="ToolShellOpenButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="ToolShellUndo.Text" xml:space="preserve"><value>Rückgängig</value></data>
+  <data name="ToolShellRedo.Text" xml:space="preserve"><value>Wiederholen</value></data>
+  <data name="ToolShellUndoButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Rückgängig</value></data>
+  <data name="ToolShellRedoButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Wiederholen</value></data>
+  <data name="DiscardTitle" xml:space="preserve"><value>Änderungen verwerfen?</value></data>
+  <data name="DiscardMessage" xml:space="preserve"><value>Ihre Änderungen sind noch nicht gespeichert. Wenn Sie fortfahren, gehen sie verloren.</value></data>
+  <data name="DiscardConfirm" xml:space="preserve"><value>Verwerfen</value></data>
+  <data name="OpenDialogTitle" xml:space="preserve"><value>PDF-Dateien öffnen</value></data>
+  <data name="OpenImagesDialogTitle" xml:space="preserve"><value>Bilder öffnen</value></data>
+  <data name="ImagesFilterName" xml:space="preserve"><value>Bilder (JPG, PNG)</value></data>
+  <data name="SaveDialogTitle" xml:space="preserve"><value>Speichern unter</value></data>
+  <data name="PdfFilterName" xml:space="preserve"><value>PDF-Dokumente</value></data>
+  <data name="JpegFilterName" xml:space="preserve"><value>JPG-Bilder</value></data>
+  <data name="PngFilterName" xml:space="preserve"><value>PNG-Bilder</value></data>
+  <data name="DropToOpen" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="DropToOpenIn" xml:space="preserve"><value>Öffnen mit „{0}“</value></data>
+  <data name="LoadFailedProtectedOne" xml:space="preserve"><value>{0} ist mit einem Passwort geschützt und kann deshalb hier nicht bearbeitet werden.</value></data>
+  <data name="LoadFailedProtectedMany" xml:space="preserve"><value>Diese Dokumente sind mit einem Passwort geschützt und können deshalb hier nicht bearbeitet werden: {0}</value></data>
+  <data name="LoadFailedDamagedOne" xml:space="preserve"><value>{0} ist beschädigt oder kann nicht gelesen werden. Vielleicht ist die Datei unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
+  <data name="LoadFailedDamagedMany" xml:space="preserve"><value>Diese Dateien sind beschädigt oder können nicht gelesen werden: {0}. Vielleicht sind sie unvollständig oder noch in einem anderen Programm geöffnet.</value></data>
+  <data name="LoadFailedUnsupportedOne" xml:space="preserve"><value>{0} ist keine PDF-Datei. Hier können nur PDF-Dateien geöffnet werden.</value></data>
+  <data name="LoadFailedUnsupportedMany" xml:space="preserve"><value>Diese Dateien sind keine PDF-Dateien: {0}. Hier können nur PDF-Dateien geöffnet werden.</value></data>
+  <data name="LoadFailedNotAnImageOne" xml:space="preserve"><value>{0} ist kein JPG- oder PNG-Bild. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
+  <data name="LoadFailedNotAnImageMany" xml:space="preserve"><value>Diese Dateien sind keine JPG- oder PNG-Bilder: {0}. Hier können nur JPG- und PNG-Bilder hinzugefügt werden.</value></data>
+  <data name="SavedAs" xml:space="preserve"><value>Gespeichert als „{0}“ im Ordner {1}</value></data>
+  <data name="SaveFailed" xml:space="preserve"><value>„{0}“ konnte nicht gespeichert werden. Vielleicht ist die Datei noch in einem anderen Programm geöffnet oder schreibgeschützt, oder der Ordner darf nicht verändert werden. Bitte versuchen Sie es mit einem anderen Namen oder Ordner.</value></data>
+  <data name="SaveSeveralDialogTitle" xml:space="preserve"><value>Ordner und Namen für die Dateien wählen</value></data>
+  <data name="SavedSeveral" xml:space="preserve"><value>{0} Dateien gespeichert („{1}“ bis „{2}“) im Ordner {3}</value></data>
+  <data name="SaveSeveralFailed" xml:space="preserve"><value>Die Dateien konnten nicht im Ordner {0} gespeichert werden. Vielleicht ist eine davon noch in einem anderen Programm geöffnet, oder der Ordner darf nicht verändert werden. Bitte versuchen Sie es mit einem anderen Ordner.</value></data>
+  <data name="ReplaceFilesTitle" xml:space="preserve"><value>Dateien ersetzen?</value></data>
+  <data name="ReplaceFilesOne" xml:space="preserve"><value>Im Ordner gibt es schon „{0}“. Soll die Datei ersetzt werden?</value></data>
+  <data name="ReplaceFilesMany" xml:space="preserve"><value>Im Ordner gibt es schon „{0}“ und {1} weitere Dateien mit diesen Namen. Sollen sie ersetzt werden?</value></data>
+  <data name="ReplaceFilesConfirm" xml:space="preserve"><value>Ersetzen</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="OpenFolder" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="SaveFailedUnexpected" xml:space="preserve"><value>Beim Speichern ist ein Fehler aufgetreten. Ihre Dokumente sind unverändert. Bitte versuchen Sie es noch einmal.</value></data>
+  <data name="DialogFailed" xml:space="preserve"><value>Das Fenster zum Auswählen der Datei konnte nicht geöffnet werden. Bitte versuchen Sie es noch einmal.</value></data>
+  <data name="BusyOpening" xml:space="preserve"><value>Dokumente werden geöffnet …</value></data>
+  <data name="BusySaving" xml:space="preserve"><value>Wird gespeichert …</value></data>
+  <data name="PageCountOne" xml:space="preserve"><value>1 Seite</value></data>
+  <data name="PageCountMany" xml:space="preserve"><value>{0} Seiten</value></data>
+  <data name="RemoveFromList" xml:space="preserve"><value>Entfernen</value></data>
+  <data name="SizeKilobytes" xml:space="preserve"><value>{0:N0} KB</value></data>
+  <data name="SizeMegabytes" xml:space="preserve"><value>{0:N1} MB</value></data>
+  <data name="PageNumber" xml:space="preserve"><value>Seite {0}</value></data>
+  <data name="PageMarkedForRemoval" xml:space="preserve"><value>Seite {0}, wird entfernt</value></data>
+  <data name="PartLabel" xml:space="preserve"><value>Teil {0}</value></data>
+  <data name="GapAddSplit" xml:space="preserve"><value>Zwischen Seite {0} und {1} trennen</value></data>
+  <data name="GapRemoveSplit" xml:space="preserve"><value>Trennstelle zwischen Seite {0} und {1} entfernen</value></data>
+  <data name="PreviewTitle" xml:space="preserve"><value>Vorschau – {0}</value></data>
+  <data name="PreviewClose.Text" xml:space="preserve"><value>Schließen</value></data>
+  <data name="PreviewCloseButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Schließen</value></data>
+
+  <data name="OpenDocumentHint.Text" xml:space="preserve"><value>Öffnen Sie eine PDF-Datei – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="PagesNoneSelected" xml:space="preserve"><value>Wählen Sie mindestens eine Seite aus.</value></data>
+  <data name="PagesSelectedOne" xml:space="preserve"><value>1 Seite ausgewählt</value></data>
+  <data name="PagesSelectedMany" xml:space="preserve"><value>{0} Seiten ausgewählt</value></data>
+  <data name="OneDocumentOnly" xml:space="preserve"><value>Hier wird immer ein Dokument bearbeitet. Geöffnet wurde „{0}“.</value></data>
+  <data name="OneImageOnly" xml:space="preserve"><value>Hier wird immer ein Bild bearbeitet. Geöffnet wurde „{0}“.</value></data>
+  <data name="BusyOpeningImage" xml:space="preserve"><value>Bild wird geöffnet …</value></data>
+
+  <!-- Merge -->
+  <data name="MergeTitle" xml:space="preserve"><value>PDF-Dateien zusammenfügen</value></data>
+  <data name="MergeEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie zwei oder mehr PDF-Dateien – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="MergeOrderHint.Text" xml:space="preserve"><value>Ziehen Sie die Dokumente in die gewünschte Reihenfolge.</value></data>
+  <data name="MergeNeedTwo.Text" xml:space="preserve"><value>Fügen Sie mindestens zwei Dokumente hinzu.</value></data>
+  <data name="MergeSave.Text" xml:space="preserve"><value>Zusammenfügen und speichern</value></data>
+  <data name="MergeSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zusammenfügen und speichern</value></data>
+
+  <!-- Edit pages -->
+  <data name="EditPagesTitle" xml:space="preserve"><value>Seiten bearbeiten</value></data>
+  <data name="EditPagesHint.Text" xml:space="preserve"><value>Klicken Sie Seiten an, um sie auszuwählen – mit Strg oder Umschalt auch mehrere. Ziehen Sie eine Seite an eine andere Stelle, um die Reihenfolge zu ändern. Ein Doppelklick öffnet die Vorschau.</value></data>
+  <data name="EditPagesRotateLeft.Text" xml:space="preserve"><value>Links drehen</value></data>
+  <data name="EditPagesRotateLeftButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Links drehen</value></data>
+  <data name="EditPagesRotateRight.Text" xml:space="preserve"><value>Rechts drehen</value></data>
+  <data name="EditPagesRotateRightButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Rechts drehen</value></data>
+  <data name="EditPagesRemove" xml:space="preserve"><value>Entfernen</value></data>
+  <data name="EditPagesKeep" xml:space="preserve"><value>Nicht entfernen</value></data>
+  <data name="EditPagesAllRemoved.Text" xml:space="preserve"><value>Alle Seiten sind zum Entfernen markiert. Behalten Sie mindestens eine Seite, um speichern zu können.</value></data>
+  <data name="EditPagesSave.Text" xml:space="preserve"><value>Speichern</value></data>
+  <data name="EditPagesSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Speichern</value></data>
+  <data name="EditPagesDragOne" xml:space="preserve"><value>Seiten werden einzeln verschoben. Klicken Sie zuerst nur die Seite an, die Sie verschieben möchten, und ziehen Sie sie dann.</value></data>
+  <data name="BusyFindingBlankPages" xml:space="preserve"><value>Leere Seiten werden gesucht … Seite {0} von {1}</value></data>
+  <data name="BlankPagesFoundOne" xml:space="preserve"><value>1 leere Seite erkannt (Seite {0}) – wird beim Speichern entfernt. Soll sie doch bleiben, klicken Sie die Seite an und dann auf „Nicht entfernen“.</value></data>
+  <data name="BlankPagesFoundMany" xml:space="preserve"><value>{0} leere Seiten erkannt (Seite {1}) – werden beim Speichern entfernt. Soll eine davon bleiben, klicken Sie die Seite an und dann auf „Nicht entfernen“.</value></data>
+
+  <!-- Split -->
+  <data name="SplitTitle" xml:space="preserve"><value>PDF-Datei aufteilen</value></data>
+  <data name="SplitHint.Text" xml:space="preserve"><value>Klicken Sie zwischen zwei Seiten, um dort zu trennen – eine Schere zeigt die Trennstelle. Ein zweiter Klick entfernt sie wieder. Ein Doppelklick auf eine Seite öffnet die Vorschau.</value></data>
+  <data name="SplitEachPage.Header" xml:space="preserve"><value>Jede Seite einzeln</value></data>
+  <data name="SplitEachPage.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Jede Seite einzeln</value></data>
+  <data name="SplitEachPage.OnContent" xml:space="preserve"><value>Ein</value></data>
+  <data name="SplitEachPage.OffContent" xml:space="preserve"><value>Aus</value></data>
+  <data name="SplitOnePage" xml:space="preserve"><value>Dieses Dokument hat nur eine Seite – es lässt sich nicht aufteilen.</value></data>
+  <data name="SplitNeedTwoParts" xml:space="preserve"><value>Setzen Sie mindestens eine Trennstelle.</value></data>
+  <data name="SplitPartCount" xml:space="preserve"><value>Ergibt {0} Teile</value></data>
+  <data name="SplitSave.Text" xml:space="preserve"><value>Teile speichern</value></data>
+  <data name="SplitSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Teile speichern</value></data>
+
+  <!-- Page to image -->
+  <data name="PageToImageTitle" xml:space="preserve"><value>Seiten als Bild speichern</value></data>
+  <data name="PageToImageHint.Text" xml:space="preserve"><value>Klicken Sie die Seiten an, die Sie als Bild (JPG) speichern möchten. Ein zweiter Klick hebt die Auswahl wieder auf, ein Doppelklick öffnet die Vorschau. Jede Seite wird ein eigenes Bild.</value></data>
+  <data name="BusySavingImages" xml:space="preserve"><value>Bild {0} von {1} wird gespeichert …</value></data>
+  <data name="PageToImageSave.Text" xml:space="preserve"><value>Als Bild speichern</value></data>
+  <data name="PageToImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als Bild speichern</value></data>
+
+  <!-- Images to PDF -->
+  <data name="ImagesToPdfTitle" xml:space="preserve"><value>Bilder zu einer PDF-Datei zusammenfassen</value></data>
+  <data name="ImagesToPdfEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie Fotos oder Bilder (JPG oder PNG) – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="ImagesToPdfOrderHint.Text" xml:space="preserve"><value>Jedes Bild wird eine A4-Seite. Ziehen Sie die Bilder in die gewünschte Reihenfolge.</value></data>
+  <data name="ImagePagePortrait" xml:space="preserve"><value>Seite im Hochformat</value></data>
+  <data name="ImagePageLandscape" xml:space="preserve"><value>Seite im Querformat</value></data>
+  <data name="BusyOpeningImages" xml:space="preserve"><value>Bilder werden geöffnet …</value></data>
+  <data name="ImagesToPdfSave.Text" xml:space="preserve"><value>Als PDF speichern</value></data>
+  <data name="ImagesToPdfSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF speichern</value></data>
+
+  <!-- Resize image -->
+  <data name="ResizeImageTitle" xml:space="preserve"><value>Bildgröße ändern</value></data>
+  <data name="ResizeImageEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es einfach hierher.</value></data>
+  <data name="ResizeOriginalSize" xml:space="preserve"><value>Jetzt {0:N0} × {1:N0} Pixel</value></data>
+  <data name="ResizeByPercentage.Content" xml:space="preserve"><value>Größe in Prozent</value></data>
+  <data name="ResizePercentageBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Größe in Prozent</value></data>
+  <data name="ResizePercentageHint.Text" xml:space="preserve"><value>% – 50 % ist halb so breit und hoch, 200 % doppelt so groß.</value></data>
+  <data name="ResizeByPixels.Content" xml:space="preserve"><value>Breite und Höhe in Pixel</value></data>
+  <data name="ResizeWidthBox.Header" xml:space="preserve"><value>Breite (Pixel)</value></data>
+  <data name="ResizeHeightBox.Header" xml:space="preserve"><value>Höhe (Pixel)</value></data>
+  <data name="ResizeKeepProportions.Content" xml:space="preserve"><value>Seitenverhältnis beibehalten (Bild nicht verzerren)</value></data>
+  <data name="ResizeNewSize" xml:space="preserve"><value>Neue Größe: {0:N0} × {1:N0} Pixel</value></data>
+  <data name="ResizeImageSave.Text" xml:space="preserve"><value>In neuer Größe speichern</value></data>
+  <data name="ResizeImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In neuer Größe speichern</value></data>
+
+  <!-- Compress -->
+  <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>
+  <data name="CompressTooLarge" xml:space="preserve"><value>Mit {0} ist das Dokument zu groß für viele E-Mail-Postfächer. Unter 10 MB kommt es fast überall an.</value></data>
+  <data name="CompressAlreadySmall" xml:space="preserve"><value>Mit {0} ist das Dokument schon klein genug für E-Mails. Sie können es trotzdem etwas verkleinern.</value></data>
+  <data name="CompressStart" xml:space="preserve"><value>Verkleinern</value></data>
+  <data name="CompressLightly" xml:space="preserve"><value>Etwas verkleinern</value></data>
+  <data name="BusyCompressingStarted" xml:space="preserve"><value>Wird verkleinert …</value></data>
+  <data name="BusyCompressing" xml:space="preserve"><value>Wird verkleinert … Seite {0} von {1}</value></data>
+  <data name="BusyCompressingMore" xml:space="preserve"><value>Noch etwas kleiner … Seite {0} von {1}</value></data>
+  <data name="CompressSizes" xml:space="preserve"><value>Vorher {0} → Nachher {1}</value></data>
+  <data name="CompressReached" xml:space="preserve"><value>Jetzt ist das Dokument klein genug für E-Mails. Speichern Sie es, um es zu verschicken.</value></data>
+  <data name="CompressReachedLightly" xml:space="preserve"><value>Das Dokument ist jetzt noch etwas kleiner.</value></data>
+  <data name="CompressNotReached" xml:space="preserve"><value>Kleiner geht es nicht, ohne dass Text unleserlich wird. Für viele E-Mail-Postfächer ist das Dokument noch zu groß.</value></data>
+  <data name="CompressPartsPossible" xml:space="preserve"><value>Sie können es aber in {0} Teile aufteilen, die jeweils in eine E-Mail passen.</value></data>
+  <data name="CompressPageTooLargeOne" xml:space="preserve"><value>Seite {0} ist schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="CompressPageTooLargeMany" xml:space="preserve"><value>Die Seiten {0} sind schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="BusyPlanningParts" xml:space="preserve"><value>Teile für E-Mails werden zusammengestellt … Seite {0} von {1}</value></data>
+  <data name="CompressSaveAsParts.Text" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>
+  <data name="CompressSaveAsPartsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>
+  <data name="CompressNotSmaller" xml:space="preserve"><value>Dieses Dokument lässt sich nicht weiter verkleinern.</value></data>
+  <data name="CompressFailed" xml:space="preserve"><value>„{0}“ konnte nicht verkleinert werden.</value></data>
+  <data name="CompressSave.Text" xml:space="preserve"><value>Verkleinertes Dokument speichern</value></data>
+  <data name="CompressSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Verkleinertes Dokument speichern</value></data>
+
+  <!-- Extract pages -->
+  <data name="ExtractPagesTitle" xml:space="preserve"><value>Seiten herauslösen</value></data>
+  <data name="ExtractPagesHint.Text" xml:space="preserve"><value>Klicken Sie die Seiten an, die Sie als neues Dokument speichern möchten. Ein zweiter Klick hebt die Auswahl wieder auf, ein Doppelklick öffnet die Vorschau. Das Original bleibt unverändert.</value></data>
+  <data name="ExtractPagesSave.Text" xml:space="preserve"><value>Als neues Dokument speichern</value></data>
+  <data name="ExtractPagesSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als neues Dokument speichern</value></data>
+</root>

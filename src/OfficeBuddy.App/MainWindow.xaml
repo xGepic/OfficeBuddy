@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="OfficeBuddy.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="{ThemeResource AppBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- The window's own title bar, in the app's colours; Windows draws its buttons on the right. -->
+        <Grid x:Name="AppTitleBar" Height="48" Padding="16,0,0,0">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Spacing="10">
+                <Border
+                    Width="24"
+                    Height="24"
+                    Background="{ThemeResource AccentFillColorDefaultBrush}"
+                    CornerRadius="6">
+                    <FontIcon FontSize="14" Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}" Glyph="&#xE8A5;" />
+                </Border>
+                <TextBlock x:Name="AppTitleText" VerticalAlignment="Center" FontSize="14" />
+            </StackPanel>
+        </Grid>
+
+        <Frame x:Name="RootFrame" Grid.Row="1" FontSize="16" />
+    </Grid>
+</Window>
