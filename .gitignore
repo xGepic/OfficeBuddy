@@ -1,2 +1,11 @@
+# Build output: every build rewrites it
+bin/
+obj/
+
 # Built app and installer (installer/build.ps1)
 /artifacts/
+
+# Visual Studio and test run leftovers
+.vs/
+*.user
+TestResults/
