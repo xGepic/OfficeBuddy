@@ -151,6 +151,7 @@ public sealed partial class ToolShell : UserControl
             {
                 await save(path);
                 ShowSuccess(Strings.Format("SavedAs", Path.GetFileName(path), Path.GetDirectoryName(path)!));
+                OfferToShowInFolder(path);
             },
             path => Strings.Format("SaveFailed", Path.GetFileName(path)));
 
@@ -160,7 +161,7 @@ public sealed partial class ToolShell : UserControl
     /// <paramref name="baseName"/> filled in, asks before
     /// replacing files of the names <paramref name="fileNamesFor"/> gives for that base name, then
     /// runs <paramref name="save"/> (folder, base name, returning the paths written) while the
-    /// screen is busy, and offers to open the folder. Never throws.
+    /// screen is busy, and offers to show them in their folder. Never throws.
     /// </summary>
     internal Task SaveToFolderAsync(
         string? folder, string baseName, FileFilter fileType, Func<string, IReadOnlyList<string>> fileNamesFor,
@@ -223,19 +224,28 @@ public sealed partial class ToolShell : UserControl
     {
         ShowSuccess(Strings.Format("SavedSeveral", written.Count,
             Path.GetFileName(written[0]), Path.GetFileName(written[^1]), Path.GetDirectoryName(written[0])!));
-        var openFolder = new Button { Content = Strings.Get("OpenFolder") };
-        openFolder.Click += (_, _) =>
+        OfferToShowInFolder(written[0]);
+    }
+
+    /// <summary>
+    /// Adds a button to the message that opens File Explorer on the folder of
+    /// <paramref name="path"/> with that file selected, ready to drag into an email.
+    /// </summary>
+    private void OfferToShowInFolder(string path)
+    {
+        var showInFolder = new Button { Content = Strings.Get("ShowInFolder") };
+        showInFolder.Click += (_, _) =>
         {
             try
             {
-                Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{written[0]}\"") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{path}\"") { UseShellExecute = true });
             }
             catch (Exception)
             {
-                // Explorer would not start; the message already says where the files are.
+                // Explorer would not start; the message already says where the file is.
             }
         };
-        MessageBar.ActionButton = openFolder;
+        MessageBar.ActionButton = showInFolder;
     }
 
     /// <summary>

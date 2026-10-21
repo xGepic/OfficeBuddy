@@ -77,7 +77,7 @@
   <data name="ReplaceFilesMany" xml:space="preserve"><value>Im Ordner gibt es schon „{0}“ und {1} weitere Dateien mit diesen Namen. Sollen sie ersetzt werden?</value></data>
   <data name="ReplaceFilesConfirm" xml:space="preserve"><value>Ersetzen</value></data>
   <data name="Cancel" xml:space="preserve"><value>Abbrechen</value></data>
-  <data name="OpenFolder" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="ShowInFolder" xml:space="preserve"><value>Im Ordner zeigen</value></data>
   <data name="SaveFailedUnexpected" xml:space="preserve"><value>Beim Speichern ist ein Fehler aufgetreten. Ihre Dokumente sind unverändert. Bitte versuchen Sie es noch einmal.</value></data>
   <data name="DialogFailed" xml:space="preserve"><value>Das Fenster zum Auswählen der Datei konnte nicht geöffnet werden. Bitte versuchen Sie es noch einmal.</value></data>
   <data name="BusyOpening" xml:space="preserve"><value>Dokumente werden geöffnet …</value></data>

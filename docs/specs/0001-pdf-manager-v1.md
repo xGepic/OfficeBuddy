@@ -69,7 +69,7 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 29. As a parent, I want to be able to overwrite the original Document if I deliberately choose to, so that I don't collect copies I don't need.
 30. As a parent, I want Tools that produce several files to ask once for a folder and a base name, so that I don't have to click through a dialog for every file.
 31. As a parent, I want those files to be named automatically, such as `Kontoauszug - Teil 1.pdf` or `Kontoauszug - Seite 3.jpg`, so that they are easy to tell apart and sort correctly.
-32. As a parent, I want an *"Ordner öffnen"* button after saving, so that I can see my new files in Explorer right away.
+32. As a parent, I want an *"Im Ordner zeigen"* button after every save, so that I can see my new file or files in Explorer right away, for example to drag them into an email.
 33. As a parent, I want a clear confirmation after saving, so that I know it worked.
 
 ### Merge (*Zusammenfügen*)
@@ -202,7 +202,8 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 
 ### Saving and dialogs
 - Single-file Tools show a save dialog every time, opened in the first source Document's folder, pre-filled with the suggested name. The Windows overwrite warning is the only overwrite protection.
-- Multi-file Tools show one dialog for a folder and base name, then offer *"Ordner öffnen"*.
+- After every save, the success message offers *"Im Ordner zeigen"*, which opens File Explorer with the saved file (the first one, for several) selected.
+- Multi-file Tools show one dialog for a folder and base name.
 
 ### UI conventions
 - Thumbnails with page numbers. Double-click opens the Preview, which closes by button, Escape or clicking outside it. Ctrl/Shift-click for multi-select.
