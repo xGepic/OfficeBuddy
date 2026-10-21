@@ -6,6 +6,9 @@ namespace OfficeBuddy.App;
 /// <summary>A tile on the start screen. Tiles without a page are Tools that are not built yet.</summary>
 public sealed class ToolTile(string glyph, string resourceKey, Type? pageType)
 {
+    /// <summary>Names the Tool in the settings file.</summary>
+    public string Id { get; } = resourceKey;
+
     public string Glyph { get; } = glyph;
 
     public string Name { get; } = Strings.Get($"Tool{resourceKey}Name");

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:OfficeBuddy.App">
+
+    <Grid Padding="32,20,32,24" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Uid="ToolShellBackButton" Click="Back_Click" Padding="14,8">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon Glyph="&#xE72B;" FontSize="16" />
+                    <TextBlock x:Uid="ToolShellBack" />
+                </StackPanel>
+            </Button>
+
+            <TextBlock
+                x:Uid="SettingsHeading"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Style="{StaticResource TitleTextBlockStyle}" />
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled">
+            <StackPanel MaxWidth="720" HorizontalAlignment="Left" Spacing="12">
+                <TextBlock x:Uid="SettingsFavoritesHeading" Margin="0,8,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock
+                    x:Uid="SettingsFavoritesHint"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextWrapping="Wrap" />
+
+                <ItemsControl IsTabStop="False" ItemsSource="{x:Bind Tiles}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="app:ToolTile">
+                            <Border
+                                Padding="16,10"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <CheckBox
+                                    AutomationProperties.Name="{x:Bind Name}"
+                                    Checked="Favorite_Changed"
+                                    Loaded="Favorite_Loaded"
+                                    Tag="{x:Bind}"
+                                    Unchecked="Favorite_Changed">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <FontIcon
+                                            FontSize="20"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                            Glyph="{x:Bind Glyph}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{x:Bind Name}" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

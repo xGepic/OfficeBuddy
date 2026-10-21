@@ -21,13 +21,30 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="Header" SizeChanged="Layout_SizeChanged" Spacing="4">
-                <TextBlock x:Uid="StartHeading" Style="{StaticResource TitleLargeTextBlockStyle}" />
-                <TextBlock
-                    x:Uid="StartSubheading"
-                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
+            <Grid x:Name="Header" ColumnSpacing="20" SizeChanged="Layout_SizeChanged">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="4">
+                    <TextBlock x:Uid="StartHeading" Style="{StaticResource TitleLargeTextBlockStyle}" />
+                    <TextBlock
+                        x:Uid="StartSubheading"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <Button
+                    x:Uid="StartSettingsButton"
+                    Grid.Column="1"
+                    VerticalAlignment="Top"
+                    Click="Settings_Click"
+                    Padding="14,8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon FontSize="16" Glyph="&#xE713;" />
+                        <TextBlock x:Uid="StartSettings" />
+                    </StackPanel>
+                </Button>
+            </Grid>
 
             <ItemsControl
                 x:Name="TileList"

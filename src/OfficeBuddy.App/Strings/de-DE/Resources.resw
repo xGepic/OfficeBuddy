@@ -20,6 +20,8 @@
   <data name="StartHeading.Text" xml:space="preserve"><value>Was möchten Sie tun?</value></data>
   <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine Datei direkt auf eine Kachel.</value></data>
   <data name="StartComingSoon" xml:space="preserve"><value>Bald verfügbar</value></data>
+  <data name="StartSettings.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="StartSettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Einstellungen</value></data>
 
   <data name="ToolMergeName" xml:space="preserve"><value>Zusammenfügen</value></data>
   <data name="ToolMergeDescription" xml:space="preserve"><value>Mehrere PDF-Dateien zu einer einzigen verbinden</value></data>
@@ -37,6 +39,11 @@
   <data name="ToolPageToImageDescription" xml:space="preserve"><value>Seiten als JPG-Bild speichern</value></data>
   <data name="ToolResizeImageName" xml:space="preserve"><value>Bildgröße ändern</value></data>
   <data name="ToolResizeImageDescription" xml:space="preserve"><value>Fotos und Bilder verkleinern oder vergrößern</value></data>
+
+  <!-- Settings -->
+  <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="SettingsFavoritesHeading.Text" xml:space="preserve"><value>Favoriten</value></data>
+  <data name="SettingsFavoritesHint.Text" xml:space="preserve"><value>Ihre Favoriten stehen auf der Startseite ganz oben, in der Mitte.</value></data>
 
   <!-- Shared Tool frame -->
   <data name="ToolShellBack.Text" xml:space="preserve"><value>Zurück</value></data>

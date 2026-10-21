@@ -8,6 +8,7 @@ namespace OfficeBuddy.App.Controls;
 /// Lays out start-screen tiles in equal columns, giving every tile the height of the tallest one
 /// so no description is cut off, whatever the Windows text size. When the tiles would not fit into
 /// <see cref="FitHeight"/>, it uses more, narrower columns before leaving the rest to scrolling.
+/// The first <see cref="FavoriteCount"/> tiles get rows of their own, centered, above the others.
 /// </summary>
 public sealed partial class TileGrid : Panel
 {
@@ -16,8 +17,11 @@ public sealed partial class TileGrid : Panel
     private const double NarrowestItemWidth = 260;
     private const double MinItemHeight = 140;
     private const double Spacing = 16;
+    // Between the favorites and the other tiles, so they read as two groups.
+    private const double GroupSpacing = 40;
 
     private double _fitHeight = double.PositiveInfinity;
+    private int _favoriteCount;
     private Layout _layout;
 
     /// <summary>The height the tiles should fit into without scrolling.</summary>
@@ -29,6 +33,20 @@ public sealed partial class TileGrid : Panel
             if (value != _fitHeight)
             {
                 _fitHeight = value;
+                InvalidateMeasure();
+            }
+        }
+    }
+
+    /// <summary>How many of the first tiles are favorites.</summary>
+    public int FavoriteCount
+    {
+        get => _favoriteCount;
+        set
+        {
+            if (value != _favoriteCount)
+            {
+                _favoriteCount = value;
                 InvalidateMeasure();
             }
         }
@@ -51,15 +69,32 @@ public sealed partial class TileGrid : Panel
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        for (var i = 0; i < Children.Count; i++)
-        {
-            var x = i % _layout.Columns * (_layout.ItemWidth + Spacing);
-            var y = i / _layout.Columns * (_layout.ItemHeight + Spacing);
-            Children[i].Arrange(new Rect(x, y, _layout.ItemWidth, _layout.ItemHeight));
-        }
+        var favorites = Math.Min(FavoriteCount, Children.Count);
+        var top = ArrangeGroup(0, favorites, 0, finalSize.Width, centered: true);
+        ArrangeGroup(favorites, Children.Count, top + (favorites > 0 ? GroupSpacing : 0), finalSize.Width, centered: false);
 
         return finalSize;
     }
+
+    /// <summary>Arranges children <paramref name="start"/> to <paramref name="end"/> in rows from <paramref name="top"/>; returns the height they take.</summary>
+    private double ArrangeGroup(int start, int end, double top, double width, bool centered)
+    {
+        for (var i = start; i < end; i++)
+        {
+            var column = (i - start) % _layout.Columns;
+            var row = (i - start) / _layout.Columns;
+            var rowStart = start + row * _layout.Columns;
+            var tilesInRow = Math.Min(_layout.Columns, end - rowStart);
+            var indent = centered ? (width - RowWidth(tilesInRow)) / 2 : 0;
+            var x = indent + column * (_layout.ItemWidth + Spacing);
+            var y = top + row * (_layout.ItemHeight + Spacing);
+            Children[i].Arrange(new Rect(x, y, _layout.ItemWidth, _layout.ItemHeight));
+        }
+
+        return top + GroupHeight(end - start, _layout.Columns, _layout.ItemHeight);
+    }
+
+    private double RowWidth(int tiles) => tiles * _layout.ItemWidth + (tiles - 1) * Spacing;
 
     private Layout MeasureWith(double width, int columns)
     {
@@ -71,8 +106,17 @@ public sealed partial class TileGrid : Panel
             itemHeight = Math.Max(itemHeight, child.DesiredSize.Height);
         }
 
-        var rows = (int)Math.Ceiling(Children.Count / (double)columns);
-        return new Layout(columns, itemWidth, itemHeight, rows * itemHeight + Math.Max(0, rows - 1) * Spacing);
+        var favorites = Math.Min(FavoriteCount, Children.Count);
+        var others = Children.Count - favorites;
+        var height = GroupHeight(favorites, columns, itemHeight) + GroupHeight(others, columns, itemHeight)
+            + (favorites > 0 && others > 0 ? GroupSpacing : 0);
+        return new Layout(columns, itemWidth, itemHeight, height);
+    }
+
+    private static double GroupHeight(int tiles, int columns, double itemHeight)
+    {
+        var rows = (int)Math.Ceiling(tiles / (double)columns);
+        return rows * itemHeight + Math.Max(0, rows - 1) * Spacing;
     }
 
     private static double ItemWidth(double width, int columns) => (width - (columns - 1) * Spacing) / columns;

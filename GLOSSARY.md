@@ -80,6 +80,10 @@ _Avoid_: Export, render, screenshot
 Saving one JPG or PNG image at a different size in pixels, given either as a percentage or as a width and height, keeping its proportions unless the user turns that off. The result keeps the image's format and is written the right way up. UI term: *Bildgröße ändern*.
 _Avoid_: Scale, shrink image, compress image
 
+**Favorite**:
+A Tool the user has marked in the settings so that its tile shows first on the start screen, centered above the other tiles. UI term: *Favorit*.
+_Avoid_: Pinned, starred, bookmark
+
 **Protected Document**:
 A Document that needs a password to open. The app refuses to work on it and does not try to remove the password.
 _Avoid_: Encrypted PDF, locked file
