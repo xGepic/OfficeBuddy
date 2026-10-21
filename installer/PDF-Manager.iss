@@ -33,6 +33,7 @@ UninstallDisplayName={#AppName}
 UninstallDisplayIcon={app}\{#AppExe}
 OutputDir=..\artifacts
 OutputBaseFilename=PDF-Manager-Setup
+SetupIconFile=..\src\PdfManager.App\Assets\PdfManager.ico
 Compression=lzma2/max
 SolidCompression=yes
 

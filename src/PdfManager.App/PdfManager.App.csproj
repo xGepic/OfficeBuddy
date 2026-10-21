@@ -9,6 +9,8 @@
     <!-- Raise for every installer handed out; the setup takes its version from here. -->
     <Version>1.0.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Shown for the exe: desktop and Start-menu shortcuts, Explorer. -->
+    <ApplicationIcon>Assets\PdfManager.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
@@ -24,6 +26,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Also next to the exe, for the window: title bar, taskbar and Alt+Tab. -->
+    <Content Include="Assets\PdfManager.ico" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

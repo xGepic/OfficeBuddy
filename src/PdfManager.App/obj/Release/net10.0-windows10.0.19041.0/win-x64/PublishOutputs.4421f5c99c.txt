@@ -5,6 +5,7 @@ E:\ClaudeProjects\PDF-Manager\artifacts\publish\Ghostscript\msvcp140.dll
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\Ghostscript\vcruntime140.dll
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\Ghostscript\vcruntime140_1.dll
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\Ghostscript\COPYING
+E:\ClaudeProjects\PDF-Manager\artifacts\publish\Assets\PdfManager.ico
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\CoreMessagingXP.dll
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\dcompi.dll
 E:\ClaudeProjects\PDF-Manager\artifacts\publish\dwmcorei.dll
