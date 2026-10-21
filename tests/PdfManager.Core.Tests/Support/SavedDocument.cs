@@ -20,29 +20,26 @@ public static class SavedDocument
     public static IReadOnlyList<SavedPage> ReadPages(string path)
     {
         using var document = PdfDocument.Open(path);
-        return document.GetPages()
-            .Select(page => new SavedPage(page.Text.Trim(), page.Rotation.Value))
-            .ToList();
+        return [.. document.GetPages().Select(page => new SavedPage(page.Text.Trim(), page.Rotation.Value))];
     }
 
     public static IReadOnlyList<string> ReadLabels(string path) =>
-        ReadPages(path).Select(page => page.Label).ToList();
+        [.. ReadPages(path).Select(page => page.Label)];
 
     /// <summary>The size of every Page, in points.</summary>
     public static IReadOnlyList<(double Width, double Height)> ReadPageSizes(string path)
     {
         using var document = PdfDocument.Open(path);
-        return document.GetPages().Select(page => (page.Width, page.Height)).ToList();
+        return [.. document.GetPages().Select(page => (page.Width, page.Height))];
     }
 
     /// <summary>The resolution of every image on every Page, in pixels per inch across the Page.</summary>
     public static IReadOnlyList<double> ReadImageResolutions(string path)
     {
         using var document = PdfDocument.Open(path);
-        return document.GetPages()
+        return [.. document.GetPages()
             .SelectMany(page => page.GetImages())
-            .Select(image => image.WidthInSamples / (image.BoundingBox.Width / 72))
-            .ToList();
+            .Select(image => image.WidthInSamples / (image.BoundingBox.Width / 72))];
     }
 
     /// <summary>A Page as Windows draws it, with its rotation applied.</summary>

@@ -33,10 +33,8 @@ public sealed class EditPagesSession() : DocumentSession<ImmutableList<PageEntry
         {
             // Looking at every Page takes a while; keep it off the caller's (UI) thread.
             var blankIndexes = await Task.Run(() => BlankPageDetection.FindAsync(document, progress));
-            DetectedBlankPageNumbers = blankIndexes.Select(index => index + 1).ToList();
-            return Enumerable.Range(0, document.PageCount)
-                .Select(index => new PageEntry(index, IsMarkedForRemoval: blankIndexes.Contains(index)))
-                .ToImmutableList();
+            DetectedBlankPageNumbers = [.. blankIndexes.Select(index => index + 1)];
+            return [.. Enumerable.Range(0, document.PageCount).Select(index => new PageEntry(index, IsMarkedForRemoval: blankIndexes.Contains(index)))];
         });
 
     /// <summary>Marks the Pages at these positions in <see cref="Pages"/> to be left out when saving.</summary>
@@ -64,10 +62,9 @@ public sealed class EditPagesSession() : DocumentSession<ImmutableList<PageEntry
     public async Task SaveAsync(string outputPath)
     {
         var (document, pages) = (Document!, State);
-        await DocumentWriter.WriteAsync(outputPath, pages
+        await DocumentWriter.WriteAsync(outputPath, [.. pages
             .Where(page => !page.IsMarkedForRemoval)
-            .Select(page => new PlannedPage(document, page.SourceIndex, page.Rotation))
-            .ToList());
+            .Select(page => new PlannedPage(document, page.SourceIndex, page.Rotation))]);
         MarkSaved(pages);
     }
 

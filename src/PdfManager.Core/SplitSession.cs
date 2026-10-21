@@ -35,10 +35,8 @@ public sealed class SplitSession() : DocumentSession<SplitSession.Plan>(new Plan
 
             var starts = State.EachPageSeparately
                 ? Enumerable.Range(0, Document.PageCount).ToList()
-                : State.SplitPoints.Prepend(0).ToList();
-            return starts
-                .Select((start, i) => new PageRange(start, i + 1 < starts.Count ? starts[i + 1] - 1 : Document.PageCount - 1))
-                .ToList();
+                : [.. State.SplitPoints.Prepend(0)];
+            return [.. starts.Select((start, i) => new PageRange(start, i + 1 < starts.Count ? starts[i + 1] - 1 : Document.PageCount - 1))];
         }
     }
 
@@ -83,7 +81,7 @@ public sealed class SplitSession() : DocumentSession<SplitSession.Plan>(new Plan
     {
         var (document, plan, parts) = (Document!, State, Parts);
         var written = await SeveralFiles.WriteAsync(folder, FileNamesFor(baseName), (i, path) =>
-            DocumentWriter.WriteAsync(path, parts[i].Indexes.Select(index => new PlannedPage(document, index)).ToList()));
+            DocumentWriter.WriteAsync(path, [.. parts[i].Indexes.Select(index => new PlannedPage(document, index))]));
         MarkSaved(plan);
         return written;
     }

@@ -34,5 +34,5 @@ public abstract class DocumentSession<TState>(TState initial) : ToolSession<TSta
 
     /// <summary>Every Page of the Document in its original order, for Tools that don't change the Pages themselves.</summary>
     protected IReadOnlyList<PageEntry> AllPages =>
-        Enumerable.Range(0, Document?.PageCount ?? 0).Select(index => new PageEntry(index)).ToList();
+        [.. Enumerable.Range(0, Document?.PageCount ?? 0).Select(index => new PageEntry(index))];
 }

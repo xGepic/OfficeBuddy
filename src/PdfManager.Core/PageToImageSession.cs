@@ -11,7 +11,7 @@ public sealed class PageToImageSession : PageSelectionSession
     /// with the original page number, so existing ones can be checked first.
     /// </summary>
     public IReadOnlyList<string> FileNamesFor(string baseName) =>
-        State.Select(index => $"{baseName} - Seite {index + 1}.jpg").ToList();
+        [.. State.Select(index => $"{baseName} - Seite {index + 1}.jpg")];
 
     /// <summary>
     /// Saves every selected Page as a JPG image into <paramref name="folder"/>, all or nothing.

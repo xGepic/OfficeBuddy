@@ -7,8 +7,6 @@ internal static class PartFiles
     public static IReadOnlyList<string> Names(string baseName, int count)
     {
         var digits = count.ToString().Length;
-        return Enumerable.Range(1, count)
-            .Select(number => $"{baseName} - Teil {number.ToString().PadLeft(digits, '0')}.pdf")
-            .ToList();
+        return [.. Enumerable.Range(1, count).Select(number => $"{baseName} - Teil {number.ToString().PadLeft(digits, '0')}.pdf")];
     }
 }

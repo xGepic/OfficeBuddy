@@ -55,7 +55,7 @@ public sealed partial class ImagesToPdfPage : Page
 
     private void Remove_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.Tag is ImageCard card)
+        if (sender is FrameworkElement { Tag: ImageCard card })
         {
             _session.Remove(card.Index);
         }

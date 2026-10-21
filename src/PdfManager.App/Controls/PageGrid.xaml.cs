@@ -64,7 +64,7 @@ public sealed partial class PageGrid : UserControl
 
     /// <summary>Positions of the selected Pages, in display order.</summary>
     public IReadOnlyList<int> SelectedPositions =>
-        Thumbnails.SelectedItems.OfType<PageThumbnail>().Select(Items.IndexOf).Where(i => i >= 0).Order().ToList();
+        [.. Thumbnails.SelectedItems.OfType<PageThumbnail>().Select(Items.IndexOf).Where(i => i >= 0).Order()];
 
     /// <summary>Whether Pages can be dragged to a new position. On by default.</summary>
     public bool CanReorder
@@ -135,7 +135,7 @@ public sealed partial class PageGrid : UserControl
             if (document is not null)
             {
                 _loading = new CancellationTokenSource();
-                _ = LoadThumbnailsAsync(document, Items.ToList(), _loading.Token);
+                _ = LoadThumbnailsAsync(document, [.. Items], _loading.Token);
             }
         }
 
@@ -359,7 +359,7 @@ public sealed partial class PageGrid : UserControl
 
     private void Gap_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is PageThumbnail thumbnail)
+        if (sender is FrameworkElement { DataContext: PageThumbnail thumbnail })
         {
             GapClicked?.Invoke(this, Items.IndexOf(thumbnail) + 1);
         }

@@ -14,7 +14,7 @@ public sealed class ExtractPagesSession : PageSelectionSession
     public async Task SaveAsync(string outputPath)
     {
         var (document, selected) = (Document!, State);
-        await DocumentWriter.WriteAsync(outputPath, selected.Select(index => new PlannedPage(document, index)).ToList());
+        await DocumentWriter.WriteAsync(outputPath, [.. selected.Select(index => new PlannedPage(document, index))]);
         MarkSaved(selected);
     }
 

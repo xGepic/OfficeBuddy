@@ -33,7 +33,7 @@ internal static class DroppedFiles
         try
         {
             var items = await e.DataView.GetStorageItemsAsync();
-            return items.OfType<StorageFile>().Select(file => file.Path).ToList();
+            return [.. items.OfType<StorageFile>().Select(file => file.Path)];
         }
         catch (Exception)
         {

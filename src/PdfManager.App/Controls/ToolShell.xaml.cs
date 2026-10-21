@@ -86,16 +86,10 @@ public sealed partial class ToolShell : UserControl
         get => _session;
         set
         {
-            if (_session is not null)
-            {
-                _session.Changed -= Session_Changed;
-            }
+            _session?.Changed -= Session_Changed;
 
             _session = value;
-            if (_session is not null)
-            {
-                _session.Changed += Session_Changed;
-            }
+            _session?.Changed += Session_Changed;
             UpdateUndoRedoButtons();
         }
     }
@@ -256,7 +250,7 @@ public sealed partial class ToolShell : UserControl
 
         var sentences = failures
             .GroupBy(failure => failure.Reason)
-            .Select(group => DescribeLoadFailures(group.Key, group.ToList()));
+            .Select(group => DescribeLoadFailures(group.Key, [.. group]));
         ShowError(string.Join("\n", sentences));
     }
 

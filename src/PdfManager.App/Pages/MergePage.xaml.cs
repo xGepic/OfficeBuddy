@@ -54,7 +54,7 @@ public sealed partial class MergePage : Page
 
     private void Remove_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.Tag is MergeCard card)
+        if (sender is FrameworkElement { Tag: MergeCard card })
         {
             _session.Remove(card.Index);
         }

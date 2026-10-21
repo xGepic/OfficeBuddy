@@ -37,9 +37,7 @@ public sealed class MergeSession() : ToolSession<ImmutableList<Document>>([])
     {
         // Saved in the background from the list as it is now; later changes don't affect it.
         var documents = State;
-        await DocumentWriter.WriteAsync(outputPath, documents
-            .SelectMany(document => Enumerable.Range(0, document.PageCount).Select(index => new PlannedPage(document, index)))
-            .ToList());
+        await DocumentWriter.WriteAsync(outputPath, [.. documents.SelectMany(document => Enumerable.Range(0, document.PageCount).Select(index => new PlannedPage(document, index)))]);
         MarkSaved(documents);
     }
 }
