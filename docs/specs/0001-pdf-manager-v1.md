@@ -155,7 +155,7 @@ Each Tool is its own screen. It goes from opening a Document, through choosing w
 
 ### Platform and delivery
 - Windows 11 only, .NET 10, WinUI 3 (Windows App SDK), built as an **unpackaged, self-contained** app so the .NET runtime and Windows App SDK ship with it.
-- Delivered as one Inno Setup installer that creates the Start-menu and desktop shortcuts and the uninstall entry. Updates are installed manually by re-running a newer installer. No auto-updater, no MSIX, no Store.
+- Delivered as one self-contained `PdfManager.exe` that runs without installing; shortcuts are made by hand. Updates replace the exe. No installer, no auto-updater, no MSIX, no Store. (Originally an Inno Setup installer with shortcuts and an uninstall entry; dropped in favour of the single exe.)
 - Fully offline: no network access of any kind.
 - German-only UI, no localisation layer beyond keeping strings in one resource file. Base font size somewhat larger than WinUI's default. Respects the Windows text scaling and theme settings.
 - No file association, no "Open with" registration, no Explorer context-menu entries. Documents are opened only through the *Öffnen* button, by dragging into a Tool screen, or by dropping onto a start-screen tile.

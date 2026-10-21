@@ -6,7 +6,7 @@
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <RootNamespace>PdfManager.App</RootNamespace>
     <AssemblyName>PdfManager</AssemblyName>
-    <!-- Raise for every installer handed out; the setup takes its version from here. -->
+    <!-- Raise for every exe handed out; File Explorer shows it in the file's properties. -->
     <Version>1.0.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <!-- Shown for the exe: desktop and Start-menu shortcuts, Explorer. -->

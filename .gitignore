@@ -2,7 +2,7 @@
 bin/
 obj/
 
-# Built app and installer (installer/build.ps1)
+# Published app (dotnet publish)
 /artifacts/
 
 # Visual Studio and test run leftovers
