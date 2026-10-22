@@ -185,7 +185,7 @@ public sealed class RecognizeTextSession() : DocumentSession<IReadOnlyList<Recog
     private static void MakeTextInvisible(PdfPage page)
     {
         var contents = page.Contents.Elements;
-        var drawn = (PdfDictionary)((PdfSharp.Pdf.Advanced.PdfReference)contents[contents.Count - 1]).Value;
+        var drawn = (PdfDictionary)((PdfSharp.Pdf.Advanced.PdfReference)contents[^1]).Value;
         var commands = Encoding.Latin1.GetString(drawn.Stream.UnfilteredValue);
         // Every piece of text starts with BT; nothing else can contain it, as PDFsharp writes text as hex.
         var invisible = commands.Replace("BT\n", "BT\n3 Tr\n", StringComparison.Ordinal);

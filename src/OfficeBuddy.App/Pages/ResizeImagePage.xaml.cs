@@ -39,7 +39,7 @@ public sealed partial class ResizeImagePage : Page
 
     private async void Shell_FilesOpened(object? sender, IReadOnlyList<string> paths) => await OpenAsync(paths);
 
-    private Task OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
+    private Task<bool> OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
 
     private void Mode_Checked(object sender, RoutedEventArgs e) => UpdateInputs();
 

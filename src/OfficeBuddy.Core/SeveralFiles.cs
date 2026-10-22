@@ -32,7 +32,7 @@ internal static class SeveralFiles
     }
 
     /// <summary>Moves every written file to its name, putting back what was there if one of them fails.</summary>
-    private static void PutInPlace(IReadOnlyList<string> temporary, IReadOnlyList<string> targets)
+    private static void PutInPlace(List<string> temporary, List<string> targets)
     {
         var done = new List<(string Target, string? Backup, bool Placed)>();
         try

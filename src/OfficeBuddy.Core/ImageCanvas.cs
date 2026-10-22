@@ -7,23 +7,16 @@ namespace OfficeBuddy.Core;
 /// An image as pixels in memory, the right way up, that other images can be drawn onto: blue,
 /// green, red and alpha bytes per pixel, row by row, with the colours already multiplied by alpha.
 /// </summary>
-internal sealed class ImageCanvas
+internal sealed class ImageCanvas(int width, int height, byte[] pixels)
 {
     /// <summary>The most pixels an image the app writes may have; bigger ones would hardly fit in memory.</summary>
     public const long MaxPixels = 64_000_000;
 
-    private readonly byte[] _pixels;
+    private readonly byte[] _pixels = pixels;
 
-    public ImageCanvas(int width, int height, byte[] pixels)
-    {
-        Width = width;
-        Height = height;
-        _pixels = pixels;
-    }
+    public int Width { get; } = width;
 
-    public int Width { get; }
-
-    public int Height { get; }
+    public int Height { get; } = height;
 
     /// <summary>A canvas of the given size in plain white.</summary>
     public static ImageCanvas White(int width, int height)

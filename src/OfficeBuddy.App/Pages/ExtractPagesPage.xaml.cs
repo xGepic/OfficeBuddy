@@ -30,7 +30,7 @@ public sealed partial class ExtractPagesPage : Page
 
     private async void Shell_FilesOpened(object? sender, IReadOnlyList<string> paths) => await OpenAsync(paths);
 
-    private Task OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
+    private Task<bool> OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
 
     // Without reordering, a position in the grid is the Page's index in the Document.
     private void PageThumbnails_SelectionChanged(object? sender, EventArgs e) =>

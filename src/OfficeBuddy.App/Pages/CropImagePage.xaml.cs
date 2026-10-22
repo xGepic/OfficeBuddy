@@ -51,7 +51,7 @@ public sealed partial class CropImagePage : Page
 
     private async void Shell_FilesOpened(object? sender, IReadOnlyList<string> paths) => await OpenAsync(paths);
 
-    private Task OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
+    private Task<bool> OpenAsync(IReadOnlyList<string> paths) => Shell.OpenOneAsync(paths, _session.OpenAsync);
 
     private void RotateLeft_Click(object sender, RoutedEventArgs e) => _session.RotateLeft();
 

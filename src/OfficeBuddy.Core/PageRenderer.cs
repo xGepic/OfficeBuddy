@@ -134,7 +134,7 @@ internal sealed class PageRenderer
         return (double)decoder.PixelWidth / ProbeSize;
     }
 
-    private static async Task<byte[]> ReadAllAsync(IRandomAccessStream stream)
+    private static async Task<byte[]> ReadAllAsync(InMemoryRandomAccessStream stream)
     {
         stream.Seek(0);
         var buffer = new byte[stream.Size];

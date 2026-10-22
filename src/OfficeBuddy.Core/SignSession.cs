@@ -14,7 +14,7 @@ public sealed record Signing(ImageFile? Signature, ImmutableDictionary<int, Plac
 /// signature, its paper made transparent), and the Pages it is put on, at most once each. The
 /// signature stays chosen when another Document is opened. Every change can be undone.
 /// </summary>
-public sealed class SignSession() : DocumentSession<Signing>(new(null, ImmutableDictionary<int, Placement>.Empty))
+public sealed class SignSession() : DocumentSession<Signing>(new(null, []))
 {
     // A newly placed signature is this share of the Page's width, unless that makes it too high.
     private const double StartingWidth = 0.3;
@@ -41,7 +41,7 @@ public sealed class SignSession() : DocumentSession<Signing>(new(null, Immutable
     /// </summary>
     /// <returns>Why the file could not be opened, or null if it was.</returns>
     public Task<LoadFailure?> OpenAsync(string filePath) =>
-        OpenDocumentAsync(filePath, _ => Task.FromResult(State with { Placements = ImmutableDictionary<int, Placement>.Empty }));
+        OpenDocumentAsync(filePath, _ => Task.FromResult(State with { Placements = [] }));
 
     /// <summary>
     /// Takes this image as the signature, also where one is placed already. Nothing is changed if the
