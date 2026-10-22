@@ -53,15 +53,15 @@ The screens are not tested automatically; check them by hand.
 
 - [PDFsharp](https://www.pdfsharp.com/) 6.2 (MIT) builds the PDFs. Stay on 6.2: from 6.5 on it is AGPL with a licence check.
 - `Windows.Data.Pdf`, built into Windows, draws Pages for thumbnails, the preview, Page to image and blank-page detection.
-- [Ghostscript](https://ghostscript.com/) 10.06 (AGPL), run as a separate program, compresses PDFs.
+- [Ghostscript](https://ghostscript.com/) 10.06 (AGPL), run as a separate program, compresses PDFs. Its licence is why the whole app is AGPL (see [Licence](#licence)).
 - [PdfPig](https://github.com/UglyToad/PdfPig) reads PDFs back in the tests.
 
 ## Documentation
 
 - [Spec](docs/specs/0001-pdf-manager-v1.md) – what the app does and why, and the [tickets](docs/specs/0001-pdf-manager-v1-tickets.md) it was built in.
 - [Glossary](GLOSSARY.md) – the words used in code and docs (Document, Page, Part, …) and their German UI terms.
-- Decisions: [Ghostscript for Compress](docs/adr/0001-ghostscript-for-compression.md), [one Tool per tile](docs/adr/0002-one-tool-per-tile.md).
+- Decisions: [Ghostscript for Compress](docs/adr/0001-ghostscript-for-compression.md), [one Tool per tile](docs/adr/0002-one-tool-per-tile.md), [publish under the AGPL-3.0](docs/adr/0003-publish-under-agpl.md).
 
-## Licence note
+## Licence
 
-The app bundles Ghostscript, which is licensed under the AGPL. That is fine for use within the family. Before ever publishing or selling the app, revisit [ADR-0001](docs/adr/0001-ghostscript-for-compression.md).
+Office Buddy is licensed under the [GNU Affero General Public License 3.0](LICENSE). It bundles [GPL Ghostscript](third_party/Ghostscript/README.md) 10.06.0, which is under the same licence; its source is at <https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs10060>. Why: [ADR-0003](docs/adr/0003-publish-under-agpl.md).

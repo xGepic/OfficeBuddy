@@ -69,9 +69,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
+          notes="Gebaut aus ${GITHUB_SHA::7}: $(git log -1 --format=%s)
+
+          Office Buddy steht unter der GNU AGPL 3.0. Es enthält GPL Ghostscript 10.06.0 (ebenfalls AGPL 3.0), Quellcode: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs10060"
           gh release delete latest --cleanup-tag --yes || true
           gh release create latest artifacts/single/OfficeBuddy.exe \
             --target "$GITHUB_SHA" \
             --title "Office Buddy (neueste Version)" \
-            --notes "Gebaut aus ${GITHUB_SHA::7}: $(git log -1 --format=%s)" \
+            --notes "$notes" \
             --latest
