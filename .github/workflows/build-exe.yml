@@ -1,4 +1,4 @@
-# Builds OfficeBuddy.exe on every push to main, the same way as in the README, once the tests pass,
+# Builds the single-file OfficeBuddy.exe on every push to main, once the tests pass,
 # and puts it on the "latest" release, linked from the repository's front page.
 name: Build exe
 

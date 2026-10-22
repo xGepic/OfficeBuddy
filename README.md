@@ -24,7 +24,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Bild in Bild** | Put one image on top of a photo, such as a logo or a signature, and drag and size it into place |
 | **Bilder nebeneinander** | Line up two or more images side by side or one below the other as one image, such as both sides of an ID card |
 
-Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.
+Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name and, unless Einstellungen say otherwise, the original's folder.
 
 **Einstellungen**, from the start screen, holds three choices, each saved at once:
 
@@ -32,17 +32,11 @@ Every change can be undone until the result is saved, and saving always asks whe
 - **Größe von E-Mail-Anhängen** – 10, 20 or 25 MB, the size Verkleinern gets PDFs under. 10 MB gets through almost anywhere.
 - **Favoriten** – Tools whose tiles the start screen shows first.
 
-## Getting it onto a PC
+## Download
 
-Build a single `OfficeBuddy.exe` that runs without installing:
+Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself.
 
-```
-dotnet publish src\OfficeBuddy.App -c Release -o artifacts\single -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none
-```
-
-`artifacts\single\OfficeBuddy.exe` contains everything the app needs, so nothing else has to be installed. Copy it to the PC and put a shortcut on the desktop; to update, replace the exe with a newer one. It unpacks itself into a temporary folder on its first start, which takes a few seconds; later starts are quick.
-
-Every push to `main` also builds it on GitHub, after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)), and puts it on the **latest** release: download `OfficeBuddy.exe` from **Releases** on the repository's front page. Each build replaces the one before.
+Every push to `main` builds it after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)) and replaces the release before.
 
 ## Development
 
@@ -66,14 +60,14 @@ The screens are not tested automatically; check them by hand.
 ### Libraries
 
 - [PDFsharp](https://www.pdfsharp.com/) 6.2 (MIT) builds the PDFs. Stay on 6.2: from 6.5 on it is AGPL with a licence check.
-- `Windows.Data.Pdf`, built into Windows, draws Pages for thumbnails, the preview, Page to image and blank-page detection.
+- `Windows.Data.Pdf`, built into Windows, draws Pages for thumbnails, the preview, PDF als Bild, Text erkennen and blank-page detection.
 - `Windows.Media.Ocr`, built into Windows, recognises text for Text erkennen. It needs a Windows language with text recognition, which a German Windows has.
 - [Ghostscript](https://ghostscript.com/) 10.06 (AGPL), run as a separate program, compresses PDFs, takes passwords off and rebuilds damaged files. Its licence is why the whole app is AGPL (see [Licence](#licence)).
 - [PdfPig](https://github.com/UglyToad/PdfPig) reads PDFs back in the tests, and [Xunit.SkippableFact](https://github.com/AArnott/Xunit.SkippableFact) skips the text recognition tests where Windows can't recognise text.
 
 ## Documentation
 
-- [Spec](docs/specs/0001-pdf-manager-v1.md) – what the app does and why, and the [tickets](docs/specs/0001-pdf-manager-v1-tickets.md) it was built in.
+- [Spec](docs/specs/0001-pdf-manager-v1.md) – what the first version was to do and why, and the [tickets](docs/specs/0001-pdf-manager-v1-tickets.md) it was built in. The app has grown since (more tiles, settings); this README describes it as it is.
 - [Glossary](GLOSSARY.md) – the words used in code and docs (Document, Page, Part, …) and their German UI terms.
 - Decisions: [Ghostscript for Compress](docs/adr/0001-ghostscript-for-compression.md), [one Tool per tile](docs/adr/0002-one-tool-per-tile.md), [publish under the AGPL-3.0](docs/adr/0003-publish-under-agpl.md).
 
