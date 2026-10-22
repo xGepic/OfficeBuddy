@@ -19,13 +19,13 @@ public sealed class CropImageSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Brief (zugeschnitten).jpg", session.SuggestedFileName);
-        Assert.Equal(new ImageSize(200, 150), session.ResultSize);
+        session.SuggestedFileName.ShouldBe("Brief (zugeschnitten).jpg");
+        session.ResultSize.ShouldBe(new ImageSize(200, 150));
         var image = await SavedImage.ReadAsync(output);
-        Assert.True(image.IsJpeg);
-        Assert.Equal((200, 150), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeTrue();
+        (image.Width, image.Height).ShouldBe((200, 150));
         // Both bars are cut away.
-        Assert.True(image.Darkness.Top < 200, $"Expected no bar on top, darkness {image.Darkness.Top}");
+        (image.Darkness.Top < 200).ShouldBeTrue($"Expected no bar on top, darkness {image.Darkness.Top}");
         await AssertColourAsync(output, 0.05, 0.5, Blue);
     }
 
@@ -39,8 +39,8 @@ public sealed class CropImageSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var image = await SavedImage.ReadAsync(output);
-        Assert.Equal((200, 150), (image.Width, image.Height));
-        Assert.True(image.Darkness.Top > 200, $"Expected the bar on top, darkness {image.Darkness.Top}");
+        (image.Width, image.Height).ShouldBe((200, 150));
+        (image.Darkness.Top > 200).ShouldBeTrue($"Expected the bar on top, darkness {image.Darkness.Top}");
         await AssertColourAsync(output, 0.1, 0.6, Magenta);
         await AssertColourAsync(output, 0.8, 0.6, Blue);
     }
@@ -54,11 +54,11 @@ public sealed class CropImageSessionTests : IDisposable
         var output = _folder.File("Brief gedreht.jpg");
         await session.SaveAsync(output);
 
-        Assert.Equal(new ImageSize(300, 400), session.TurnedSize);
+        session.TurnedSize.ShouldBe(new ImageSize(300, 400));
         var image = await SavedImage.ReadAsync(output);
-        Assert.Equal((300, 400), (image.Width, image.Height));
-        Assert.True(image.Darkness.Right > 200, $"Expected the bar on the right, darkness {image.Darkness.Right}");
-        Assert.True(image.Darkness.Top < 200, $"Expected no bar on top, darkness {image.Darkness.Top}");
+        (image.Width, image.Height).ShouldBe((300, 400));
+        (image.Darkness.Right > 200).ShouldBeTrue($"Expected the bar on the right, darkness {image.Darkness.Right}");
+        (image.Darkness.Top < 200).ShouldBeTrue($"Expected no bar on top, darkness {image.Darkness.Top}");
     }
 
     [Fact]
@@ -69,14 +69,14 @@ public sealed class CropImageSessionTests : IDisposable
 
         // The top left corner ends up top right, and back again.
         session.RotateRight();
-        Assert.Equal(new CropArea(0.75, 0, 0.25, 0.5), session.Area);
-        Assert.Equal(new ImageSize(75, 200), session.ResultSize);
+        session.Area.ShouldBe(new CropArea(0.75, 0, 0.25, 0.5));
+        session.ResultSize.ShouldBe(new ImageSize(75, 200));
         session.RotateLeft();
-        Assert.Equal(new CropArea(0, 0, 0.5, 0.25), session.Area);
+        session.Area.ShouldBe(new CropArea(0, 0, 0.5, 0.25));
 
         session.RotateLeft();
-        Assert.Equal(270, session.Rotation);
-        Assert.Equal(new CropArea(0, 0.5, 0.25, 0.5), session.Area);
+        session.Rotation.ShouldBe(270);
+        session.Area.ShouldBe(new CropArea(0, 0.5, 0.25, 0.5));
     }
 
     [Fact]
@@ -90,9 +90,9 @@ public sealed class CropImageSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var image = await SavedImage.ReadAsync(output);
-        Assert.Equal((300, 200), (image.Width, image.Height));
-        Assert.True(image.Darkness.Right > 200, $"Expected the bar on the right, darkness {image.Darkness.Right}");
-        Assert.True(image.Darkness.Left < 200, $"Expected the photo itself on the left, darkness {image.Darkness.Left}");
+        (image.Width, image.Height).ShouldBe((300, 200));
+        (image.Darkness.Right > 200).ShouldBeTrue($"Expected the bar on the right, darkness {image.Darkness.Right}");
+        (image.Darkness.Left < 200).ShouldBeTrue($"Expected the photo itself on the left, darkness {image.Darkness.Left}");
     }
 
     [Fact]
@@ -101,9 +101,9 @@ public sealed class CropImageSessionTests : IDisposable
         var session = await OpenAsync(await CreateJpegAsync(_folder.Path, "IMG_0815.jpg", 400, 300, Red, exifOrientation: 6));
         var image = session.Image!;
 
-        Assert.Equal((150, 200), PngSize.Read(await image.RenderPngAsync(200, 200)));
-        Assert.Equal((200, 150), PngSize.Read(await image.RenderPngAsync(200, 200, rotation: 90)));
-        Assert.Equal((300, 400), PngSize.Read(await image.RenderPngAsync(1000, 1000, rotation: 180)));
+        PngSize.Read(await image.RenderPngAsync(200, 200)).ShouldBe((150, 200));
+        PngSize.Read(await image.RenderPngAsync(200, 200, rotation: 90)).ShouldBe((200, 150));
+        PngSize.Read(await image.RenderPngAsync(1000, 1000, rotation: 180)).ShouldBe((300, 400));
     }
 
     [Fact]
@@ -115,10 +115,10 @@ public sealed class CropImageSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Plan (zugeschnitten).png", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Plan (zugeschnitten).png");
         var image = await SavedImage.ReadAsync(output);
-        Assert.False(image.IsJpeg);
-        Assert.Equal((150, 100), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeFalse();
+        (image.Width, image.Height).ShouldBe((150, 100));
     }
 
     [Fact]
@@ -127,33 +127,33 @@ public sealed class CropImageSessionTests : IDisposable
         var session = await OpenAsync(await CreateJpegAsync(_folder.Path, "Brief.jpg", 400, 300, Blue));
 
         session.SetArea(new CropArea(-0.2, 0.5, 0.5, 0.9));
-        Assert.Equal(new CropArea(0, 0.1, 0.5, 0.9), Rounded(session.Area));
+        Rounded(session.Area).ShouldBe(new CropArea(0, 0.1, 0.5, 0.9));
 
         session.SetArea(new CropArea(0.5, 0.5, 0, 0));
-        Assert.Equal(new ImageSize(8, 8), session.ResultSize);
+        session.ResultSize.ShouldBe(new ImageSize(8, 8));
     }
 
     [Fact]
     public async Task Every_change_can_be_undone_and_saving_needs_a_cut_or_a_turn()
     {
         var session = new CropImageSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
         await session.OpenAsync(await CreateJpegAsync(_folder.Path, "Brief.jpg", 400, 300, Blue));
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.SetArea(new CropArea(0.1, 0.1, 0.5, 0.5));
         session.RotateRight();
         session.KeepWhole();
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.Undo();
-        Assert.Equal(90, session.Rotation);
+        session.Rotation.ShouldBe(90);
         session.Undo();
-        Assert.Equal(0, session.Rotation);
+        session.Rotation.ShouldBe(0);
         session.Undo();
-        Assert.Equal(CropArea.Whole, session.Area);
-        Assert.False(session.CanSave);
-        Assert.False(session.HasUnsavedChanges);
+        session.Area.ShouldBe(CropArea.Whole);
+        session.CanSave.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Fact]
@@ -163,7 +163,7 @@ public sealed class CropImageSessionTests : IDisposable
 
         session.KeepWhole();
 
-        Assert.False(session.CanUndo);
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -174,14 +174,14 @@ public sealed class CropImageSessionTests : IDisposable
 
         var failure = await session.OpenAsync(iphone);
 
-        Assert.Equal(new LoadFailure(iphone, LoadFailureReason.Unsupported), failure);
-        Assert.Null(session.Image);
+        failure.ShouldBe(new LoadFailure(iphone, LoadFailureReason.Unsupported));
+        session.Image.ShouldBeNull();
     }
 
     private static async Task<CropImageSession> OpenAsync(string image)
     {
         var session = new CropImageSession();
-        Assert.Null(await session.OpenAsync(image));
+        (await session.OpenAsync(image)).ShouldBeNull();
         return session;
     }
 
@@ -191,6 +191,6 @@ public sealed class CropImageSessionTests : IDisposable
     private static async Task AssertColourAsync(string path, double x, double y, (int R, int G, int B) expected)
     {
         var actual = await SavedImage.ColourAtAsync(path, x, y);
-        Assert.True(SavedImage.AreAlike(actual, expected), $"Expected {expected} at ({x}, {y}), found {actual}");
+        SavedImage.AreAlike(actual, expected).ShouldBeTrue($"Expected {expected} at ({x}, {y}), found {actual}");
     }
 }

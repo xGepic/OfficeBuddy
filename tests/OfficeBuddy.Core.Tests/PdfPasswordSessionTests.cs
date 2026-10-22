@@ -14,16 +14,16 @@ public sealed class PdfPasswordSessionTests : IDisposable
         var statement = SamplePdfs.CreateProtected(_folder.Path, "Kontoauszug.pdf");
         var session = new PdfPasswordSession();
 
-        Assert.Null(await session.OpenAsync(statement, "geheim"));
+        (await session.OpenAsync(statement, "geheim")).ShouldBeNull();
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.True(session.WasProtected);
-        Assert.Equal("Kontoauszug (ohne Passwort).pdf", session.SuggestedFileName);
+        session.WasProtected.ShouldBeTrue();
+        session.SuggestedFileName.ShouldBe("Kontoauszug (ohne Passwort).pdf");
         // Opens like any other Document again.
         var reopened = await Document.LoadAllAsync([output]);
-        Assert.Empty(reopened.Failures);
-        Assert.Equal(["P1"], SavedDocument.ReadLabels(output));
+        reopened.Failures.ShouldBeEmpty();
+        SavedDocument.ReadLabels(output).ShouldBe(["P1"]);
     }
 
     [Fact]
@@ -33,12 +33,12 @@ public sealed class PdfPasswordSessionTests : IDisposable
         var statement = SamplePdfs.CreateProtected(_folder.Path, "Kontoauszug.pdf", password: "1234", ownerPassword: "nur-die-bank");
         var session = new PdfPasswordSession();
 
-        Assert.Null(await session.OpenAsync(statement, "1234"));
+        (await session.OpenAsync(statement, "1234")).ShouldBeNull();
         var output = _folder.File("Kontoauszug offen.pdf");
         await session.SaveAsync(output);
 
-        Assert.Empty((await Document.LoadAllAsync([output])).Failures);
-        Assert.Equal(["P1"], SavedDocument.ReadLabels(output));
+        (await Document.LoadAllAsync([output])).Failures.ShouldBeEmpty();
+        SavedDocument.ReadLabels(output).ShouldBe(["P1"]);
     }
 
     [Fact]
@@ -47,9 +47,9 @@ public sealed class PdfPasswordSessionTests : IDisposable
         var statement = SamplePdfs.CreateProtected(_folder.Path, "Kontoauszug.pdf");
         var session = new PdfPasswordSession();
 
-        Assert.Equal(new LoadFailure(statement, LoadFailureReason.Protected), await session.OpenAsync(statement));
-        Assert.Equal(new LoadFailure(statement, LoadFailureReason.Protected), await session.OpenAsync(statement, "falsch"));
-        Assert.Null(session.Document);
+        (await session.OpenAsync(statement)).ShouldBe(new LoadFailure(statement, LoadFailureReason.Protected));
+        (await session.OpenAsync(statement, "falsch")).ShouldBe(new LoadFailure(statement, LoadFailureReason.Protected));
+        session.Document.ShouldBeNull();
     }
 
     [Fact]
@@ -57,20 +57,20 @@ public sealed class PdfPasswordSessionTests : IDisposable
     {
         var findings = SamplePdfs.Create(_folder.Path, "Befund.pdf", "B1", "B2");
         var session = new PdfPasswordSession();
-        Assert.Null(await session.OpenAsync(findings));
-        Assert.False(session.WasProtected);
-        Assert.False(session.CanSave);
+        (await session.OpenAsync(findings)).ShouldBeNull();
+        session.WasProtected.ShouldBeFalse();
+        session.CanSave.ShouldBeFalse();
 
         session.SetPassword("Sommer2026");
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Befund (mit Passwort).pdf", session.SuggestedFileName);
-        Assert.Equal([new LoadFailure(output, LoadFailureReason.Protected)], (await Document.LoadAllAsync([output])).Failures);
+        session.SuggestedFileName.ShouldBe("Befund (mit Passwort).pdf");
+        (await Document.LoadAllAsync([output])).Failures.ShouldBe([new LoadFailure(output, LoadFailureReason.Protected)]);
         // And with it, it opens to the same Pages.
         var check = new PdfPasswordSession();
-        Assert.Null(await check.OpenAsync(output, "Sommer2026"));
-        Assert.Equal(2, check.Document!.PageCount);
+        (await check.OpenAsync(output, "Sommer2026")).ShouldBeNull();
+        check.Document!.PageCount.ShouldBe(2);
     }
 
     [Fact]
@@ -85,8 +85,8 @@ public sealed class PdfPasswordSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var check = new PdfPasswordSession();
-        Assert.NotNull(await check.OpenAsync(output, "geheim"));
-        Assert.Null(await check.OpenAsync(output, "neu"));
+        (await check.OpenAsync(output, "geheim")).ShouldNotBeNull();
+        (await check.OpenAsync(output, "neu")).ShouldBeNull();
     }
 
     [Fact]
@@ -98,10 +98,10 @@ public sealed class PdfPasswordSessionTests : IDisposable
 
         session.SetPassword("eins");
         session.SetPassword("");
-        Assert.Null(session.NewPassword);
+        session.NewPassword.ShouldBeNull();
         session.Undo();
-        Assert.Equal("eins", session.NewPassword);
+        session.NewPassword.ShouldBe("eins");
         session.Undo();
-        Assert.False(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 }

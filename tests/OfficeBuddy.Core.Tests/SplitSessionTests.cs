@@ -20,16 +20,14 @@ public sealed class SplitSessionTests : IDisposable
         var output = Directory.CreateDirectory(_folder.File("Teile")).FullName;
         var written = await session.SaveAsync(output, "Rechnung");
 
-        Assert.Equal(
-            [
+        written.ShouldBe([
                 Path.Combine(output, "Rechnung - Teil 1.pdf"),
                 Path.Combine(output, "Rechnung - Teil 2.pdf"),
                 Path.Combine(output, "Rechnung - Teil 3.pdf"),
-            ],
-            written);
-        Assert.Equal(["S1", "S2"], SavedDocument.ReadLabels(written[0]));
-        Assert.Equal(["S3", "S4"], SavedDocument.ReadLabels(written[1]));
-        Assert.Equal(["S5", "S6"], SavedDocument.ReadLabels(written[2]));
+            ]);
+        SavedDocument.ReadLabels(written[0]).ShouldBe(["S1", "S2"]);
+        SavedDocument.ReadLabels(written[1]).ShouldBe(["S3", "S4"]);
+        SavedDocument.ReadLabels(written[2]).ShouldBe(["S5", "S6"]);
     }
 
     [Fact]
@@ -38,14 +36,14 @@ public sealed class SplitSessionTests : IDisposable
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2", "S3", "S4");
         var session = new SplitSession();
         await session.OpenAsync(invoice);
-        Assert.Equal([new PageRange(0, 3)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 3)]);
 
         session.ToggleSplitPoint(1);
         session.ToggleSplitPoint(3);
-        Assert.Equal([new PageRange(0, 0), new PageRange(1, 2), new PageRange(3, 3)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 0), new PageRange(1, 2), new PageRange(3, 3)]);
 
         session.ToggleSplitPoint(3);
-        Assert.Equal([new PageRange(0, 0), new PageRange(1, 3)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 0), new PageRange(1, 3)]);
     }
 
     [Fact]
@@ -57,12 +55,12 @@ public sealed class SplitSessionTests : IDisposable
         session.ToggleSplitPoint(2);
 
         session.SetEachPageSeparately(true);
-        Assert.Equal([new PageRange(0, 0), new PageRange(1, 1), new PageRange(2, 2)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 0), new PageRange(1, 1), new PageRange(2, 2)]);
         var written = await session.SaveAsync(_folder.Path, "Rechnung");
-        Assert.Equal([["S1"], ["S2"], ["S3"]], written.Select(SavedDocument.ReadLabels));
+        written.Select(SavedDocument.ReadLabels).ShouldBe([["S1"], ["S2"], ["S3"]]);
 
         session.SetEachPageSeparately(false);
-        Assert.Equal([new PageRange(0, 1), new PageRange(2, 2)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 1), new PageRange(2, 2)]);
     }
 
     [Fact]
@@ -76,10 +74,10 @@ public sealed class SplitSessionTests : IDisposable
         session.SetEachPageSeparately(true);
         var written = await session.SaveAsync(_folder.Path, "Scan");
 
-        Assert.Equal("Scan - Teil 01.pdf", Path.GetFileName(written[0]));
-        Assert.Equal("Scan - Teil 12.pdf", Path.GetFileName(written[11]));
-        Assert.Equal(written, written.Order(StringComparer.Ordinal));
-        Assert.Equal(["S10"], SavedDocument.ReadLabels(written[9]));
+        Path.GetFileName(written[0]).ShouldBe("Scan - Teil 01.pdf");
+        Path.GetFileName(written[11]).ShouldBe("Scan - Teil 12.pdf");
+        written.Order(StringComparer.Ordinal).ShouldBe(written);
+        SavedDocument.ReadLabels(written[9]).ShouldBe(["S10"]);
     }
 
     [Fact]
@@ -88,17 +86,17 @@ public sealed class SplitSessionTests : IDisposable
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2");
         var note = SamplePdfs.Create(_folder.Path, "Notiz.pdf", "N1");
         var session = new SplitSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.OpenAsync(invoice);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.ToggleSplitPoint(1);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         await session.OpenAsync(note);
         session.SetEachPageSeparately(true);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
     }
 
     [Fact]
@@ -111,14 +109,14 @@ public sealed class SplitSessionTests : IDisposable
         session.SetEachPageSeparately(true);
 
         session.Undo();
-        Assert.Equal([new PageRange(0, 0), new PageRange(1, 2)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 0), new PageRange(1, 2)]);
 
         session.Undo();
-        Assert.Equal([new PageRange(0, 2)], session.Parts);
+        session.Parts.ShouldBe([new PageRange(0, 2)]);
 
         session.Redo();
         session.Redo();
-        Assert.Equal(3, session.Parts.Count);
+        session.Parts.Count.ShouldBe(3);
     }
 
     [Fact]
@@ -132,8 +130,8 @@ public sealed class SplitSessionTests : IDisposable
         session.ToggleSplitPoint(2);
         var written = await session.SaveAsync(_folder.Path, "Scan");
 
-        Assert.Equal([new SavedPage("S1", 0), new SavedPage("S2", 90)], SavedDocument.ReadPages(written[0]));
-        Assert.Equal([new SavedPage("S3", 270), new SavedPage("S4", 0)], SavedDocument.ReadPages(written[1]));
+        SavedDocument.ReadPages(written[0]).ShouldBe([new SavedPage("S1", 0), new SavedPage("S2", 90)]);
+        SavedDocument.ReadPages(written[1]).ShouldBe([new SavedPage("S3", 270), new SavedPage("S4", 0)]);
     }
 
     [Fact]
@@ -141,12 +139,12 @@ public sealed class SplitSessionTests : IDisposable
     {
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2");
         var session = new SplitSession();
-        Assert.Null(session.SuggestedBaseName);
+        session.SuggestedBaseName.ShouldBeNull();
 
         await session.OpenAsync(invoice);
 
-        Assert.Equal("Rechnung", session.SuggestedBaseName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
+        session.SuggestedBaseName.ShouldBe("Rechnung");
+        session.SuggestedFolder.ShouldBe(_folder.Path);
     }
 
     [Fact]
@@ -157,7 +155,7 @@ public sealed class SplitSessionTests : IDisposable
         await session.OpenAsync(invoice);
         session.ToggleSplitPoint(1);
 
-        Assert.Equal(["Brief - Teil 1.pdf", "Brief - Teil 2.pdf"], session.FileNamesFor("Brief"));
+        session.FileNamesFor("Brief").ShouldBe(["Brief - Teil 1.pdf", "Brief - Teil 2.pdf"]);
     }
 
     [Fact]
@@ -171,12 +169,11 @@ public sealed class SplitSessionTests : IDisposable
         await session.OpenAsync(invoice);
         session.ToggleSplitPoint(1);
 
-        await Assert.ThrowsAnyAsync<IOException>(() => session.SaveAsync(output, "Rechnung"));
+        await Should.ThrowAsync<IOException>(() => session.SaveAsync(output, "Rechnung"));
 
-        Assert.Equal(["ALT"], SavedDocument.ReadLabels(earlierPart1));
-        Assert.Equal(["Rechnung - Teil 1.pdf", "Rechnung - Teil 2.pdf"],
-            Directory.EnumerateFileSystemEntries(output).Select(Path.GetFileName).Order());
-        Assert.True(session.HasUnsavedChanges);
+        SavedDocument.ReadLabels(earlierPart1).ShouldBe(["ALT"]);
+        Directory.EnumerateFileSystemEntries(output).Select(Path.GetFileName).Order().ShouldBe(["Rechnung - Teil 1.pdf", "Rechnung - Teil 2.pdf"]);
+        session.HasUnsavedChanges.ShouldBeTrue();
     }
 
     [Fact]
@@ -189,8 +186,8 @@ public sealed class SplitSessionTests : IDisposable
 
         await session.SaveAsync(_folder.Path, "Rechnung");
 
-        Assert.False(session.CanUndo);
-        Assert.False(session.HasUnsavedChanges);
+        session.CanUndo.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Theory]
@@ -202,7 +199,7 @@ public sealed class SplitSessionTests : IDisposable
         var session = new SplitSession();
         await session.OpenAsync(invoice);
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => session.ToggleSplitPoint(pageIndex));
-        Assert.False(session.CanUndo);
+        Should.Throw<ArgumentOutOfRangeException>(() => session.ToggleSplitPoint(pageIndex));
+        session.CanUndo.ShouldBeFalse();
     }
 }

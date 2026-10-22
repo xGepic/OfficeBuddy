@@ -23,14 +23,14 @@ public sealed class PageToImageSessionTests : IDisposable
         var output = Directory.CreateDirectory(_folder.File("Bilder")).FullName;
         var written = await session.SaveAsync(output, "Rechnung");
 
-        Assert.Equal([Path.Combine(output, "Rechnung - Seite 2.jpg"), Path.Combine(output, "Rechnung - Seite 4.jpg")], written);
-        Assert.Equal(["Rechnung - Seite 2.jpg", "Rechnung - Seite 4.jpg"], Directory.GetFiles(output).Select(Path.GetFileName).Order());
+        written.ShouldBe([Path.Combine(output, "Rechnung - Seite 2.jpg"), Path.Combine(output, "Rechnung - Seite 4.jpg")]);
+        Directory.GetFiles(output).Select(Path.GetFileName).Order().ShouldBe(["Rechnung - Seite 2.jpg", "Rechnung - Seite 4.jpg"]);
         foreach (var path in written)
         {
             var image = await SavedImage.ReadAsync(path);
-            Assert.True(image.IsJpeg);
-            Assert.InRange(image.Width, A4WidthAt200Dpi - 1, A4WidthAt200Dpi + 1);
-            Assert.InRange(image.Height, A4HeightAt200Dpi - 1, A4HeightAt200Dpi + 1);
+            image.IsJpeg.ShouldBeTrue();
+            ((double)image.Width).ShouldBe(A4WidthAt200Dpi, tolerance: 1);
+            ((double)image.Height).ShouldBe(A4HeightAt200Dpi, tolerance: 1);
         }
     }
 
@@ -44,9 +44,9 @@ public sealed class PageToImageSessionTests : IDisposable
         session.SetSelection([1]);
         var written = await session.SaveAsync(_folder.Path, "Scan");
 
-        var image = await SavedImage.ReadAsync(Assert.Single(written));
-        Assert.InRange(image.Width, A4HeightAt200Dpi - 1, A4HeightAt200Dpi + 1);
-        Assert.InRange(image.Height, A4WidthAt200Dpi - 1, A4WidthAt200Dpi + 1);
+        var image = await SavedImage.ReadAsync(written.ShouldHaveSingleItem());
+        ((double)image.Width).ShouldBe(A4HeightAt200Dpi, tolerance: 1);
+        ((double)image.Height).ShouldBe(A4WidthAt200Dpi, tolerance: 1);
     }
 
     [Fact]
@@ -55,14 +55,14 @@ public sealed class PageToImageSessionTests : IDisposable
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2");
         var session = new PageToImageSession();
         await session.OpenAsync(invoice);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.SetSelection([0]);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.Undo();
-        Assert.False(session.CanSave);
-        Assert.Empty(session.SelectedPageIndexes);
+        session.CanSave.ShouldBeFalse();
+        session.SelectedPageIndexes.ShouldBeEmpty();
     }
 
     [Fact]
@@ -74,9 +74,9 @@ public sealed class PageToImageSessionTests : IDisposable
 
         session.SetSelection([2, 0]);
 
-        Assert.Equal("Rechnung", session.SuggestedBaseName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
-        Assert.Equal(["Brief - Seite 1.jpg", "Brief - Seite 3.jpg"], session.FileNamesFor("Brief"));
+        session.SuggestedBaseName.ShouldBe("Rechnung");
+        session.SuggestedFolder.ShouldBe(_folder.Path);
+        session.FileNamesFor("Brief").ShouldBe(["Brief - Seite 1.jpg", "Brief - Seite 3.jpg"]);
     }
 
     [Theory]
@@ -89,14 +89,14 @@ public sealed class PageToImageSessionTests : IDisposable
         await session.OpenAsync(page);
 
         session.SetSelection([0]);
-        var image = await SavedImage.ReadAsync(Assert.Single(await session.SaveAsync(_folder.Path, "Plan")));
+        var image = await SavedImage.ReadAsync((await session.SaveAsync(_folder.Path, "Plan")).ShouldHaveSingleItem());
 
         // Rotated clockwise by 90°, the top edge ends up on the right; by 270°, on the left.
         var (barSide, otherSide) = rotation == 90
             ? (image.Darkness.Right, image.Darkness.Left)
             : (image.Darkness.Left, image.Darkness.Right);
-        Assert.True(barSide > 200, $"Expected the bar on that side, darkness {barSide}");
-        Assert.True(otherSide < 20, $"Expected no bar on the other side, darkness {otherSide}");
+        (barSide > 200).ShouldBeTrue($"Expected the bar on that side, darkness {barSide}");
+        (otherSide < 20).ShouldBeTrue($"Expected no bar on the other side, darkness {otherSide}");
     }
 
     [Fact]
@@ -107,11 +107,11 @@ public sealed class PageToImageSessionTests : IDisposable
         await session.OpenAsync(plan);
 
         session.SetSelection([0]);
-        var image = await SavedImage.ReadAsync(Assert.Single(await session.SaveAsync(_folder.Path, "Plan")));
+        var image = await SavedImage.ReadAsync((await session.SaveAsync(_folder.Path, "Plan")).ShouldHaveSingleItem());
 
         // At 200 dpi this Page would be almost 40000 pixels across; it is scaled down to at most 64 megapixels.
-        Assert.True(image.IsJpeg);
-        Assert.InRange((long)image.Width * image.Height, 60_000_000, 64_000_000);
+        image.IsJpeg.ShouldBeTrue();
+        ((long)image.Width * image.Height).ShouldBeInRange(60_000_000, 64_000_000);
     }
 
     [Fact]
@@ -125,6 +125,6 @@ public sealed class PageToImageSessionTests : IDisposable
 
         await session.SaveAsync(_folder.Path, "Rechnung", new SynchronousProgress<int>(reported.Add));
 
-        Assert.Equal([1, 2], reported);
+        reported.ShouldBe([1, 2]);
     }
 }

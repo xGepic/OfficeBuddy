@@ -12,18 +12,18 @@ public sealed class RepairSessionTests : IDisposable
     public async Task A_Document_with_a_broken_index_is_rebuilt_with_all_its_Pages()
     {
         var invoice = SamplePdfs.CreateWithBrokenIndex(_folder.Path, "Rechnung.pdf", "R1", "R2", "R3");
-        Assert.Equal(LoadFailureReason.Damaged, (await Document.LoadAllAsync([invoice])).Failures.Single().Reason);
+        (await Document.LoadAllAsync([invoice])).Failures.Single().Reason.ShouldBe(LoadFailureReason.Damaged);
         var session = new RepairSession();
 
-        Assert.Null(await session.OpenAsync(invoice));
+        (await session.OpenAsync(invoice)).ShouldBeNull();
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.True(session.Result!.WasDamaged);
-        Assert.True(session.CanSave);
-        Assert.Equal("Rechnung (repariert).pdf", session.SuggestedFileName);
-        Assert.Empty((await Document.LoadAllAsync([output])).Failures);
-        Assert.Equal(["R1", "R2", "R3"], SavedDocument.ReadLabels(output));
+        session.Result!.WasDamaged.ShouldBeTrue();
+        session.CanSave.ShouldBeTrue();
+        session.SuggestedFileName.ShouldBe("Rechnung (repariert).pdf");
+        (await Document.LoadAllAsync([output])).Failures.ShouldBeEmpty();
+        SavedDocument.ReadLabels(output).ShouldBe(["R1", "R2", "R3"]);
     }
 
     [Fact]
@@ -32,10 +32,10 @@ public sealed class RepairSessionTests : IDisposable
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "R1");
         var session = new RepairSession();
 
-        Assert.Null(await session.OpenAsync(invoice));
+        (await session.OpenAsync(invoice)).ShouldBeNull();
 
-        Assert.False(session.Result!.WasDamaged);
-        Assert.False(session.CanSave);
+        session.Result!.WasDamaged.ShouldBeFalse();
+        session.CanSave.ShouldBeFalse();
     }
 
     [Fact]
@@ -45,9 +45,9 @@ public sealed class RepairSessionTests : IDisposable
         var statement = SamplePdfs.CreateProtected(_folder.Path, "Kontoauszug.pdf");
         var session = new RepairSession();
 
-        Assert.Equal(LoadFailureReason.Unsupported, (await session.OpenAsync(photo))!.Reason);
-        Assert.Equal(LoadFailureReason.Protected, (await session.OpenAsync(statement))!.Reason);
-        Assert.Null(session.Result);
+        (await session.OpenAsync(photo))!.Reason.ShouldBe(LoadFailureReason.Unsupported);
+        (await session.OpenAsync(statement))!.Reason.ShouldBe(LoadFailureReason.Protected);
+        session.Result.ShouldBeNull();
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public sealed class RepairSessionTests : IDisposable
         await File.WriteAllTextAsync(empty, "%PDF-1.7\n%%EOF\n");
         var session = new RepairSession();
 
-        Assert.Equal(new LoadFailure(empty, LoadFailureReason.Damaged), await session.OpenAsync(empty));
-        Assert.Null(session.Result);
+        (await session.OpenAsync(empty)).ShouldBe(new LoadFailure(empty, LoadFailureReason.Damaged));
+        session.Result.ShouldBeNull();
     }
 }

@@ -25,7 +25,7 @@ public sealed class ImagesToPdfSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var pages = SavedDocument.ReadPageSizes(output);
-        Assert.Equal(2, pages.Count);
+        pages.Count.ShouldBe(2);
         AssertSize(pages[0], A4Width, A4Height);
         AssertSize(pages[1], A4Height, A4Width);
     }
@@ -41,10 +41,10 @@ public sealed class ImagesToPdfSessionTests : IDisposable
         var output = _folder.File("IMG_0815.pdf");
         await session.SaveAsync(output);
 
-        AssertSize(Assert.Single(SavedDocument.ReadPageSizes(output)), A4Width, A4Height);
+        AssertSize(SavedDocument.ReadPageSizes(output).ShouldHaveSingleItem(), A4Width, A4Height);
         var page = await SavedDocument.RenderAsync(output, 0);
-        Assert.True(IsDark(page.ColourAt((0.9, 0.5))), "Expected the bar on the right");
-        Assert.True(IsColour(page.ColourAt((0.3, 0.5)), Red), "Expected the photo itself on the left");
+        IsDark(page.ColourAt((0.9, 0.5))).ShouldBeTrue("Expected the bar on the right");
+        IsColour(page.ColourAt((0.3, 0.5)), Red).ShouldBeTrue("Expected the photo itself on the left");
     }
 
     [Theory]
@@ -75,8 +75,8 @@ public sealed class ImagesToPdfSessionTests : IDisposable
             "left" => (18.0 / 210, 0.5),
             _ => (192.0 / 210, 0.5),
         };
-        Assert.True(IsDark(page.ColourAt(InsideEdge(blackBarSide))), $"Expected the black bar at the {blackBarSide}");
-        Assert.True(IsColour(page.ColourAt(InsideEdge(magentaBarSide)), Magenta), $"Expected the magenta bar at the {magentaBarSide}");
+        IsDark(page.ColourAt(InsideEdge(blackBarSide))).ShouldBeTrue($"Expected the black bar at the {blackBarSide}");
+        IsColour(page.ColourAt(InsideEdge(magentaBarSide)), Magenta).ShouldBeTrue($"Expected the magenta bar at the {magentaBarSide}");
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public sealed class ImagesToPdfSessionTests : IDisposable
 
         var thumbnail = await session.Images[0].RenderPngAsync(100, 100);
 
-        Assert.Equal((75, 100), PngSize.Read(thumbnail));
+        PngSize.Read(thumbnail).ShouldBe((75, 100));
     }
 
     [Fact]
@@ -103,12 +103,12 @@ public sealed class ImagesToPdfSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var page = await SavedDocument.RenderAsync(output, 0);
-        Assert.True(IsWhite(page.ColourAt((0.02, 0.02))), "Expected a white margin in the corner");
-        Assert.True(IsWhite(page.ColourAt((17.0 / 297, 0.5))), "Expected white left of the image");
-        Assert.True(IsColour(page.ColourAt((27.0 / 297, 0.5)), Blue), "Expected the image from 22 mm on");
-        Assert.True(IsColour(page.ColourAt((270.0 / 297, 0.5)), Blue), "Expected the image up to 275 mm");
-        Assert.True(IsWhite(page.ColourAt((280.0 / 297, 0.5))), "Expected white right of the image");
-        Assert.True(IsWhite(page.ColourAt((0.5, 5.0 / 210))), "Expected the top margin");
+        IsWhite(page.ColourAt((0.02, 0.02))).ShouldBeTrue("Expected a white margin in the corner");
+        IsWhite(page.ColourAt((17.0 / 297, 0.5))).ShouldBeTrue("Expected white left of the image");
+        IsColour(page.ColourAt((27.0 / 297, 0.5)), Blue).ShouldBeTrue("Expected the image from 22 mm on");
+        IsColour(page.ColourAt((270.0 / 297, 0.5)), Blue).ShouldBeTrue("Expected the image up to 275 mm");
+        IsWhite(page.ColourAt((280.0 / 297, 0.5))).ShouldBeTrue("Expected white right of the image");
+        IsWhite(page.ColourAt((0.5, 5.0 / 210))).ShouldBeTrue("Expected the top margin");
     }
 
     [Fact]
@@ -121,17 +121,17 @@ public sealed class ImagesToPdfSessionTests : IDisposable
         await session.AddAsync([red, green, blue]);
 
         session.Move(2, 0);
-        Assert.Equal(["3.jpg", "1.jpg", "2.png"], session.Images.Select(image => image.FileName));
+        session.Images.Select(image => image.FileName).ShouldBe(["3.jpg", "1.jpg", "2.png"]);
         session.Remove(1);
-        Assert.Equal(["3.jpg", "2.png"], session.Images.Select(image => image.FileName));
+        session.Images.Select(image => image.FileName).ShouldBe(["3.jpg", "2.png"]);
         session.Undo();
         session.Undo();
         session.Move(0, 1);
 
         var output = _folder.File("Bilder.pdf");
         await session.SaveAsync(output);
-        Assert.Equal([Green, Red, Blue], await CentreColoursAsync(output, 3));
-        Assert.False(session.CanUndo);
+        (await CentreColoursAsync(output, 3)).ShouldBe([Green, Red, Blue]);
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -144,28 +144,28 @@ public sealed class ImagesToPdfSessionTests : IDisposable
 
         var failed = await session.AddAsync([letter, iphone, receipt]);
 
-        Assert.Equal([new LoadFailure(iphone, LoadFailureReason.Unsupported)], failed);
-        Assert.Equal(["Brief.png", "Quittung.jpg"], session.Images.Select(image => image.FileName));
+        failed.ShouldBe([new LoadFailure(iphone, LoadFailureReason.Unsupported)]);
+        session.Images.Select(image => image.FileName).ShouldBe(["Brief.png", "Quittung.jpg"]);
     }
 
     [Fact]
     public async Task Saving_needs_an_image_and_suggests_the_first_images_name()
     {
         var session = new ImagesToPdfSession();
-        Assert.False(session.CanSave);
-        Assert.Null(session.SuggestedFileName);
+        session.CanSave.ShouldBeFalse();
+        session.SuggestedFileName.ShouldBeNull();
 
         await session.AddAsync([await CreateJpegAsync(_folder.Path, "IMG_0815.jpg", 300, 400, Red)]);
 
-        Assert.True(session.CanSave);
-        Assert.Equal("IMG_0815.pdf", session.SuggestedFileName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
+        session.CanSave.ShouldBeTrue();
+        session.SuggestedFileName.ShouldBe("IMG_0815.pdf");
+        session.SuggestedFolder.ShouldBe(_folder.Path);
     }
 
     private static void AssertSize((double Width, double Height) page, double width, double height)
     {
-        Assert.InRange(page.Width, width - 1, width + 1);
-        Assert.InRange(page.Height, height - 1, height + 1);
+        page.Width.ShouldBeInRange(width - 1, width + 1);
+        page.Height.ShouldBeInRange(height - 1, height + 1);
     }
 
     private static async Task<IReadOnlyList<(int R, int G, int B)>> CentreColoursAsync(string path, int pageCount)

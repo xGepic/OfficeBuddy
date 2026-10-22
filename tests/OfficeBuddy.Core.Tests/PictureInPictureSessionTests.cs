@@ -18,10 +18,10 @@ public sealed class PictureInPictureSessionTests : IDisposable
 
         // Square on a 4:3 image: a quarter of the width is a third of the height.
         var placement = session.Inserted!.Placement;
-        Assert.Equal(0.25, placement.Width, 6);
-        Assert.Equal(1.0 / 3, session.HeightFor(placement.Width), 6);
-        Assert.Equal(0.375, placement.Left, 6);
-        Assert.Equal(1.0 / 3, placement.Top, 6);
+        placement.Width.ShouldBe(0.25, tolerance: 1e-6);
+        session.HeightFor(placement.Width).ShouldBe(1.0 / 3, tolerance: 1e-6);
+        placement.Left.ShouldBe(0.375, tolerance: 1e-6);
+        placement.Top.ShouldBe(1.0 / 3, tolerance: 1e-6);
     }
 
     [Fact]
@@ -34,10 +34,10 @@ public sealed class PictureInPictureSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Urlaub (Bild in Bild).jpg", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Urlaub (Bild in Bild).jpg");
         var image = await SavedImage.ReadAsync(output);
-        Assert.True(image.IsJpeg);
-        Assert.Equal((400, 300), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeTrue();
+        (image.Width, image.Height).ShouldBe((400, 300));
         await AssertColourAsync(output, 0.62, 0.72, Red);
         await AssertColourAsync(output, 0.62, 0.3, Blue);
         await AssertColourAsync(output, 0.2, 0.72, Blue);
@@ -67,14 +67,14 @@ public sealed class PictureInPictureSessionTests : IDisposable
 
         session.Place(new Placement(0.9, 0.9, 0.25));
         var placement = session.Inserted!.Placement;
-        Assert.Equal(0.75, placement.Left, 6);
-        Assert.Equal(2.0 / 3, placement.Top, 6);
+        placement.Left.ShouldBe(0.75, tolerance: 1e-6);
+        placement.Top.ShouldBe(2.0 / 3, tolerance: 1e-6);
 
         // As big as it gets: as high as the photo.
         session.Place(new Placement(0, 0, 2));
         placement = session.Inserted!.Placement;
-        Assert.Equal(0.75, placement.Width, 6);
-        Assert.Equal(1, session.HeightFor(placement.Width), 6);
+        placement.Width.ShouldBe(0.75, tolerance: 1e-6);
+        session.HeightFor(placement.Width).ShouldBe(1, tolerance: 1e-6);
     }
 
     [Fact]
@@ -86,10 +86,10 @@ public sealed class PictureInPictureSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Plan (Bild in Bild).png", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Plan (Bild in Bild).png");
         var image = await SavedImage.ReadAsync(output);
-        Assert.False(image.IsJpeg);
-        Assert.Equal((300, 200), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeFalse();
+        (image.Width, image.Height).ShouldBe((300, 200));
     }
 
     [Fact]
@@ -103,31 +103,31 @@ public sealed class PictureInPictureSessionTests : IDisposable
         await session.SaveAsync(output);
 
         var image = await SavedImage.ReadAsync(output);
-        Assert.Equal((300, 400), (image.Width, image.Height));
-        Assert.True(image.Darkness.Right > 200, $"Expected the bar on the right, darkness {image.Darkness.Right}");
+        (image.Width, image.Height).ShouldBe((300, 400));
+        (image.Darkness.Right > 200).ShouldBeTrue($"Expected the bar on the right, darkness {image.Darkness.Right}");
     }
 
     [Fact]
     public async Task Inserting_moving_and_removing_can_all_be_undone()
     {
         var session = await OpenAsync(await CreateJpegAsync(_folder.Path, "Urlaub.jpg", 400, 300, Blue));
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.InsertAsync(await CreatePngAsync(_folder.Path, "Logo.png", 100, 100, Red));
         var start = session.Inserted!.Placement;
         session.Place(new Placement(0, 0, 0.1));
         session.Remove();
-        Assert.Null(session.Inserted);
-        Assert.False(session.CanSave);
+        session.Inserted.ShouldBeNull();
+        session.CanSave.ShouldBeFalse();
 
         session.Undo();
-        Assert.Equal(new Placement(0, 0, 0.1), session.Inserted!.Placement);
+        session.Inserted!.Placement.ShouldBe(new Placement(0, 0, 0.1));
         session.Undo();
-        Assert.Equal(start, session.Inserted!.Placement);
-        Assert.True(session.CanSave);
+        session.Inserted!.Placement.ShouldBe(start);
+        session.CanSave.ShouldBeTrue();
         session.Undo();
-        Assert.Null(session.Inserted);
-        Assert.False(session.HasUnsavedChanges);
+        session.Inserted.ShouldBeNull();
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Fact]
@@ -141,7 +141,7 @@ public sealed class PictureInPictureSessionTests : IDisposable
         session.Place(new Placement(0.9, 0.5, 0.25));
         session.Undo();
 
-        Assert.Equal(0.375, session.Inserted!.Placement.Left, 6);
+        session.Inserted!.Placement.Left.ShouldBe(0.375, tolerance: 1e-6);
     }
 
     [Fact]
@@ -152,10 +152,10 @@ public sealed class PictureInPictureSessionTests : IDisposable
 
         await session.OpenAsync(await CreateJpegAsync(_folder.Path, "Garten.jpg", 300, 300, Green));
 
-        Assert.Equal("Garten.jpg", session.MainImage!.FileName);
-        Assert.Null(session.Inserted);
-        Assert.False(session.CanUndo);
-        Assert.False(session.HasUnsavedChanges);
+        session.MainImage!.FileName.ShouldBe("Garten.jpg");
+        session.Inserted.ShouldBeNull();
+        session.CanUndo.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Fact]
@@ -166,21 +166,21 @@ public sealed class PictureInPictureSessionTests : IDisposable
 
         var failure = await session.InsertAsync(iphone);
 
-        Assert.Equal(new LoadFailure(iphone, LoadFailureReason.Unsupported), failure);
-        Assert.Null(session.Inserted);
-        Assert.False(session.CanUndo);
+        failure.ShouldBe(new LoadFailure(iphone, LoadFailureReason.Unsupported));
+        session.Inserted.ShouldBeNull();
+        session.CanUndo.ShouldBeFalse();
     }
 
     private static async Task<PictureInPictureSession> OpenAsync(string mainImage)
     {
         var session = new PictureInPictureSession();
-        Assert.Null(await session.OpenAsync(mainImage));
+        (await session.OpenAsync(mainImage)).ShouldBeNull();
         return session;
     }
 
     private static async Task AssertColourAsync(string path, double x, double y, (int R, int G, int B) expected)
     {
         var actual = await SavedImage.ColourAtAsync(path, x, y);
-        Assert.True(SavedImage.AreAlike(actual, expected), $"Expected {expected} at ({x}, {y}), found {actual}");
+        SavedImage.AreAlike(actual, expected).ShouldBeTrue($"Expected {expected} at ({x}, {y}), found {actual}");
     }
 }

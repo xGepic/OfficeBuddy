@@ -23,11 +23,11 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
         await session.SaveAsync(output);
 
         // Both 200 × 150, with a gap of 2 % of the height between them.
-        Assert.Equal("Ausweis vorne (nebeneinander).jpg", session.SuggestedFileName);
-        Assert.Equal(new ImageSize(403, 150), session.ResultSize);
+        session.SuggestedFileName.ShouldBe("Ausweis vorne (nebeneinander).jpg");
+        session.ResultSize.ShouldBe(new ImageSize(403, 150));
         var image = await SavedImage.ReadAsync(output);
-        Assert.True(image.IsJpeg);
-        Assert.Equal((403, 150), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeTrue();
+        (image.Width, image.Height).ShouldBe((403, 150));
         await AssertColourAsync(output, 0.25, 0.6, Blue);
         await AssertColourAsync(output, 0.75, 0.6, Red);
     }
@@ -44,9 +44,9 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Ausweis vorne (untereinander).jpg", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Ausweis vorne (untereinander).jpg");
         var image = await SavedImage.ReadAsync(output);
-        Assert.Equal((200, 304), (image.Width, image.Height));
+        (image.Width, image.Height).ShouldBe((200, 304));
         await AssertColourAsync(output, 0.5, 0.35, Blue);
         await AssertColourAsync(output, 0.5, 0.8, Red);
     }
@@ -62,10 +62,10 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Plan (nebeneinander).png", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Plan (nebeneinander).png");
         var image = await SavedImage.ReadAsync(output);
-        Assert.False(image.IsJpeg);
-        Assert.Equal((604, 200), (image.Width, image.Height));
+        image.IsJpeg.ShouldBeFalse();
+        (image.Width, image.Height).ShouldBe((604, 200));
         await AssertColourAsync(output, 0.5, 0.6, White);
     }
 
@@ -78,8 +78,8 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         await session.AddAsync([plan, photo]);
 
-        Assert.False(session.SavesAsPng);
-        Assert.Equal("Plan (nebeneinander).jpg", session.SuggestedFileName);
+        session.SavesAsPng.ShouldBeFalse();
+        session.SuggestedFileName.ShouldBe("Plan (nebeneinander).jpg");
     }
 
     [Fact]
@@ -92,7 +92,7 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         await session.AddAsync([photo, other]);
 
-        Assert.Equal(new ImageSize(608, 400), session.ResultSize);
+        session.ResultSize.ShouldBe(new ImageSize(608, 400));
     }
 
     [Fact]
@@ -101,24 +101,24 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
         var front = await CreateJpegAsync(_folder.Path, "Ausweis vorne.jpg", 400, 300, Blue);
         var back = await CreateJpegAsync(_folder.Path, "Ausweis hinten.jpg", 200, 150, Red);
         var session = new ImagesSideBySideSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
         await session.AddAsync([front]);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
         await session.AddAsync([back]);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.Move(1, 0);
-        Assert.Equal("Ausweis hinten.jpg", session.Images[0].FileName);
+        session.Images[0].FileName.ShouldBe("Ausweis hinten.jpg");
         session.Arrange(ImageArrangement.OneBelowTheOther);
         session.Remove(0);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.Undo();
-        Assert.Equal(2, session.Images.Count);
+        session.Images.Count.ShouldBe(2);
         session.Undo();
-        Assert.Equal(ImageArrangement.SideBySide, session.Arrangement);
+        session.Arrangement.ShouldBe(ImageArrangement.SideBySide);
         session.Undo();
-        Assert.Equal("Ausweis vorne.jpg", session.Images[0].FileName);
+        session.Images[0].FileName.ShouldBe("Ausweis vorne.jpg");
     }
 
     [Fact]
@@ -130,7 +130,7 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         session.Arrange(ImageArrangement.SideBySide);
 
-        Assert.False(session.CanUndo);
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -143,8 +143,8 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         var (width, height) = PngSize.Read(await session.RenderPreviewPngAsync(100, 100));
 
-        Assert.InRange(width, 95, 100);
-        Assert.InRange(height, 30, 40);
+        width.ShouldBeInRange(95, 100);
+        height.ShouldBeInRange(30, 40);
     }
 
     [Fact]
@@ -155,7 +155,7 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         await session.AddAsync(Enumerable.Repeat(strip, 40));
 
-        Assert.InRange(session.ResultSize!.Pixels, 60_000_000, 64_000_000);
+        session.ResultSize!.Pixels.ShouldBeInRange(60_000_000, 64_000_000);
     }
 
     [Fact]
@@ -167,13 +167,13 @@ public sealed class ImagesSideBySideSessionTests : IDisposable
 
         var failures = await session.AddAsync([iphone, photo]);
 
-        Assert.Equal([new LoadFailure(iphone, LoadFailureReason.Unsupported)], failures);
-        Assert.Single(session.Images);
+        failures.ShouldBe([new LoadFailure(iphone, LoadFailureReason.Unsupported)]);
+        session.Images.ShouldHaveSingleItem();
     }
 
     private static async Task AssertColourAsync(string path, double x, double y, (int R, int G, int B) expected)
     {
         var actual = await SavedImage.ColourAtAsync(path, x, y);
-        Assert.True(SavedImage.AreAlike(actual, expected), $"Expected {expected} at ({x}, {y}), found {actual}");
+        SavedImage.AreAlike(actual, expected).ShouldBeTrue($"Expected {expected} at ({x}, {y}), found {actual}");
     }
 }

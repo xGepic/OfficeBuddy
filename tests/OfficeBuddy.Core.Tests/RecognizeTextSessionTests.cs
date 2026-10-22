@@ -16,9 +16,9 @@ public sealed class RecognizeTextSessionTests : IDisposable
 
         await session.RecognizeAsync();
 
-        Assert.Contains("Rechnung", session.Text);
-        Assert.Contains("4711", session.Text);
-        Assert.True(session.WordCount >= 8, $"Expected at least 8 words, found {session.WordCount}: {session.Text}");
+        session.Text.ShouldContain("Rechnung", Case.Sensitive);
+        session.Text.ShouldContain("4711", Case.Sensitive);
+        (session.WordCount >= 8).ShouldBeTrue($"Expected at least 8 words, found {session.WordCount}: {session.Text}");
     }
 
     [SkippableFact]
@@ -26,16 +26,16 @@ public sealed class RecognizeTextSessionTests : IDisposable
     {
         var session = await OpenScanAsync();
         var scan = session.Document!.FilePath;
-        Assert.Equal([""], SavedDocument.ReadLabels(scan));
+        SavedDocument.ReadLabels(scan).ShouldBe([""]);
 
         await session.RecognizeAsync();
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Brief (durchsuchbar).pdf", session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBe("Brief (durchsuchbar).pdf");
         var text = SavedDocument.ReadLabels(output).Single();
-        Assert.Contains("Rechnung", text);
-        Assert.Contains("4711", text);
+        text.ShouldContain("Rechnung", Case.Sensitive);
+        text.ShouldContain("4711", Case.Sensitive);
 
         // The text is invisible: the Page looks as it did.
         var before = await SavedDocument.RenderAsync(scan, 0);
@@ -48,23 +48,23 @@ public sealed class RecognizeTextSessionTests : IDisposable
                 changed++;
             }
         }
-        Assert.True(changed < before.Pixels.Length / 1000, $"{changed} of {before.Pixels.Length} colour values changed");
+        (changed < before.Pixels.Length / 1000).ShouldBeTrue($"{changed} of {before.Pixels.Length} colour values changed");
     }
 
     [SkippableFact]
     public async Task Recognising_can_be_undone_and_saving_needs_recognised_words()
     {
         var session = await OpenScanAsync();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         var progress = new List<RecognizeProgress>();
         await session.RecognizeAsync(new SynchronousProgress<RecognizeProgress>(progress.Add));
-        Assert.True(session.CanSave);
-        Assert.Equal(new RecognizeProgress(1, 1), progress[^1]);
+        session.CanSave.ShouldBeTrue();
+        progress[^1].ShouldBe(new RecognizeProgress(1, 1));
 
         session.Undo();
-        Assert.Null(session.Pages);
-        Assert.False(session.CanSave);
+        session.Pages.ShouldBeNull();
+        session.CanSave.ShouldBeFalse();
     }
 
     private async Task<RecognizeTextSession> OpenScanAsync()
@@ -74,7 +74,7 @@ public sealed class RecognizeTextSessionTests : IDisposable
             "Rechnung Nummer 4711 vom 3. Oktober",
             "Bitte überweisen Sie den Betrag bis Ende des Monats.");
         var session = new RecognizeTextSession();
-        Assert.Null(await session.OpenAsync(scan));
+        (await session.OpenAsync(scan)).ShouldBeNull();
         return session;
     }
 }

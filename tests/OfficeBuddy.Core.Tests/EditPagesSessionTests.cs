@@ -18,7 +18,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S1", "S2", "S3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "S2", "S3"]);
     }
 
     [Fact]
@@ -33,12 +33,12 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Empty(failures);
-        Assert.Equal(["B1", "A1", "A2", "B2", "B3"], SavedDocument.ReadLabels(output));
+        failures.ShouldBeEmpty();
+        SavedDocument.ReadLabels(output).ShouldBe(["B1", "A1", "A2", "B2", "B3"]);
         // Named after the Document that was opened, not the inserted one.
-        Assert.Equal("Brief (bearbeitet).pdf", session.SuggestedFileName);
-        Assert.Equal("Anlage.pdf", session.Pages[1].InsertedFrom!.FileName);
-        Assert.Null(session.Pages[0].InsertedFrom);
+        session.SuggestedFileName.ShouldBe("Brief (bearbeitet).pdf");
+        session.Pages[1].InsertedFrom!.FileName.ShouldBe("Anlage.pdf");
+        session.Pages[0].InsertedFrom.ShouldBeNull();
     }
 
     [Fact]
@@ -56,7 +56,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal([new SavedPage("A1", 90), new SavedPage("B1", 0), new SavedPage("B2", 0)], SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("A1", 90), new SavedPage("B1", 0), new SavedPage("B2", 0)]);
     }
 
     [Fact]
@@ -74,8 +74,8 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal([new LoadFailure(notAPdf, LoadFailureReason.Unsupported)], failures);
-        Assert.Equal(["B1", "A1", "C1"], SavedDocument.ReadLabels(output));
+        failures.ShouldBe([new LoadFailure(notAPdf, LoadFailureReason.Unsupported)]);
+        SavedDocument.ReadLabels(output).ShouldBe(["B1", "A1", "C1"]);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["B1", "B2", "B1", "B2"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["B1", "B2", "B1", "B2"]);
     }
 
     [Fact]
@@ -101,17 +101,17 @@ public sealed class EditPagesSessionTests : IDisposable
         await session.OpenAsync(letter);
 
         await session.InsertAsync([attachment], position: 0);
-        Assert.Equal(4, session.Pages.Count);
-        Assert.True(session.HasUnsavedChanges);
+        session.Pages.Count.ShouldBe(4);
+        session.HasUnsavedChanges.ShouldBeTrue();
         session.Undo();
-        Assert.Equal(2, session.Pages.Count);
-        Assert.False(session.HasUnsavedChanges);
+        session.Pages.Count.ShouldBe(2);
+        session.HasUnsavedChanges.ShouldBeFalse();
 
         var notAPdf = _folder.File("Notiz.txt");
         await File.WriteAllTextAsync(notAPdf, "Hallo");
         await session.InsertAsync([notAPdf], position: 0);
-        Assert.Equal(2, session.Pages.Count);
-        Assert.False(session.CanUndo);
+        session.Pages.Count.ShouldBe(2);
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S1", "S3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "S3"]);
     }
 
     [Fact]
@@ -140,8 +140,8 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S2", "S3"], SavedDocument.ReadLabels(output));
-        Assert.Equal([true, false, false], session.Pages.Select(page => page.IsMarkedForRemoval));
+        SavedDocument.ReadLabels(output).ShouldBe(["S2", "S3"]);
+        session.Pages.Select(page => page.IsMarkedForRemoval).ShouldBe([true, false, false]);
     }
 
     [Fact]
@@ -159,9 +159,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(
-            [new SavedPage("S1", 90), new SavedPage("S2", 270), new SavedPage("S3", 180), new SavedPage("S4", 0)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("S1", 90), new SavedPage("S2", 270), new SavedPage("S3", 180), new SavedPage("S4", 0)]);
     }
 
     [Fact]
@@ -176,9 +174,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(
-            [new SavedPage("S1", 0), new SavedPage("S2", 90), new SavedPage("S3", 0)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("S1", 0), new SavedPage("S2", 90), new SavedPage("S3", 0)]);
     }
 
     [Fact]
@@ -193,7 +189,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S4", "S2", "S1", "S3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S4", "S2", "S1", "S3"]);
     }
 
     [Fact]
@@ -209,9 +205,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(
-            [new SavedPage("S1", 0), new SavedPage("S3", 0), new SavedPage("S4", 0)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("S1", 0), new SavedPage("S3", 0), new SavedPage("S4", 0)]);
     }
 
     [Fact]
@@ -229,7 +223,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S2", "S3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S2", "S3"]);
     }
 
     [Fact]
@@ -237,18 +231,18 @@ public sealed class EditPagesSessionTests : IDisposable
     {
         var scan = SamplePdfs.Create(_folder.Path, "Scan.pdf", "S1", "S2");
         var session = new EditPagesSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.OpenAsync(scan);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.MarkForRemoval([0, 1]);
-        Assert.False(session.CanSave);
-        Assert.True(session.EveryPageMarkedForRemoval);
+        session.CanSave.ShouldBeFalse();
+        session.EveryPageMarkedForRemoval.ShouldBeTrue();
 
         session.Unmark([1]);
-        Assert.True(session.CanSave);
-        Assert.False(session.EveryPageMarkedForRemoval);
+        session.CanSave.ShouldBeTrue();
+        session.EveryPageMarkedForRemoval.ShouldBeFalse();
     }
 
     [Fact]
@@ -256,12 +250,12 @@ public sealed class EditPagesSessionTests : IDisposable
     {
         var scan = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1");
         var session = new EditPagesSession();
-        Assert.Null(session.SuggestedFileName);
+        session.SuggestedFileName.ShouldBeNull();
 
         await session.OpenAsync(scan);
 
-        Assert.Equal("Rechnung (bearbeitet).pdf", session.SuggestedFileName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
+        session.SuggestedFileName.ShouldBe("Rechnung (bearbeitet).pdf");
+        session.SuggestedFolder.ShouldBe(_folder.Path);
     }
 
     [Fact]
@@ -275,9 +269,9 @@ public sealed class EditPagesSessionTests : IDisposable
 
         var failure = await session.OpenAsync(statement);
 
-        Assert.Equal(new LoadFailure(statement, LoadFailureReason.Protected), failure);
-        Assert.Equal("Scan.pdf", session.Document?.FileName);
-        Assert.True(session.CanUndo);
+        failure.ShouldBe(new LoadFailure(statement, LoadFailureReason.Protected));
+        session.Document?.FileName.ShouldBe("Scan.pdf");
+        session.CanUndo.ShouldBeTrue();
     }
 
     [Fact]
@@ -291,14 +285,12 @@ public sealed class EditPagesSessionTests : IDisposable
 
         await session.OpenAsync(letter);
 
-        Assert.Equal([0, 1, 2], session.Pages.Select(page => page.SourceIndex));
-        Assert.False(session.CanUndo);
-        Assert.False(session.HasUnsavedChanges);
+        session.Pages.Select(page => page.SourceIndex).ShouldBe([0, 1, 2]);
+        session.CanUndo.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
-        Assert.Equal(
-            [new SavedPage("B1", 0), new SavedPage("B2", 0), new SavedPage("B3", 0)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("B1", 0), new SavedPage("B2", 0), new SavedPage("B3", 0)]);
     }
 
     [Fact]
@@ -311,7 +303,7 @@ public sealed class EditPagesSessionTests : IDisposable
         session.MarkForRemoval([1]);
         await session.SaveAsync(scan);
 
-        Assert.Equal(["S1", "S3"], SavedDocument.ReadLabels(scan));
+        SavedDocument.ReadLabels(scan).ShouldBe(["S1", "S3"]);
     }
 
     [Fact]
@@ -325,8 +317,8 @@ public sealed class EditPagesSessionTests : IDisposable
         var turned = PngSize.Read(await session.Document!.RenderPageAsPngAsync(1, maxWidth: 300, maxHeight: 300));
 
         // An A4 Page is 1 : 1.414, so its long side fills the box and the short one is 212 pixels.
-        Assert.Equal((212, 300), upright);
-        Assert.Equal((300, 212), turned);
+        upright.ShouldBe((212, 300));
+        turned.ShouldBe((300, 212));
     }
 
     [Fact]
@@ -341,7 +333,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S1", "S2"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "S2"]);
     }
 
     [Fact]
@@ -353,9 +345,9 @@ public sealed class EditPagesSessionTests : IDisposable
 
         session.MarkForRemoval([0, 2]);
 
-        Assert.True(session.AreAllMarkedForRemoval([0, 2]));
-        Assert.False(session.AreAllMarkedForRemoval([0, 1]));
-        Assert.False(session.AreAllMarkedForRemoval([]));
+        session.AreAllMarkedForRemoval([0, 2]).ShouldBeTrue();
+        session.AreAllMarkedForRemoval([0, 1]).ShouldBeFalse();
+        session.AreAllMarkedForRemoval([]).ShouldBeFalse();
     }
 
     [Fact]
@@ -366,8 +358,8 @@ public sealed class EditPagesSessionTests : IDisposable
 
         await session.OpenAsync(scan);
 
-        Assert.Equal([2, 6, 8], session.DetectedBlankPageNumbers);
-        Assert.Equal([1, 5, 7], session.Pages.Where(page => page.IsMarkedForRemoval).Select(page => page.SourceIndex));
+        session.DetectedBlankPageNumbers.ShouldBe([2, 6, 8]);
+        session.Pages.Where(page => page.IsMarkedForRemoval).Select(page => page.SourceIndex).ShouldBe([1, 5, 7]);
     }
 
     [Fact]
@@ -378,9 +370,9 @@ public sealed class EditPagesSessionTests : IDisposable
 
         await session.OpenAsync(scan);
 
-        Assert.False(session.Pages[3].IsMarkedForRemoval);
-        Assert.False(session.Pages[6].IsMarkedForRemoval);
-        Assert.False(session.Pages[8].IsMarkedForRemoval);
+        session.Pages[3].IsMarkedForRemoval.ShouldBeFalse();
+        session.Pages[6].IsMarkedForRemoval.ShouldBeFalse();
+        session.Pages[8].IsMarkedForRemoval.ShouldBeFalse();
     }
 
     [Fact]
@@ -393,7 +385,7 @@ public sealed class EditPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S1", "S2", "U1", "S3", "BEZAHLT", "N1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "S2", "U1", "S3", "BEZAHLT", "N1"]);
     }
 
     [Fact]
@@ -402,15 +394,15 @@ public sealed class EditPagesSessionTests : IDisposable
         var scan = SamplePdfs.CreateDuplexScan(_folder.Path, "Scan.pdf");
         var session = new EditPagesSession();
         await session.OpenAsync(scan);
-        Assert.False(session.CanUndo);
-        Assert.False(session.HasUnsavedChanges);
+        session.CanUndo.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
 
         session.Unmark([1]);
-        Assert.False(session.Pages[1].IsMarkedForRemoval);
+        session.Pages[1].IsMarkedForRemoval.ShouldBeFalse();
 
         session.Undo();
-        Assert.True(session.Pages[1].IsMarkedForRemoval);
-        Assert.False(session.CanUndo);
+        session.Pages[1].IsMarkedForRemoval.ShouldBeTrue();
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -421,8 +413,8 @@ public sealed class EditPagesSessionTests : IDisposable
 
         await session.OpenAsync(letter);
 
-        Assert.Empty(session.DetectedBlankPageNumbers);
-        Assert.DoesNotContain(session.Pages, page => page.IsMarkedForRemoval);
+        session.DetectedBlankPageNumbers.ShouldBeEmpty();
+        session.Pages.ShouldNotContain(page => page.IsMarkedForRemoval);
     }
 
     [Fact]
@@ -433,7 +425,7 @@ public sealed class EditPagesSessionTests : IDisposable
 
         var failure = await session.OpenAsync(strip);
 
-        Assert.Null(failure);
-        Assert.Single(session.Pages);
+        failure.ShouldBeNull();
+        session.Pages.ShouldHaveSingleItem();
     }
 }

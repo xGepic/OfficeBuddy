@@ -19,7 +19,7 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["A1", "A2", "B1", "B2", "B3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["A1", "A2", "B1", "B2", "B3"]);
     }
 
     [Fact]
@@ -33,8 +33,8 @@ public sealed class MergeSessionTests : IDisposable
 
         var failed = await session.AddAsync([first, broken, last]);
 
-        Assert.Equal([new LoadFailure(broken, LoadFailureReason.Damaged)], failed);
-        Assert.Equal(["A.pdf", "C.pdf"], session.Documents.Select(d => d.FileName));
+        failed.ShouldBe([new LoadFailure(broken, LoadFailureReason.Damaged)]);
+        session.Documents.Select(d => d.FileName).ShouldBe(["A.pdf", "C.pdf"]);
     }
 
     [Fact]
@@ -46,8 +46,8 @@ public sealed class MergeSessionTests : IDisposable
 
         var failed = await session.AddAsync([invoice, statement]);
 
-        Assert.Equal([new LoadFailure(statement, LoadFailureReason.Protected)], failed);
-        Assert.Equal(["Rechnung.pdf"], session.Documents.Select(d => d.FileName));
+        failed.ShouldBe([new LoadFailure(statement, LoadFailureReason.Protected)]);
+        session.Documents.Select(d => d.FileName).ShouldBe(["Rechnung.pdf"]);
     }
 
     [Fact]
@@ -59,8 +59,8 @@ public sealed class MergeSessionTests : IDisposable
 
         var failed = await session.AddAsync([invoice, scan]);
 
-        Assert.Equal([new LoadFailure(scan, LoadFailureReason.Damaged)], failed);
-        Assert.Equal(["Rechnung.pdf"], session.Documents.Select(d => d.FileName));
+        failed.ShouldBe([new LoadFailure(scan, LoadFailureReason.Damaged)]);
+        session.Documents.Select(d => d.FileName).ShouldBe(["Rechnung.pdf"]);
     }
 
     [Fact]
@@ -72,8 +72,8 @@ public sealed class MergeSessionTests : IDisposable
 
         var failed = await session.AddAsync([invoice, photo]);
 
-        Assert.Equal([new LoadFailure(photo, LoadFailureReason.Unsupported)], failed);
-        Assert.Equal(["Rechnung.pdf"], session.Documents.Select(d => d.FileName));
+        failed.ShouldBe([new LoadFailure(photo, LoadFailureReason.Unsupported)]);
+        session.Documents.Select(d => d.FileName).ShouldBe(["Rechnung.pdf"]);
     }
 
     [Fact]
@@ -89,8 +89,8 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["C.pdf", "A.pdf", "B.pdf"], session.Documents.Select(d => d.FileName));
-        Assert.Equal(["C1", "C2", "A1", "B1"], SavedDocument.ReadLabels(output));
+        session.Documents.Select(d => d.FileName).ShouldBe(["C.pdf", "A.pdf", "B.pdf"]);
+        SavedDocument.ReadLabels(output).ShouldBe(["C1", "C2", "A1", "B1"]);
     }
 
     [Fact]
@@ -106,7 +106,7 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["A1", "C1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["A1", "C1"]);
     }
 
     [Fact]
@@ -115,16 +115,16 @@ public sealed class MergeSessionTests : IDisposable
         var a = SamplePdfs.Create(_folder.Path, "A.pdf", "A1");
         var b = SamplePdfs.Create(_folder.Path, "B.pdf", "B1");
         var session = new MergeSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.AddAsync([a]);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.AddAsync([b]);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.Remove(0);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
     }
 
     [Fact]
@@ -136,13 +136,13 @@ public sealed class MergeSessionTests : IDisposable
         var session = new MergeSession();
         await session.AddAsync([invoice, letter]);
 
-        Assert.Equal("Rechnung (zusammengefügt).pdf", session.SuggestedFileName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
+        session.SuggestedFileName.ShouldBe("Rechnung (zusammengefügt).pdf");
+        session.SuggestedFolder.ShouldBe(_folder.Path);
 
         session.Move(from: 1, to: 0);
 
-        Assert.Equal("Brief (zusammengefügt).pdf", session.SuggestedFileName);
-        Assert.Equal(otherFolder, session.SuggestedFolder);
+        session.SuggestedFileName.ShouldBe("Brief (zusammengefügt).pdf");
+        session.SuggestedFolder.ShouldBe(otherFolder);
     }
 
     [Fact]
@@ -157,9 +157,7 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(
-            [new SavedPage("A1", 0), new SavedPage("A2", 90), new SavedPage("A3", 270), new SavedPage("B1", 180)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("A1", 0), new SavedPage("A2", 90), new SavedPage("A3", 270), new SavedPage("B1", 180)]);
     }
 
     [Fact]
@@ -175,7 +173,7 @@ public sealed class MergeSessionTests : IDisposable
         session.Remove(0);
         await saving;
 
-        Assert.Equal(["A1", "B1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["A1", "B1"]);
     }
 
     [Fact]
@@ -188,7 +186,7 @@ public sealed class MergeSessionTests : IDisposable
 
         await session.SaveAsync(invoice);
 
-        Assert.Equal(["A1", "A2", "B1"], SavedDocument.ReadLabels(invoice));
+        SavedDocument.ReadLabels(invoice).ShouldBe(["A1", "A2", "B1"]);
     }
 
     [Fact]
@@ -205,7 +203,7 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["A1", "B1", "C1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["A1", "B1", "C1"]);
     }
 
     [Fact]
@@ -222,7 +220,7 @@ public sealed class MergeSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["B1", "A1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["B1", "A1"]);
     }
 
     [Fact]
@@ -236,14 +234,14 @@ public sealed class MergeSessionTests : IDisposable
 
         session.Remove(0);
         session.Undo();
-        Assert.True(session.CanRedo);
+        session.CanRedo.ShouldBeTrue();
 
         session.Remove(2);
 
-        Assert.False(session.CanRedo);
+        session.CanRedo.ShouldBeFalse();
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
-        Assert.Equal(["A1", "B1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["A1", "B1"]);
     }
 
     [Fact]
@@ -252,21 +250,21 @@ public sealed class MergeSessionTests : IDisposable
         var a = SamplePdfs.Create(_folder.Path, "A.pdf", "A1");
         var b = SamplePdfs.Create(_folder.Path, "B.pdf", "B1");
         var session = new MergeSession();
-        Assert.False(session.CanUndo);
-        Assert.False(session.CanRedo);
+        session.CanUndo.ShouldBeFalse();
+        session.CanRedo.ShouldBeFalse();
 
         await session.AddAsync([a, b]);
-        Assert.True(session.CanUndo);
+        session.CanUndo.ShouldBeTrue();
 
         session.Undo();
-        Assert.Empty(session.Documents);
-        Assert.False(session.CanUndo);
-        Assert.True(session.CanRedo);
+        session.Documents.ShouldBeEmpty();
+        session.CanUndo.ShouldBeFalse();
+        session.CanRedo.ShouldBeTrue();
 
         session.Redo();
-        Assert.Equal(["A.pdf", "B.pdf"], session.Documents.Select(d => d.FileName));
-        Assert.True(session.CanUndo);
-        Assert.False(session.CanRedo);
+        session.Documents.Select(d => d.FileName).ShouldBe(["A.pdf", "B.pdf"]);
+        session.CanUndo.ShouldBeTrue();
+        session.CanRedo.ShouldBeFalse();
     }
 
     [Fact]
@@ -277,7 +275,7 @@ public sealed class MergeSessionTests : IDisposable
 
         await session.AddAsync([photo]);
 
-        Assert.False(session.CanUndo);
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -286,16 +284,16 @@ public sealed class MergeSessionTests : IDisposable
         var a = SamplePdfs.Create(_folder.Path, "A.pdf", "A1");
         var b = SamplePdfs.Create(_folder.Path, "B.pdf", "B1");
         var session = new MergeSession();
-        Assert.False(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeFalse();
 
         await session.AddAsync([a, b]);
-        Assert.True(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeTrue();
 
         await session.SaveAsync(_folder.File("Ergebnis.pdf"));
-        Assert.False(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeFalse();
 
         session.Move(from: 1, to: 0);
-        Assert.True(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeTrue();
     }
 
     [Fact]
@@ -312,8 +310,8 @@ public sealed class MergeSessionTests : IDisposable
 
         await session.SaveAsync(_folder.File("Ergebnis.pdf"));
 
-        Assert.False(session.CanUndo);
-        Assert.False(session.CanRedo);
+        session.CanUndo.ShouldBeFalse();
+        session.CanRedo.ShouldBeFalse();
     }
 
     [Fact]
@@ -328,7 +326,7 @@ public sealed class MergeSessionTests : IDisposable
         session.Remove(0);
         session.Undo();
 
-        Assert.False(session.HasUnsavedChanges);
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Fact]
@@ -342,8 +340,8 @@ public sealed class MergeSessionTests : IDisposable
         session.Undo();
         session.Undo();
 
-        Assert.Empty(session.Documents);
-        Assert.True(session.CanRedo);
+        session.Documents.ShouldBeEmpty();
+        session.CanRedo.ShouldBeTrue();
     }
 
     [Fact]
@@ -359,7 +357,7 @@ public sealed class MergeSessionTests : IDisposable
         {
             told = false;
             await action();
-            Assert.True(told);
+            told.ShouldBeTrue();
         }
 
         await AssertTold(() => session.AddAsync([a, b]));

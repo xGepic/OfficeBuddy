@@ -19,7 +19,7 @@ public sealed class ExtractPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S2"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S2"]);
     }
 
     [Fact]
@@ -35,9 +35,7 @@ public sealed class ExtractPagesSessionTests : IDisposable
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(
-            [new SavedPage("S2", 90), new SavedPage("S3", 0), new SavedPage("S5", 180)],
-            SavedDocument.ReadPages(output));
+        SavedDocument.ReadPages(output).ShouldBe([new SavedPage("S2", 90), new SavedPage("S3", 0), new SavedPage("S5", 180)]);
     }
 
     [Fact]
@@ -45,16 +43,16 @@ public sealed class ExtractPagesSessionTests : IDisposable
     {
         var invoice = SamplePdfs.Create(_folder.Path, "Rechnung.pdf", "S1", "S2");
         var session = new ExtractPagesSession();
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         await session.OpenAsync(invoice);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.SetSelection([0]);
-        Assert.True(session.CanSave);
+        session.CanSave.ShouldBeTrue();
 
         session.SetSelection([]);
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
     }
 
     [Theory]
@@ -70,8 +68,8 @@ public sealed class ExtractPagesSessionTests : IDisposable
 
         session.SetSelection(selection);
 
-        Assert.Equal(expected, session.SuggestedFileName);
-        Assert.Equal(_folder.Path, session.SuggestedFolder);
+        session.SuggestedFileName.ShouldBe(expected);
+        session.SuggestedFolder.ShouldBe(_folder.Path);
     }
 
     [Fact]
@@ -84,12 +82,12 @@ public sealed class ExtractPagesSessionTests : IDisposable
         session.SetSelection([0, 2]);
 
         session.Undo();
-        Assert.Equal([0], session.SelectedPageIndexes);
+        session.SelectedPageIndexes.ShouldBe([0]);
 
         session.Redo();
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
-        Assert.Equal(["S1", "S3"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "S3"]);
     }
 
     [Fact]
@@ -103,8 +101,8 @@ public sealed class ExtractPagesSessionTests : IDisposable
         session.SetSelection([1]);
         session.Undo();
 
-        Assert.Empty(session.SelectedPageIndexes);
-        Assert.False(session.CanUndo);
+        session.SelectedPageIndexes.ShouldBeEmpty();
+        session.CanUndo.ShouldBeFalse();
     }
 
     [Fact]
@@ -118,7 +116,7 @@ public sealed class ExtractPagesSessionTests : IDisposable
         session.SetSelection([0, 2]);
         await session.SaveAsync(_folder.File("Rechnung (Seiten 1, 3).pdf"));
 
-        Assert.Equal(before, await File.ReadAllBytesAsync(invoice));
+        (await File.ReadAllBytesAsync(invoice)).ShouldBe(before);
     }
 
     [Fact]
@@ -127,13 +125,13 @@ public sealed class ExtractPagesSessionTests : IDisposable
         var scan = SamplePdfs.CreateDuplexScan(_folder.Path, "Scan.pdf");
         var session = new ExtractPagesSession();
         await session.OpenAsync(scan);
-        Assert.Empty(session.SelectedPageIndexes);
+        session.SelectedPageIndexes.ShouldBeEmpty();
 
         session.SetSelection(Enumerable.Range(0, 9));
         var output = _folder.File("Ergebnis.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["S1", "R1", "S2", "U1", "S3", "R2", "BEZAHLT", "R3", "N1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["S1", "R1", "S2", "U1", "S3", "R2", "BEZAHLT", "R3", "N1"]);
     }
 
     [Fact]
@@ -147,8 +145,8 @@ public sealed class ExtractPagesSessionTests : IDisposable
 
         var failure = await session.OpenAsync(photo);
 
-        Assert.Equal(new LoadFailure(photo, LoadFailureReason.Unsupported), failure);
-        Assert.Equal("Rechnung.pdf", session.Document?.FileName);
-        Assert.Equal([1], session.SelectedPageIndexes);
+        failure.ShouldBe(new LoadFailure(photo, LoadFailureReason.Unsupported));
+        session.Document?.FileName.ShouldBe("Rechnung.pdf");
+        session.SelectedPageIndexes.ShouldBe([1]);
     }
 }

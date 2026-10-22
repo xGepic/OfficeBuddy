@@ -22,8 +22,8 @@ public sealed class SignSessionTests : IDisposable
         var output = _folder.File(session.SuggestedFileName!);
         await session.SaveAsync(output);
 
-        Assert.Equal("Mietvertrag (unterschrieben).pdf", session.SuggestedFileName);
-        Assert.Equal(["M1", "M2"], SavedDocument.ReadLabels(output));
+        session.SuggestedFileName.ShouldBe("Mietvertrag (unterschrieben).pdf");
+        SavedDocument.ReadLabels(output).ShouldBe(["M1", "M2"]);
         var middle = (0.1 + 0.125, 0.1 + session.HeightFor(1, 0.25) / 2);
         AssertAlike(Blue, (await SavedDocument.RenderAsync(output, 1)).ColourAt(middle));
         AssertAlike(White, (await SavedDocument.RenderAsync(output, 1)).ColourAt((0.8, 0.1)));
@@ -81,11 +81,11 @@ public sealed class SignSessionTests : IDisposable
 
         session.Place(0, new Placement(0.9, 0.95, 0.25));
         var placement = session.Placements[0];
-        Assert.Equal(0.75, placement.Left, 6);
-        Assert.Equal(1 - session.HeightFor(0, 0.25), placement.Top, 6);
+        placement.Left.ShouldBe(0.75, tolerance: 1e-6);
+        placement.Top.ShouldBe(1 - session.HeightFor(0, 0.25), tolerance: 1e-6);
 
         session.Place(0, new Placement(0, 0, 5));
-        Assert.Equal(1, session.Placements[0].Width, 6);
+        session.Placements[0].Width.ShouldBe(1, tolerance: 1e-6);
     }
 
     [Fact]
@@ -93,21 +93,21 @@ public sealed class SignSessionTests : IDisposable
     {
         var contract = SamplePdfs.Create(_folder.Path, "Mietvertrag.pdf", "M1", "M2");
         var session = await OpenAsync(contract, await CreatePngAsync(_folder.Path, "Unterschrift.png", 200, 100, Blue));
-        Assert.False(session.CanSave);
+        session.CanSave.ShouldBeFalse();
 
         session.Sign(0);
         var start = session.Placements[0];
-        Assert.True(start.Left > 0.5 && start.Top > 0.5, $"Expected bottom right, was {start}");
+        (start.Left > 0.5 && start.Top > 0.5).ShouldBeTrue($"Expected bottom right, was {start}");
         session.Sign(1);
         session.Unsign(0);
-        Assert.Equal([1], session.Placements.Keys);
-        Assert.True(session.CanSave);
+        session.Placements.Keys.ShouldBe([1]);
+        session.CanSave.ShouldBeTrue();
 
         session.Undo();
         session.Undo();
-        Assert.Equal([0], session.Placements.Keys);
+        session.Placements.Keys.ShouldBe([0]);
         session.Undo();
-        Assert.Empty(session.Placements);
+        session.Placements.ShouldBeEmpty();
     }
 
     [Fact]
@@ -120,9 +120,9 @@ public sealed class SignSessionTests : IDisposable
 
         await session.OpenAsync(second);
 
-        Assert.Equal("Unterschrift.png", session.Signature!.FileName);
-        Assert.Empty(session.Placements);
-        Assert.False(session.HasUnsavedChanges);
+        session.Signature!.FileName.ShouldBe("Unterschrift.png");
+        session.Placements.ShouldBeEmpty();
+        session.HasUnsavedChanges.ShouldBeFalse();
     }
 
     [Fact]
@@ -135,14 +135,14 @@ public sealed class SignSessionTests : IDisposable
         await session.OfferSignatureAsync(remembered);
         await session.OpenAsync(contract);
 
-        Assert.Equal("Unterschrift.png", session.Signature!.FileName);
-        Assert.False(session.CanUndo);
-        Assert.False(session.HasUnsavedChanges);
+        session.Signature!.FileName.ShouldBe("Unterschrift.png");
+        session.CanUndo.ShouldBeFalse();
+        session.HasUnsavedChanges.ShouldBeFalse();
 
         // Once one is chosen, an offer changes nothing.
         await session.ChooseSignatureAsync(await CreatePngAsync(_folder.Path, "Neu.png", 200, 100, Green));
         await session.OfferSignatureAsync(remembered);
-        Assert.Equal("Neu.png", session.Signature!.FileName);
+        session.Signature!.FileName.ShouldBe("Neu.png");
     }
 
     [Fact]
@@ -156,17 +156,17 @@ public sealed class SignSessionTests : IDisposable
         var output = _folder.File("Formular unterschrieben.pdf");
         await session.SaveAsync(output);
 
-        Assert.Equal(["P1"], SavedDocument.ReadLabels(output));
+        SavedDocument.ReadLabels(output).ShouldBe(["P1"]);
     }
 
     private static async Task<SignSession> OpenAsync(string document, string signature)
     {
         var session = new SignSession();
-        Assert.Null(await session.OpenAsync(document));
-        Assert.Null(await session.ChooseSignatureAsync(signature));
+        (await session.OpenAsync(document)).ShouldBeNull();
+        (await session.ChooseSignatureAsync(signature)).ShouldBeNull();
         return session;
     }
 
     private static void AssertAlike((int R, int G, int B) expected, (int R, int G, int B) actual) =>
-        Assert.True(SavedImage.AreAlike(actual, expected), $"Expected {expected}, found {actual}");
+        SavedImage.AreAlike(actual, expected).ShouldBeTrue($"Expected {expected}, found {actual}");
 }
