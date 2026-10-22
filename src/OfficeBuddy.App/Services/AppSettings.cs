@@ -1,4 +1,5 @@
 using System.Text.Json;
+using OfficeBuddy.Core;
 
 namespace OfficeBuddy.App.Services;
 
@@ -37,6 +38,47 @@ internal static class AppSettings
         }
     }
 
+    /// <summary>Where the save dialog opens: next to the original unless the user chose otherwise.</summary>
+    public static SaveLocation SaveLocation => Load().SaveLocation;
+
+    /// <summary>The folder chosen for <see cref="SaveLocation.ChosenFolder"/>, if any.</summary>
+    public static string? SaveFolder => Load().SaveFolder;
+
+    public static void SetSaveLocation(SaveLocation location, string? folder = null) =>
+        Save(Load() with { SaveLocation = location, SaveFolder = folder ?? SaveFolder });
+
+    /// <summary>
+    /// The folder the save dialog opens in for a result whose original is in
+    /// <paramref name="originalFolder"/>. Back to the original's folder if the chosen one is gone,
+    /// such as a USB stick that was pulled out.
+    /// </summary>
+    public static string? SaveFolderFor(string? originalFolder)
+    {
+        var folder = SaveLocation switch
+        {
+            SaveLocation.Documents => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            SaveLocation.Desktop => Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+            SaveLocation.ChosenFolder => SaveFolder,
+            _ => originalFolder,
+        };
+        return !string.IsNullOrEmpty(folder) && Directory.Exists(folder) ? folder : originalFolder;
+    }
+
+    /// <summary>The sizes an email attachment may have that the user can choose from, in megabytes.</summary>
+    public static IReadOnlyList<int> EmailSizeLimits { get; } = [10, 20, 25];
+
+    /// <summary>How big an email attachment may be with the user's email provider, in megabytes.</summary>
+    public static int EmailSizeLimitMegabytes =>
+        EmailSizeLimits.Contains(Load().EmailSizeLimitMegabytes) ? Load().EmailSizeLimitMegabytes : CompressSession.DefaultEmailSizeLimitMegabytes;
+
+    public static void SetEmailSizeLimitMegabytes(int megabytes)
+    {
+        if (megabytes != EmailSizeLimitMegabytes)
+        {
+            Save(Load() with { EmailSizeLimitMegabytes = megabytes });
+        }
+    }
+
     private static Stored Load()
     {
         if (_stored is null)
@@ -69,5 +111,19 @@ internal static class AppSettings
         }
     }
 
-    private sealed record Stored(HashSet<string> Favorites, string? SignaturePath = null);
+    private sealed record Stored(
+        HashSet<string> Favorites,
+        string? SignaturePath = null,
+        SaveLocation SaveLocation = SaveLocation.NextToOriginal,
+        string? SaveFolder = null,
+        int EmailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes);
+}
+
+/// <summary>Where the save dialog opens.</summary>
+internal enum SaveLocation
+{
+    NextToOriginal,
+    Documents,
+    Desktop,
+    ChosenFolder,
 }

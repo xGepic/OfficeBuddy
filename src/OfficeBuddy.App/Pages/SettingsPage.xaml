@@ -33,7 +33,37 @@
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled">
             <StackPanel MaxWidth="720" HorizontalAlignment="Left" Spacing="12">
-                <TextBlock x:Uid="SettingsFavoritesHeading" Margin="0,8,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock x:Uid="SettingsSaveHeading" Margin="0,8,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock
+                    x:Uid="SettingsSaveHint"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextWrapping="Wrap" />
+                <RadioButtons x:Name="SaveLocationChoice" x:Uid="SettingsSaveChoice" SelectionChanged="SaveLocation_SelectionChanged">
+                    <RadioButton x:Uid="SettingsSaveNextToOriginal" />
+                    <RadioButton x:Uid="SettingsSaveDocuments" />
+                    <RadioButton x:Uid="SettingsSaveDesktop" />
+                    <RadioButton x:Uid="SettingsSaveChosenFolder" />
+                </RadioButtons>
+                <!-- The chosen folder, under its option, and a way to choose another. -->
+                <Grid x:Name="ChosenFolderPanel" Margin="28,0,0,0" ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="ChosenFolderText" VerticalAlignment="Center" TextWrapping="Wrap" />
+                    <Button x:Uid="SettingsChooseFolderButton" Grid.Column="1" Click="ChooseFolder_Click">
+                        <TextBlock x:Uid="SettingsChooseFolder" />
+                    </Button>
+                </Grid>
+
+                <TextBlock x:Uid="SettingsEmailHeading" Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock
+                    x:Uid="SettingsEmailHint"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    TextWrapping="Wrap" />
+                <RadioButtons x:Name="EmailSizeChoice" x:Uid="SettingsEmailChoice" SelectionChanged="EmailSize_SelectionChanged" />
+
+                <TextBlock x:Uid="SettingsFavoritesHeading" Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock
                     x:Uid="SettingsFavoritesHint"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"

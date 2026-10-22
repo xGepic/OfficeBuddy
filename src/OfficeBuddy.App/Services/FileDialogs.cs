@@ -43,6 +43,37 @@ internal static class FileDialogs
         }
     }
 
+    /// <returns>The chosen folder, or null if the user cancelled.</returns>
+    public static string? PickFolder(nint owner, string title, string? folder)
+    {
+        var dialog = (IFileOpenDialog)CreateInstance(FileOpenDialogClsid);
+        try
+        {
+            dialog.SetTitle(title);
+            dialog.GetOptions(out var options);
+            dialog.SetOptions(options | Fos.PickFolders | Fos.ForceFileSystem | Fos.PathMustExist | Fos.NoChangeDir);
+
+            if (folder is not null && Directory.Exists(folder))
+            {
+                var iid = typeof(IShellItem).GUID;
+                SHCreateItemFromParsingName(folder, 0, ref iid, out var folderItem);
+                dialog.SetFolder(folderItem);
+            }
+
+            if (ShowWasCancelled(dialog.Show(owner)))
+            {
+                return null;
+            }
+
+            dialog.GetResult(out var result);
+            return FileSystemPath(result);
+        }
+        finally
+        {
+            Marshal.ReleaseComObject(dialog);
+        }
+    }
+
     /// <param name="askBeforeOverwriting">Off when the chosen name is only the start of the names actually written.</param>
     public static string? SaveFile(
         nint owner, string title, FileFilter filter, string? folder, string fileName, bool askBeforeOverwriting = true)
@@ -109,6 +140,7 @@ internal static class FileDialogs
     {
         OverwritePrompt = 0x2,
         NoChangeDir = 0x8,
+        PickFolders = 0x20,
         ForceFileSystem = 0x40,
         AllowMultiSelect = 0x200,
         PathMustExist = 0x800,

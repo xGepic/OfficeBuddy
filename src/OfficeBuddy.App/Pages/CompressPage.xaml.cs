@@ -9,7 +9,7 @@ namespace OfficeBuddy.App.Pages;
 
 public sealed partial class CompressPage : Page
 {
-    private readonly CompressSession _session = new();
+    private readonly CompressSession _session = new(AppSettings.EmailSizeLimitMegabytes);
     private Document? _thumbnailOf;
 
     public CompressPage()
@@ -95,7 +95,8 @@ public sealed partial class CompressPage : Page
 
         var result = _session.Result;
         StatusText.Text = Strings.Format(
-            _session.IsAlreadySmallEnough ? "CompressAlreadySmall" : "CompressTooLarge", Strings.FileSize(_session.OriginalSize));
+            _session.IsAlreadySmallEnough ? "CompressAlreadySmall" : "CompressTooLarge", Strings.FileSize(_session.OriginalSize),
+            AppSettings.EmailSizeLimitMegabytes);
         StatusText.Visibility = result is null ? Visibility.Visible : Visibility.Collapsed;
         ResultPanel.Visibility = result is null ? Visibility.Collapsed : Visibility.Visible;
         if (result is not null)
@@ -123,8 +124,8 @@ public sealed partial class CompressPage : Page
     private static string DescribeParts(CompressResult result) => result.OversizedPageNumbers switch
     {
         [] => Strings.Format("CompressPartsPossible", result.PartCount),
-        [var number] => Strings.Format("CompressPageTooLargeOne", number),
-        var numbers => Strings.Format("CompressPageTooLargeMany", string.Join(", ", numbers)),
+        [var number] => Strings.Format("CompressPageTooLargeOne", number, AppSettings.EmailSizeLimitMegabytes),
+        var numbers => Strings.Format("CompressPageTooLargeMany", string.Join(", ", numbers), AppSettings.EmailSizeLimitMegabytes),
     };
 
     /// <summary>Shows the first Page of the Document, unless another one was opened meanwhile.</summary>

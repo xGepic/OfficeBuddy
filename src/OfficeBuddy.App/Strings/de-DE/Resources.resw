@@ -63,6 +63,21 @@
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
   <data name="SettingsFavoritesHeading.Text" xml:space="preserve"><value>Favoriten</value></data>
   <data name="SettingsFavoritesHint.Text" xml:space="preserve"><value>Ihre Favoriten stehen auf der Startseite ganz oben, in der Mitte.</value></data>
+  <data name="SettingsSaveHeading.Text" xml:space="preserve"><value>Speichern unter</value></data>
+  <data name="SettingsSaveHint.Text" xml:space="preserve"><value>In welchem Ordner das Speichern-Fenster öffnet. Dort können Sie jedes Mal auch einen anderen Ordner wählen.</value></data>
+  <data name="SettingsSaveChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Speichern unter</value></data>
+  <data name="SettingsSaveNextToOriginal.Content" xml:space="preserve"><value>Im selben Ordner wie die Originaldatei</value></data>
+  <data name="SettingsSaveDocuments.Content" xml:space="preserve"><value>Dokumente</value></data>
+  <data name="SettingsSaveDesktop.Content" xml:space="preserve"><value>Desktop</value></data>
+  <data name="SettingsSaveChosenFolder.Content" xml:space="preserve"><value>Ein anderer Ordner</value></data>
+  <data name="SettingsChooseFolder.Text" xml:space="preserve"><value>Ordner wählen …</value></data>
+  <data name="SettingsChooseFolderButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ordner wählen</value></data>
+  <data name="SettingsChooseFolderDialogTitle" xml:space="preserve"><value>Ordner zum Speichern wählen</value></data>
+  <data name="SettingsEmailHeading.Text" xml:space="preserve"><value>Größe von E-Mail-Anhängen</value></data>
+  <data name="SettingsEmailHint.Text" xml:space="preserve"><value>Wie groß ein Anhang bei Ihrem E-Mail-Anbieter sein darf. „Verkleinern“ macht PDF-Dateien so klein, dass sie darunter bleiben. Im Zweifel wählen Sie 10 MB.</value></data>
+  <data name="SettingsEmailChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Größe von E-Mail-Anhängen</value></data>
+  <data name="SettingsEmailSize" xml:space="preserve"><value>{0} MB</value></data>
+  <data name="SettingsEmailSizeDefault" xml:space="preserve"><value>{0} MB – kommt fast überall an</value></data>
 
   <!-- Shared Tool frame -->
   <data name="ToolShellBack.Text" xml:space="preserve"><value>Zurück</value></data>
@@ -318,7 +333,7 @@
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>
-  <data name="CompressTooLarge" xml:space="preserve"><value>Mit {0} ist das Dokument zu groß für viele E-Mail-Postfächer. Unter 10 MB kommt es fast überall an.</value></data>
+  <data name="CompressTooLarge" xml:space="preserve"><value>Mit {0} ist das Dokument zu groß für eine E-Mail. Es wird auf unter {1} MB verkleinert.</value></data>
   <data name="CompressAlreadySmall" xml:space="preserve"><value>Mit {0} ist das Dokument schon klein genug für E-Mails. Sie können es trotzdem etwas verkleinern.</value></data>
   <data name="CompressStart" xml:space="preserve"><value>Verkleinern</value></data>
   <data name="CompressLightly" xml:space="preserve"><value>Etwas verkleinern</value></data>
@@ -328,10 +343,10 @@
   <data name="CompressSizes" xml:space="preserve"><value>Vorher {0} → Nachher {1}</value></data>
   <data name="CompressReached" xml:space="preserve"><value>Jetzt ist das Dokument klein genug für E-Mails. Speichern Sie es, um es zu verschicken.</value></data>
   <data name="CompressReachedLightly" xml:space="preserve"><value>Das Dokument ist jetzt noch etwas kleiner.</value></data>
-  <data name="CompressNotReached" xml:space="preserve"><value>Kleiner geht es nicht, ohne dass Text unleserlich wird. Für viele E-Mail-Postfächer ist das Dokument noch zu groß.</value></data>
+  <data name="CompressNotReached" xml:space="preserve"><value>Kleiner geht es nicht, ohne dass Text unleserlich wird. Für eine E-Mail ist das Dokument noch zu groß.</value></data>
   <data name="CompressPartsPossible" xml:space="preserve"><value>Sie können es aber in {0} Teile aufteilen, die jeweils in eine E-Mail passen.</value></data>
-  <data name="CompressPageTooLargeOne" xml:space="preserve"><value>Seite {0} ist schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
-  <data name="CompressPageTooLargeMany" xml:space="preserve"><value>Die Seiten {0} sind schon allein größer als 10 MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="CompressPageTooLargeOne" xml:space="preserve"><value>Seite {0} ist schon allein größer als {1} MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
+  <data name="CompressPageTooLargeMany" xml:space="preserve"><value>Die Seiten {0} sind schon allein größer als {1} MB. Deshalb lässt es sich auch nicht in E-Mail-taugliche Teile aufteilen.</value></data>
   <data name="BusyPlanningParts" xml:space="preserve"><value>Teile für E-Mails werden zusammengestellt … Seite {0} von {1}</value></data>
   <data name="CompressSaveAsParts.Text" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>
   <data name="CompressSaveAsPartsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>In mehrere E-Mail-taugliche Teile aufteilen</value></data>

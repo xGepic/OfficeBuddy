@@ -40,7 +40,7 @@ public sealed class CompressSessionTests : IDisposable
         await session.SaveAsync(output);
 
         Assert.True(session.Result!.ReachedTarget);
-        Assert.InRange(new FileInfo(output).Length, 1, CompressSession.EmailSizeTarget - 1);
+        Assert.InRange(new FileInfo(output).Length, 1, session.EmailSizeTarget - 1);
         Assert.Equal(9, SavedDocument.ReadPages(output).Count);
         Assert.All(SavedDocument.ReadImageResolutions(output), dpi => Assert.True(dpi >= 96, $"Image at {dpi:0} dpi"));
         var (r, g, b) = (await SavedDocument.RenderAsync(output, pageIndex: 4)).ColourAt(SamplePdfs.ColourScanLogo);
@@ -126,7 +126,22 @@ public sealed class CompressSessionTests : IDisposable
         // All three attempts were made, and the last one is kept.
         Assert.False(session.Result!.ReachedTarget);
         Assert.Contains(reported, progress => progress.Step == 3);
-        Assert.True(session.Result.CompressedSize >= CompressSession.EmailSizeTarget);
+        Assert.True(session.Result.CompressedSize >= session.EmailSizeTarget);
+    }
+
+    [Fact]
+    public async Task With_a_20_MB_email_limit_a_scan_that_cannot_get_under_10_MB_is_already_small_enough()
+    {
+        var scan = await SamplePdfs.CreateDetailedLowResolutionScanAsync(_folder.Path, "Fotos.pdf", pageCount: 12);
+        var session = new CompressSession(emailSizeLimitMegabytes: 20);
+        await session.OpenAsync(scan);
+        Assert.True(session.OriginalSize > 10L * 1024 * 1024);
+        Assert.True(session.IsAlreadySmallEnough);
+
+        await session.CompressAsync();
+
+        Assert.True(session.Result!.ReachedTarget);
+        Assert.False(session.CanSaveAsParts);
     }
 
     [Fact]
@@ -166,7 +181,7 @@ public sealed class CompressSessionTests : IDisposable
         Assert.InRange(names.Count, 3, 9);
         Assert.Equal(Enumerable.Range(1, names.Count).Select(number => $"Fotos - Teil {number}.pdf"), names);
         Assert.Equal(names.Select(name => Path.Combine(output, name)), written);
-        Assert.All(written, path => Assert.InRange(new FileInfo(path).Length, 1, CompressSession.EmailSizeTarget - 1));
+        Assert.All(written, path => Assert.InRange(new FileInfo(path).Length, 1, session.EmailSizeTarget - 1));
         Assert.Equal(Enumerable.Range(1, 25).Select(number => $"F{number}"), written.SelectMany(SavedDocument.ReadLabels));
         Assert.False(session.HasUnsavedChanges);
     }

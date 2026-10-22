@@ -139,12 +139,13 @@ public sealed partial class ToolShell : UserControl
     /// <summary>
     /// Saves the Tool's result to one file: asks where with a save dialog for
     /// <paramref name="fileType"/> (a PDF Document unless the Tool says otherwise) that opens in
-    /// <paramref name="folder"/> with <paramref name="fileName"/> filled in, then runs
+    /// <paramref name="folder"/>, or where the settings say, with <paramref name="fileName"/> filled in, then runs
     /// <paramref name="save"/> while the screen is busy and reports how it went. Never throws.
     /// </summary>
     internal Task SaveToFileAsync(string? folder, string fileName, Func<string, Task> save, FileFilter? fileType = null) =>
         SaveThroughDialogAsync(
-            () => FileDialogs.SaveFile(App.MainWindow.Handle, Strings.Get("SaveDialogTitle"), fileType ?? FileFilter.Pdf, folder, fileName),
+            () => FileDialogs.SaveFile(App.MainWindow.Handle, Strings.Get("SaveDialogTitle"), fileType ?? FileFilter.Pdf,
+                AppSettings.SaveFolderFor(folder), fileName),
             // The save dialog itself asks before overwriting.
             _ => Task.FromResult(true),
             async path =>
@@ -157,8 +158,8 @@ public sealed partial class ToolShell : UserControl
 
     /// <summary>
     /// Saves several files at once: asks once for a folder and base name with a save dialog for
-    /// <paramref name="fileType"/> that opens in <paramref name="folder"/> with
-    /// <paramref name="baseName"/> filled in, asks before
+    /// <paramref name="fileType"/> that opens in <paramref name="folder"/>, or where the settings
+    /// say, with <paramref name="baseName"/> filled in, asks before
     /// replacing files of the names <paramref name="fileNamesFor"/> gives for that base name, then
     /// runs <paramref name="save"/> (folder, base name, returning the paths written) while the
     /// screen is busy, and offers to show them in their folder. Never throws.
@@ -168,7 +169,7 @@ public sealed partial class ToolShell : UserControl
         Func<string, string, Task<IReadOnlyList<string>>> save) =>
         SaveThroughDialogAsync(
             () => FileDialogs.SaveFile(App.MainWindow.Handle, Strings.Get("SaveSeveralDialogTitle"), fileType,
-                folder, baseName, askBeforeOverwriting: false),
+                AppSettings.SaveFolderFor(folder), baseName, askBeforeOverwriting: false),
             path => ConfirmReplacingAsync(Path.GetDirectoryName(path)!, fileNamesFor(Path.GetFileNameWithoutExtension(path))),
             async path =>
             {

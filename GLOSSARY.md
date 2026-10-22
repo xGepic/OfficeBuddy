@@ -41,7 +41,7 @@ Making a Document's file smaller until it reaches the Email size target, accepti
 _Avoid_: Optimize, shrink, reduce
 
 **Email size target**:
-The file size a compressed Document must get under so it can be sent as an email attachment almost anywhere. Set at 10 MB.
+The file size a compressed Document must get under so it can be sent as an email attachment. 10 MB, which gets through almost anywhere, unless the user sets 20 or 25 MB in the settings for their email provider.
 _Avoid_: Size limit, max size, quota
 
 **Rotate**:
@@ -107,6 +107,10 @@ _Avoid_: Trim, cut, clip
 **Favorite**:
 A Tool the user has marked in the settings so that its tile shows first on the start screen, under its own heading, instead of in its group. UI term: *Favorit*.
 _Avoid_: Pinned, starred, bookmark
+
+**Save location**:
+The folder the save dialog opens in, chosen in the settings: next to the original (the default), the Documents folder, the Desktop, or a folder of the user's own. The user can still pick any folder in the dialog. UI term: *Speichern unter*.
+_Avoid_: Output folder, default directory, target path
 
 **Sign**:
 Putting a picture of the user's own signature onto one or more Pages of a Document, each placed and sized on its Page, and saving the result. The signature's white paper becomes transparent. It is a picture, not a legally binding electronic signature. UI term: *Unterschreiben*.

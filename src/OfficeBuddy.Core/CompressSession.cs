@@ -37,10 +37,15 @@ public sealed record CompressResult(long OriginalSize, long CompressedSize, bool
 /// The state of the Compress Tool: one Document, and once it has been compressed, the smaller
 /// result. Compressing can be undone like any other change.
 /// </summary>
-public sealed class CompressSession() : DocumentSession<CompressResult?>(null)
+/// <param name="emailSizeLimitMegabytes">How big an email attachment may be with the user's email provider.</param>
+public sealed class CompressSession(int emailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes)
+    : DocumentSession<CompressResult?>(null)
 {
-    /// <summary>The Email size target: 10 MB, as File Explorer counts them.</summary>
-    public const long EmailSizeTarget = 10L * 1024 * 1024;
+    /// <summary>What gets through almost anywhere.</summary>
+    public const int DefaultEmailSizeLimitMegabytes = 10;
+
+    /// <summary>The Email size target in bytes, with megabytes as File Explorer counts them.</summary>
+    public long EmailSizeTarget { get; } = emailSizeLimitMegabytes * 1024L * 1024;
 
     // Image resolutions (dpi) to try, lightest first. Below 96 dpi, text in scans becomes hard to read.
     private static readonly int[] Resolutions = [150, 120, 96];

@@ -10,7 +10,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Seiten herauslösen** | Save selected Pages as a new PDF |
 | **Aufteilen** | Split a PDF into several Parts |
 | *PDF-Dateien bearbeiten* | |
-| **Verkleinern** | Make a PDF small enough to send by email (under 10 MB), or split it into email-sized Parts |
+| **Verkleinern** | Make a PDF small enough to send by email (under 10 MB, or 20 or 25 MB if set in Einstellungen), or split it into email-sized Parts |
 | **Unterschreiben** | Put a photo or scan of one's signature on PDF Pages, its white paper made transparent; the signature is remembered for next time |
 | **Text erkennen** | Read the text in a scanned PDF, to copy it or to save the PDF searchable with the text invisibly behind each Page |
 | **PDF-Passwort** | Remove a PDF's password one knows, or give a PDF a password |
@@ -25,6 +25,12 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Bilder nebeneinander** | Line up two or more images side by side or one below the other as one image, such as both sides of an ID card |
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.
+
+**Einstellungen**, from the start screen, holds three choices, each saved at once:
+
+- **Speichern unter** – the folder the save dialog opens in: next to the original (the default), Dokumente, Desktop or a folder of one's own.
+- **Größe von E-Mail-Anhängen** – 10, 20 or 25 MB, the size Verkleinern gets PDFs under. 10 MB gets through almost anywhere.
+- **Favoriten** – Tools whose tiles the start screen shows first.
 
 ## Getting it onto a PC
 
