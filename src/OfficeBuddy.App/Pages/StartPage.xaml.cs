@@ -52,6 +52,49 @@ public sealed partial class StartPage : Page
         }
     }
 
+    /// <summary>Started from the Downloads folder for the first time: offers to put Office Buddy on the desktop, once.</summary>
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (AppSettings.DesktopShortcutOffered || !DesktopShortcut.IsRunningFromDownloads)
+        {
+            return;
+        }
+
+        var offer = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            Title = Strings.Get("DesktopOfferTitle"),
+            Content = Strings.Get("DesktopOfferMessage"),
+            PrimaryButtonText = Strings.Get("DesktopOfferConfirm"),
+            CloseButtonText = Strings.Get("DesktopOfferDecline"),
+            DefaultButton = ContentDialogButton.Primary,
+        };
+        var accepted = await offer.ShowAsync() == ContentDialogResult.Primary;
+        AppSettings.SetDesktopShortcutOffered();
+        if (!accepted)
+        {
+            return;
+        }
+
+        string message;
+        try
+        {
+            DesktopShortcut.Create();
+            message = Strings.Get("DesktopDone");
+        }
+        catch (Exception)
+        {
+            message = Strings.Get("DesktopFailed");
+        }
+        await new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            Content = message,
+            CloseButtonText = Strings.Get("DesktopOk"),
+            DefaultButton = ContentDialogButton.Close,
+        }.ShowAsync();
+    }
+
     private void Settings_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(SettingsPage));
 
     private void Tile_Click(object sender, RoutedEventArgs e)

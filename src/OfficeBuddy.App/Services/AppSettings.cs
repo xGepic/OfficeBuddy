@@ -79,6 +79,11 @@ internal static class AppSettings
         }
     }
 
+    /// <summary>Whether the user has been asked to put Office Buddy on the desktop; they are asked only once.</summary>
+    public static bool DesktopShortcutOffered => Load().DesktopShortcutOffered;
+
+    public static void SetDesktopShortcutOffered() => Save(Load() with { DesktopShortcutOffered = true });
+
     private static Stored Load()
     {
         if (_stored is null)
@@ -116,7 +121,8 @@ internal static class AppSettings
         string? SignaturePath = null,
         SaveLocation SaveLocation = SaveLocation.NextToOriginal,
         string? SaveFolder = null,
-        int EmailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes);
+        int EmailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes,
+        bool DesktopShortcutOffered = false);
 }
 
 /// <summary>Where the save dialog opens.</summary>

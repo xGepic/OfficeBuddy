@@ -34,7 +34,7 @@ Every change can be undone until the result is saved, and saving always asks whe
 
 ## Download
 
-Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself.
+Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself. Started from the Downloads folder for the first time, it offers once to put itself on the desktop: it copies itself to `%LOCALAPPDATA%\Programs\Office Buddy` and puts a shortcut to that copy on the desktop, so the download can be deleted.
 
 Every push to `main` builds it after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)) and replaces the release before.
 
