@@ -31,7 +31,9 @@ public sealed partial class PageGrid : UserControl
         new(Windows.UI.Color.FromArgb(255, 0xC2, 0x39, 0xB3)),
     ];
 
-    private readonly Dictionary<int, PageThumbnail> _bySourceIndex = [];
+    // Every Page shown since the Document was opened, by where it comes from. Kept when a Page
+    // leaves the grid, so undoing and redoing an insert doesn't draw its thumbnails again.
+    private readonly Dictionary<(Document? InsertedFrom, int SourceIndex), PageThumbnail> _thumbnails = [];
     private Document? _document;
     private CancellationTokenSource? _loading;
     private PageThumbnail? _dragged;
@@ -110,7 +112,10 @@ public sealed partial class PageGrid : UserControl
     /// <summary>Raised when a drag was refused because several Pages were selected.</summary>
     public event EventHandler? SeveralDragged;
 
-    /// <summary>Shows <paramref name="pages"/> of <paramref name="document"/>, keeping thumbnails that are already drawn.</summary>
+    /// <summary>
+    /// Shows <paramref name="pages"/> of <paramref name="document"/>, including Pages inserted from
+    /// other Documents, keeping thumbnails that are already drawn.
+    /// </summary>
     public void Show(Document? document, IReadOnlyList<PageEntry> pages)
     {
         if (PreviewPopup.IsOpen)
@@ -122,34 +127,63 @@ public sealed partial class PageGrid : UserControl
         if (!ReferenceEquals(document, _document))
         {
             _loading?.Cancel();
+            _loading = new CancellationTokenSource();
             _document = document;
-            _bySourceIndex.Clear();
+            _thumbnails.Clear();
             Items.Clear();
-            foreach (var page in pages)
-            {
-                var thumbnail = new PageThumbnail(page.SourceIndex);
-                _bySourceIndex[page.SourceIndex] = thumbnail;
-                Items.Add(thumbnail);
-            }
+        }
 
-            if (document is not null)
+        if (document is null)
+        {
+            return;
+        }
+
+        var shown = new List<PageThumbnail>(pages.Count);
+        var added = new List<PageThumbnail>();
+        foreach (var page in pages)
+        {
+            if (!_thumbnails.TryGetValue((page.InsertedFrom, page.SourceIndex), out var thumbnail))
             {
-                _loading = new CancellationTokenSource();
-                _ = LoadThumbnailsAsync(document, [.. Items], _loading.Token);
+                thumbnail = new PageThumbnail(page.InsertedFrom ?? document, page);
+                _thumbnails[(page.InsertedFrom, page.SourceIndex)] = thumbnail;
+                added.Add(thumbnail);
+            }
+            shown.Add(thumbnail);
+        }
+
+        // Pages no longer there, e.g. after undoing an insert.
+        var stillShown = shown.ToHashSet();
+        for (var i = Items.Count - 1; i >= 0; i--)
+        {
+            if (!stillShown.Contains(Items[i]))
+            {
+                Items.RemoveAt(i);
             }
         }
 
         for (var position = 0; position < pages.Count; position++)
         {
-            var thumbnail = _bySourceIndex[pages[position].SourceIndex];
+            var thumbnail = shown[position];
             thumbnail.Update(pages[position]);
             var current = Items.IndexOf(thumbnail);
-            if (current != position)
+            if (current < 0)
+            {
+                Items.Insert(position, thumbnail);
+            }
+            else if (current != position)
             {
                 Items.Move(current, position);
             }
         }
+
+        if (added.Count > 0)
+        {
+            _ = LoadThumbnailsAsync(added, _loading!.Token);
+        }
     }
+
+    /// <summary>Scrolls the Page at this position into view, e.g. Pages just inserted.</summary>
+    public void ScrollIntoView(int position) => Thumbnails.ScrollIntoView(Items[position]);
 
     /// <summary>
     /// Shows a Split under the thumbnails: a coloured band per Part, and clickable gaps between
@@ -247,12 +281,11 @@ public sealed partial class PageGrid : UserControl
         }
     }
 
-    private static async Task LoadThumbnailsAsync(
-        Document document, IReadOnlyList<PageThumbnail> thumbnails, CancellationToken cancellation)
+    private static async Task LoadThumbnailsAsync(IReadOnlyList<PageThumbnail> thumbnails, CancellationToken cancellation)
     {
         foreach (var thumbnail in thumbnails)
         {
-            var image = await PageImages.RenderAsync(document, thumbnail.SourceIndex, ThumbnailSize, ThumbnailSize);
+            var image = await PageImages.RenderAsync(thumbnail.Source, thumbnail.SourceIndex, ThumbnailSize, ThumbnailSize);
             if (cancellation.IsCancellationRequested)
             {
                 return;
@@ -319,8 +352,7 @@ public sealed partial class PageGrid : UserControl
 
     private async void Thumbnails_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
     {
-        if (_document is not { } document
-            || (e.OriginalSource as FrameworkElement)?.DataContext is not PageThumbnail thumbnail)
+        if ((e.OriginalSource as FrameworkElement)?.DataContext is not PageThumbnail thumbnail)
         {
             return;
         }
@@ -349,7 +381,7 @@ public sealed partial class PageGrid : UserControl
         PreviewProgress.IsActive = true;
         PreviewPopup.IsOpen = true;
 
-        var image = await PageImages.RenderAsync(document, thumbnail.SourceIndex, side, side);
+        var image = await PageImages.RenderAsync(thumbnail.Source, thumbnail.SourceIndex, side, side);
         if (version == _previewVersion && PreviewPopup.IsOpen)
         {
             PreviewProgress.IsActive = false;

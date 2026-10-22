@@ -22,6 +22,99 @@ public sealed class EditPagesSessionTests : IDisposable
     }
 
     [Fact]
+    public async Task Pages_of_another_Document_are_inserted_at_the_chosen_place()
+    {
+        var letter = SamplePdfs.Create(_folder.Path, "Brief.pdf", "B1", "B2", "B3");
+        var attachment = SamplePdfs.Create(_folder.Path, "Anlage.pdf", "A1", "A2");
+        var session = new EditPagesSession();
+        await session.OpenAsync(letter);
+
+        var failures = await session.InsertAsync([attachment], position: 1);
+        var output = _folder.File(session.SuggestedFileName!);
+        await session.SaveAsync(output);
+
+        Assert.Empty(failures);
+        Assert.Equal(["B1", "A1", "A2", "B2", "B3"], SavedDocument.ReadLabels(output));
+        // Named after the Document that was opened, not the inserted one.
+        Assert.Equal("Brief (bearbeitet).pdf", session.SuggestedFileName);
+        Assert.Equal("Anlage.pdf", session.Pages[1].InsertedFrom!.FileName);
+        Assert.Null(session.Pages[0].InsertedFrom);
+    }
+
+    [Fact]
+    public async Task Inserted_Pages_can_be_rotated_moved_and_removed_like_the_others()
+    {
+        var letter = SamplePdfs.Create(_folder.Path, "Brief.pdf", "B1", "B2");
+        var attachment = SamplePdfs.Create(_folder.Path, "Anlage.pdf", "A1", "A2");
+        var session = new EditPagesSession();
+        await session.OpenAsync(letter);
+        await session.InsertAsync([attachment], position: 2);
+
+        session.RotateRight([2]);
+        session.MarkForRemoval([3]);
+        session.Move(2, 0);
+        var output = _folder.File("Ergebnis.pdf");
+        await session.SaveAsync(output);
+
+        Assert.Equal([new SavedPage("A1", 90), new SavedPage("B1", 0), new SavedPage("B2", 0)], SavedDocument.ReadPages(output));
+    }
+
+    [Fact]
+    public async Task Several_Documents_are_inserted_in_order_and_one_that_cannot_be_opened_is_reported()
+    {
+        var letter = SamplePdfs.Create(_folder.Path, "Brief.pdf", "B1");
+        var first = SamplePdfs.Create(_folder.Path, "Anlage 1.pdf", "A1");
+        var second = SamplePdfs.Create(_folder.Path, "Anlage 2.pdf", "C1");
+        var notAPdf = _folder.File("Notiz.txt");
+        await File.WriteAllTextAsync(notAPdf, "Hallo");
+        var session = new EditPagesSession();
+        await session.OpenAsync(letter);
+
+        var failures = await session.InsertAsync([first, notAPdf, second], position: 1);
+        var output = _folder.File("Ergebnis.pdf");
+        await session.SaveAsync(output);
+
+        Assert.Equal([new LoadFailure(notAPdf, LoadFailureReason.Unsupported)], failures);
+        Assert.Equal(["B1", "A1", "C1"], SavedDocument.ReadLabels(output));
+    }
+
+    [Fact]
+    public async Task The_same_Document_can_be_inserted_into_itself()
+    {
+        var letter = SamplePdfs.Create(_folder.Path, "Brief.pdf", "B1", "B2");
+        var session = new EditPagesSession();
+        await session.OpenAsync(letter);
+
+        await session.InsertAsync([letter], position: 2);
+        var output = _folder.File("Ergebnis.pdf");
+        await session.SaveAsync(output);
+
+        Assert.Equal(["B1", "B2", "B1", "B2"], SavedDocument.ReadLabels(output));
+    }
+
+    [Fact]
+    public async Task Inserting_is_one_change_to_undo_and_a_file_that_cannot_be_opened_changes_nothing()
+    {
+        var letter = SamplePdfs.Create(_folder.Path, "Brief.pdf", "B1", "B2");
+        var attachment = SamplePdfs.Create(_folder.Path, "Anlage.pdf", "A1", "A2");
+        var session = new EditPagesSession();
+        await session.OpenAsync(letter);
+
+        await session.InsertAsync([attachment], position: 0);
+        Assert.Equal(4, session.Pages.Count);
+        Assert.True(session.HasUnsavedChanges);
+        session.Undo();
+        Assert.Equal(2, session.Pages.Count);
+        Assert.False(session.HasUnsavedChanges);
+
+        var notAPdf = _folder.File("Notiz.txt");
+        await File.WriteAllTextAsync(notAPdf, "Hallo");
+        await session.InsertAsync([notAPdf], position: 0);
+        Assert.Equal(2, session.Pages.Count);
+        Assert.False(session.CanUndo);
+    }
+
+    [Fact]
     public async Task Pages_marked_for_removal_are_left_out_when_saved()
     {
         var scan = SamplePdfs.Create(_folder.Path, "Scan.pdf", "S1", "S2", "S3", "S4");

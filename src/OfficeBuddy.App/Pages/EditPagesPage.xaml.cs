@@ -1,8 +1,10 @@
+using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using OfficeBuddy.App.Controls;
+using OfficeBuddy.App.Services;
 using OfficeBuddy.Core;
 
 namespace OfficeBuddy.App.Pages;
@@ -71,6 +73,51 @@ public sealed partial class EditPagesPage : Page
         else
         {
             _session.MarkForRemoval(selected);
+        }
+    }
+
+    /// <summary>
+    /// Inserts the Pages of other PDF files after the last selected Page, or at the end if none is
+    /// selected, and selects them so they can be turned or moved straight away.
+    /// </summary>
+    private async void Insert_Click(object sender, RoutedEventArgs e)
+    {
+        IReadOnlyList<string> paths;
+        try
+        {
+            paths = FileDialogs.OpenFiles(App.MainWindow.Handle, Strings.Get("EditPagesInsertDialogTitle"), FileFilter.Pdf);
+        }
+        catch (COMException)
+        {
+            Shell.ShowError(Strings.Get("DialogFailed"));
+            return;
+        }
+
+        if (paths.Count == 0)
+        {
+            return;
+        }
+
+        var selected = PageThumbnails.SelectedPositions;
+        var position = selected.Count > 0 ? selected[^1] + 1 : _session.Pages.Count;
+        var countBefore = _session.Pages.Count;
+        IReadOnlyList<LoadFailure> failures;
+        using (Shell.ShowBusy(Strings.Get("BusyInsertingPages")))
+        {
+            failures = await _session.InsertAsync(paths, position);
+        }
+
+        Shell.ShowLoadFailures(failures);
+        var inserted = _session.Pages.Count - countBefore;
+        if (inserted > 0)
+        {
+            // After the grid has shown them: the session's change is passed on the same way.
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                PageThumbnails.SetSelectedPositions([.. Enumerable.Range(position, inserted)]);
+                PageThumbnails.ScrollIntoView(position);
+                UpdatePageActions();
+            });
         }
     }
 

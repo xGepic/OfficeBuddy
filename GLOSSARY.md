@@ -25,7 +25,7 @@ A Page with essentially no ink apart from scanner noise, typically the empty bac
 _Avoid_: Empty page, white page
 
 **Edit pages**:
-The Tool that does Remove pages, Rotate and Reorder on one Document in one thumbnail view. UI term: *Seiten bearbeiten*.
+The Tool that does Remove pages, Rotate, Reorder and Insert pages on one Document in one thumbnail view. UI term: *Seiten bearbeiten*.
 _Avoid_: Page editor, organize
 
 **Merge**:
@@ -51,6 +51,10 @@ _Avoid_: Turn, flip
 **Reorder**:
 Changing the order of Pages within one Document by dragging thumbnails. UI term: *Sortieren*.
 _Avoid_: Sort, rearrange, move
+
+**Insert pages**:
+Adding all Pages of one or more other Documents into the Document in Edit pages, after the last selected Page or at the end. They can then be rotated, reordered and removed like its own Pages, and are saved with it. Unlike Merge, it works inside one Document at a chosen place. UI term: *Seiten einfügen*.
+_Avoid_: Add pages, import pages, append
 
 **Extract pages**:
 Saving selected Pages as a new Document while the original stays unchanged. UI term: *Seiten herauslösen*.

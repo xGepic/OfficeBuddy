@@ -6,10 +6,11 @@ using OfficeBuddy.Core;
 namespace OfficeBuddy.App.Controls;
 
 /// <summary>
-/// One Page in a <see cref="PageGrid"/>: its thumbnail, page number, rotation, removal mark,
-/// whether it is selected, and in a Split its Part and the gap after it.
+/// One Page in a <see cref="PageGrid"/>: its thumbnail, page number, the file an inserted Page
+/// comes from, rotation, removal mark, whether it is selected, and in a Split its Part and the gap
+/// after it.
 /// </summary>
-public sealed class PageThumbnail(int sourceIndex) : INotifyPropertyChanged
+public sealed class PageThumbnail(Document source, PageEntry page) : INotifyPropertyChanged
 {
     private ImageSource? _image;
     private int _rotation;
@@ -19,9 +20,18 @@ public sealed class PageThumbnail(int sourceIndex) : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public int SourceIndex { get; } = sourceIndex;
+    /// <summary>The Document the Page is drawn from: the opened one, or the one it was inserted from.</summary>
+    public Document Source { get; } = source;
 
-    public string PageNumberText { get; } = Strings.Format("PageNumber", sourceIndex + 1);
+    public int SourceIndex { get; } = page.SourceIndex;
+
+    public string PageNumberText { get; } = Strings.Format("PageNumber", page.SourceIndex + 1);
+
+    /// <summary>"aus Anlage.pdf" under an inserted Page, empty for the opened Document's own.</summary>
+    public string InsertedFromText { get; } =
+        page.InsertedFrom is { } from ? Strings.Format("PageInsertedFrom", from.FileName) : "";
+
+    public Visibility InsertedFromVisibility => InsertedFromText.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
 
     public ImageSource? Image
     {
@@ -74,8 +84,13 @@ public sealed class PageThumbnail(int sourceIndex) : INotifyPropertyChanged
     public string GapLabel => Strings.Format(
         _split is { SplitAfter: true } ? "GapRemoveSplit" : "GapAddSplit", SourceIndex + 1, SourceIndex + 2);
 
-    public string AccessibleName =>
-        _isMarkedForRemoval ? Strings.Format("PageMarkedForRemoval", SourceIndex + 1) : PageNumberText;
+    public string AccessibleName => (InsertedFromText.Length > 0, _isMarkedForRemoval) switch
+    {
+        (false, false) => PageNumberText,
+        (false, true) => Strings.Format("PageMarkedForRemoval", SourceIndex + 1),
+        (true, false) => Strings.Format("PageNumberFrom", SourceIndex + 1, Source.FileName),
+        (true, true) => Strings.Format("PageMarkedForRemovalFrom", SourceIndex + 1, Source.FileName),
+    };
 
     public void Update(PageEntry page)
     {

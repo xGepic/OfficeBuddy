@@ -26,7 +26,7 @@
   <data name="ToolMergeName" xml:space="preserve"><value>Zusammenfügen</value></data>
   <data name="ToolMergeDescription" xml:space="preserve"><value>Mehrere PDF-Dateien zu einer einzigen verbinden</value></data>
   <data name="ToolEditPagesName" xml:space="preserve"><value>Seiten bearbeiten</value></data>
-  <data name="ToolEditPagesDescription" xml:space="preserve"><value>Seiten drehen, sortieren, entfernen – leere Seiten werden automatisch erkannt</value></data>
+  <data name="ToolEditPagesDescription" xml:space="preserve"><value>Seiten drehen, sortieren, einfügen, entfernen – leere Seiten werden automatisch erkannt</value></data>
   <data name="ToolExtractPagesName" xml:space="preserve"><value>Seiten herauslösen</value></data>
   <data name="ToolExtractPagesDescription" xml:space="preserve"><value>Ausgewählte Seiten als neue PDF-Datei speichern</value></data>
   <data name="ToolSplitName" xml:space="preserve"><value>Aufteilen</value></data>
@@ -102,6 +102,9 @@
   <data name="SizeMegabytes" xml:space="preserve"><value>{0:N1} MB</value></data>
   <data name="PageNumber" xml:space="preserve"><value>Seite {0}</value></data>
   <data name="PageMarkedForRemoval" xml:space="preserve"><value>Seite {0}, wird entfernt</value></data>
+  <data name="PageInsertedFrom" xml:space="preserve"><value>aus {0}</value></data>
+  <data name="PageNumberFrom" xml:space="preserve"><value>Seite {0} aus {1}</value></data>
+  <data name="PageMarkedForRemovalFrom" xml:space="preserve"><value>Seite {0} aus {1}, wird entfernt</value></data>
   <data name="PartLabel" xml:space="preserve"><value>Teil {0}</value></data>
   <data name="GapAddSplit" xml:space="preserve"><value>Zwischen Seite {0} und {1} trennen</value></data>
   <data name="GapRemoveSplit" xml:space="preserve"><value>Trennstelle zwischen Seite {0} und {1} entfernen</value></data>
@@ -127,13 +130,18 @@
 
   <!-- Edit pages -->
   <data name="EditPagesTitle" xml:space="preserve"><value>Seiten bearbeiten</value></data>
-  <data name="EditPagesHint.Text" xml:space="preserve"><value>Klicken Sie Seiten an, um sie auszuwählen – mit Strg oder Umschalt auch mehrere. Ziehen Sie eine Seite an eine andere Stelle, um die Reihenfolge zu ändern. Ein Doppelklick öffnet die Vorschau.</value></data>
+  <data name="EditPagesHint.Text" xml:space="preserve"><value>Klicken Sie Seiten an, um sie auszuwählen – mit Strg oder Umschalt auch mehrere. Ziehen Sie eine Seite an eine andere Stelle, um die Reihenfolge zu ändern. Ein Doppelklick öffnet die Vorschau. Mit „Seiten einfügen“ holen Sie Seiten aus einer anderen PDF-Datei dazu – hinter die ausgewählte Seite oder ans Ende.</value></data>
   <data name="EditPagesRotateLeft.Text" xml:space="preserve"><value>Links drehen</value></data>
   <data name="EditPagesRotateLeftButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Links drehen</value></data>
   <data name="EditPagesRotateRight.Text" xml:space="preserve"><value>Rechts drehen</value></data>
   <data name="EditPagesRotateRightButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Rechts drehen</value></data>
   <data name="EditPagesRemove" xml:space="preserve"><value>Entfernen</value></data>
   <data name="EditPagesKeep" xml:space="preserve"><value>Nicht entfernen</value></data>
+  <data name="EditPagesInsert.Text" xml:space="preserve"><value>Seiten einfügen</value></data>
+  <data name="EditPagesInsertButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Seiten einfügen</value></data>
+  <data name="EditPagesInsertButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Seiten aus einer anderen PDF-Datei hinter der ausgewählten Seite einfügen – ohne Auswahl am Ende</value></data>
+  <data name="EditPagesInsertDialogTitle" xml:space="preserve"><value>PDF-Datei zum Einfügen auswählen</value></data>
+  <data name="BusyInsertingPages" xml:space="preserve"><value>Seiten werden eingefügt …</value></data>
   <data name="EditPagesAllRemoved.Text" xml:space="preserve"><value>Alle Seiten sind zum Entfernen markiert. Behalten Sie mindestens eine Seite, um speichern zu können.</value></data>
   <data name="EditPagesSave.Text" xml:space="preserve"><value>Speichern</value></data>
   <data name="EditPagesSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Speichern</value></data>

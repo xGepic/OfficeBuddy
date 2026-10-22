@@ -5,7 +5,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | Tile | What it does |
 |---|---|
 | **Zusammenfügen** | Combine several PDFs into one, in the order you drag them into |
-| **Seiten bearbeiten** | Rotate, reorder and remove Pages; blank backs of duplex scans are found automatically |
+| **Seiten bearbeiten** | Rotate, reorder and remove Pages, and insert the Pages of other PDFs at a chosen place; blank backs of duplex scans are found automatically |
 | **Seiten herauslösen** | Save selected Pages as a new PDF |
 | **Aufteilen** | Split a PDF into several Parts |
 | **Verkleinern** | Make a PDF small enough to send by email (under 10 MB), or split it into email-sized Parts |

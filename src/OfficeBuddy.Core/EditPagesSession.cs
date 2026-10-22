@@ -2,7 +2,10 @@ using System.Collections.Immutable;
 
 namespace OfficeBuddy.Core;
 
-/// <summary>The state of the Edit pages Tool: the Pages of one Document as they will be saved.</summary>
+/// <summary>
+/// The state of the Edit pages Tool: the Pages of one Document as they will be saved, including
+/// Pages inserted from other Documents.
+/// </summary>
 public sealed class EditPagesSession() : DocumentSession<ImmutableList<PageEntry>>([])
 {
     public IReadOnlyList<PageEntry> Pages => State;
@@ -59,12 +62,31 @@ public sealed class EditPagesSession() : DocumentSession<ImmutableList<PageEntry
 
     public void Move(int from, int to) => Apply(State.RemoveAt(from).Insert(to, State[from]));
 
+    /// <summary>
+    /// Inserts every Page of the Documents, in the given order, at <paramref name="position"/> in
+    /// <see cref="Pages"/>, kept and not rotated, as one undoable action. A file that cannot be opened
+    /// does not stop the others.
+    /// </summary>
+    /// <returns>The files that could not be opened, and why.</returns>
+    public async Task<IReadOnlyList<LoadFailure>> InsertAsync(IEnumerable<string> filePaths, int position)
+    {
+        var result = await Document.LoadAllAsync(filePaths);
+        var inserted = result.Documents
+            .SelectMany(document => Enumerable.Range(0, document.PageCount).Select(index => new PageEntry(index, InsertedFrom: document)))
+            .ToList();
+        if (inserted.Count > 0)
+        {
+            Apply(State.InsertRange(position, inserted));
+        }
+        return result.Failures;
+    }
+
     public async Task SaveAsync(string outputPath)
     {
         var (document, pages) = (Document!, State);
         await DocumentWriter.WriteAsync(outputPath, [.. pages
             .Where(page => !page.IsMarkedForRemoval)
-            .Select(page => new PlannedPage(document, page.SourceIndex, page.Rotation))]);
+            .Select(page => new PlannedPage(page.InsertedFrom ?? document, page.SourceIndex, page.Rotation))]);
         MarkSaved(pages);
     }
 

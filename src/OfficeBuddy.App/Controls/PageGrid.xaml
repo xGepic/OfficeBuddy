@@ -69,6 +69,15 @@
                                 </Border>
                             </Grid>
                             <TextBlock HorizontalAlignment="Center" Text="{x:Bind PageNumberText}" />
+                            <!-- Edit pages: the file an inserted Page comes from. -->
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind InsertedFromText}"
+                                TextTrimming="CharacterEllipsis"
+                                ToolTipService.ToolTip="{x:Bind InsertedFromText}"
+                                Visibility="{x:Bind InsertedFromVisibility}" />
                             <!-- Split: which Part this Page goes into. -->
                             <StackPanel Spacing="2" Visibility="{x:Bind PartBandVisibility, Mode=OneWay}">
                                 <Border Height="10" Background="{x:Bind PartBrush, Mode=OneWay}" CornerRadius="5" />
