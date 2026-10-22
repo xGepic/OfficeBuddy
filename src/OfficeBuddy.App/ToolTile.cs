@@ -35,5 +35,6 @@ public sealed class ToolTile(string glyph, string resourceKey, Type? pageType)
         new("", "ResizeImage", typeof(ResizeImagePage)),
         new("", "PictureInPicture", typeof(PictureInPicturePage)),
         new("", "ImagesSideBySide", typeof(ImagesSideBySidePage)),
+        new("", "CropImage", typeof(CropImagePage)),
     ];
 }

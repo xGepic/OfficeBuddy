@@ -96,6 +96,10 @@ _Avoid_: Overlay, sticker
 Saving two or more images as one, lined up in a row or a column with a thin white gap between them, all at the height (in a row) or width (in a column) of the smallest. UI term: *Bilder nebeneinander*.
 _Avoid_: Collage, merge images, combine images
 
+**Crop image**:
+Saving only a chosen rectangle of one JPG or PNG image, optionally turned in 90° steps first, at its full size in pixels. The result keeps the image's format and is written the right way up. UI term: *Bild zuschneiden*.
+_Avoid_: Trim, cut, clip
+
 **Favorite**:
 A Tool the user has marked in the settings so that its tile shows first on the start screen, centered above the other tiles. UI term: *Favorit*.
 _Avoid_: Pinned, starred, bookmark

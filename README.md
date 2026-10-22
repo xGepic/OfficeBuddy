@@ -1,6 +1,6 @@
 # Office Buddy
 
-A German Windows desktop app that makes everyday PDF and image tasks simple for people who are not computer experts. It opens on a start screen with ten large tiles, one per task. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
+A German Windows desktop app that makes everyday PDF and image tasks simple for people who are not computer experts. It opens on a start screen with eleven large tiles, one per task. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
 
 | Tile | What it does |
 |---|---|
@@ -14,6 +14,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Bildgröße ändern** | Make a photo or other JPG/PNG image smaller or bigger, by percentage or by width and height in pixels |
 | **Bild in Bild** | Put one image on top of a photo, such as a logo or a signature, and drag and size it into place |
 | **Bilder nebeneinander** | Line up two or more images side by side or one below the other as one image, such as both sides of an ID card |
+| **Bild zuschneiden** | Cut away the edges of a photo, such as the table around a photographed letter, and turn it in 90° steps |
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.
 

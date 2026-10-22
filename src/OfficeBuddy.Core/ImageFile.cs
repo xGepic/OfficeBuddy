@@ -154,23 +154,20 @@ public sealed class ImageFile
     }
 
     /// <summary>
-    /// Renders the image the right way up as a PNG that fits inside the given pixel size, keeping its
-    /// proportions, e.g. for a thumbnail.
+    /// Renders the image the right way up, turned a further <paramref name="rotation"/> degrees
+    /// clockwise, as a PNG that fits inside the given pixel size, keeping its proportions, e.g. for a
+    /// thumbnail.
     /// </summary>
-    public async Task<byte[]> RenderPngAsync(int maxWidth, int maxHeight)
+    public async Task<byte[]> RenderPngAsync(int maxWidth, int maxHeight, int rotation = 0)
     {
         using var source = await ToStreamAsync(Content);
         var decoder = await BitmapDecoder.CreateAsync(source);
-        var scale = Math.Min(1, Math.Min((double)maxWidth / Width, (double)maxHeight / Height));
-        var transform = new BitmapTransform
-        {
-            // In stored pixels, before the turn is applied.
-            ScaledWidth = (uint)Math.Max(1, Math.Round(_storedWidth * scale)),
-            ScaledHeight = (uint)Math.Max(1, Math.Round(_storedHeight * scale)),
-            InterpolationMode = BitmapInterpolationMode.Fant,
-        };
+        var (width, height) = rotation is 90 or 270 ? (Height, Width) : (Width, Height);
+        var scale = Math.Min(1, Math.Min((double)maxWidth / width, (double)maxHeight / height));
+        var transform = UprightTransform(
+            Math.Max(1, (int)Math.Round(width * scale)), Math.Max(1, (int)Math.Round(height * scale)), rotation);
         using var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
-            transform, ExifOrientationMode.RespectExifOrientation, ColorManagementMode.DoNotColorManage);
+            transform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
         return await EncodePngAsync(bitmap);
     }
 
@@ -191,6 +188,23 @@ public sealed class ImageFile
     }
 
     /// <summary>
+    /// The part <paramref name="area"/> of the image the right way up, turned a further
+    /// <paramref name="rotation"/> degrees clockwise, at its full size, as a file of its own kind like
+    /// <see cref="ResizeAsync"/>. The area is in pixels of the turned image.
+    /// </summary>
+    internal async Task<byte[]> CropAsync(int rotation, BitmapBounds area)
+    {
+        using var source = await ToStreamAsync(Content);
+        var decoder = await BitmapDecoder.CreateAsync(source);
+        var transform = rotation is 90 or 270 ? UprightTransform(Height, Width, rotation) : UprightTransform(Width, Height, rotation);
+        transform.Bounds = area;
+        using var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8,
+            IsPng ? BitmapAlphaMode.Premultiplied : BitmapAlphaMode.Ignore,
+            transform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
+        return IsPng ? await EncodePngAsync(bitmap) : await EncodeJpegAsync(bitmap);
+    }
+
+    /// <summary>
     /// The image the right way up at exactly <paramref name="width"/> by <paramref name="height"/>
     /// pixels, ready to be drawn onto another image. A JPG's pixels are all opaque.
     /// </summary>
@@ -203,16 +217,23 @@ public sealed class ImageFile
         return new ImageCanvas(width, height, pixels.DetachPixelData());
     }
 
-    /// <summary>Scales the stored pixels so that, turned the right way up, they are <paramref name="width"/> by <paramref name="height"/>.</summary>
-    private BitmapTransform UprightTransform(int width, int height) =>
-        new()
+    /// <summary>
+    /// Scales the stored pixels so that, turned the right way up and then a further
+    /// <paramref name="rotation"/> degrees clockwise, they are <paramref name="width"/> by
+    /// <paramref name="height"/>.
+    /// </summary>
+    private BitmapTransform UprightTransform(int width, int height, int rotation = 0)
+    {
+        var turn = (Turn.Rotation + rotation) % 360;
+        var swapsSides = turn is 90 or 270;
+        return new()
         {
             // Scaled in stored pixels, then mirrored and rotated the right way up. The turn is applied
             // here rather than from the EXIF data, which a content converted to PNG no longer has.
-            ScaledWidth = (uint)(Turn.SwapsSides ? height : width),
-            ScaledHeight = (uint)(Turn.SwapsSides ? width : height),
+            ScaledWidth = (uint)(swapsSides ? height : width),
+            ScaledHeight = (uint)(swapsSides ? width : height),
             Flip = Turn.Mirrored ? BitmapFlip.Horizontal : BitmapFlip.None,
-            Rotation = Turn.Rotation switch
+            Rotation = turn switch
             {
                 90 => BitmapRotation.Clockwise90Degrees,
                 180 => BitmapRotation.Clockwise180Degrees,
@@ -221,6 +242,7 @@ public sealed class ImageFile
             },
             InterpolationMode = BitmapInterpolationMode.Fant,
         };
+    }
 
     private static async Task<ushort> ReadExifOrientationAsync(BitmapDecoder decoder)
     {

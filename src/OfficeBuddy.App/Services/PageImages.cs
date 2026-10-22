@@ -20,11 +20,12 @@ internal static class PageImages
         ShowAsync((maxWidth, maxHeight) => document.RenderPageAsPngAsync(pageIndex, maxWidth, maxHeight), width, height);
 
     /// <summary>
-    /// Renders an image the right way up to fit a box of the given size in effective pixels. Call on
-    /// the UI thread. Null if Windows cannot draw it.
+    /// Renders an image the right way up, turned a further <paramref name="rotation"/> degrees
+    /// clockwise, to fit a box of the given size in effective pixels. Call on the UI thread. Null if
+    /// Windows cannot draw it.
     /// </summary>
-    public static Task<ImageSource?> RenderAsync(ImageFile image, double width, double height) =>
-        ShowAsync(image.RenderPngAsync, width, height);
+    public static Task<ImageSource?> RenderAsync(ImageFile image, double width, double height, int rotation = 0) =>
+        ShowAsync((maxWidth, maxHeight) => image.RenderPngAsync(maxWidth, maxHeight, rotation), width, height);
 
     /// <summary>
     /// Renders the image Images side by side would save now, to fit a box of the given size in

@@ -43,6 +43,8 @@
   <data name="ToolPictureInPictureDescription" xml:space="preserve"><value>Ein Bild auf ein Foto setzen, z. B. ein Logo oder eine Unterschrift</value></data>
   <data name="ToolImagesSideBySideName" xml:space="preserve"><value>Bilder nebeneinander</value></data>
   <data name="ToolImagesSideBySideDescription" xml:space="preserve"><value>Mehrere Bilder neben- oder untereinander zu einem Bild zusammensetzen</value></data>
+  <data name="ToolCropImageName" xml:space="preserve"><value>Bild zuschneiden</value></data>
+  <data name="ToolCropImageDescription" xml:space="preserve"><value>Ränder eines Fotos abschneiden und es drehen</value></data>
 
   <!-- Settings -->
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
@@ -211,6 +213,21 @@
   <data name="ImagePixelSize" xml:space="preserve"><value>{0:N0} × {1:N0} Pixel</value></data>
   <data name="ImagesSideBySideSave.Text" xml:space="preserve"><value>Als ein Bild speichern</value></data>
   <data name="ImagesSideBySideSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als ein Bild speichern</value></data>
+
+  <!-- Crop image -->
+  <data name="CropImageTitle" xml:space="preserve"><value>Bild zuschneiden</value></data>
+  <data name="CropImageEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es einfach hierher.</value></data>
+  <data name="CropImageHint.Text" xml:space="preserve"><value>Ziehen Sie die runden Griffe an den Ecken und Kanten, bis nur noch der gewünschte Teil hell ist. Den Rahmen können Sie auch als Ganzes verschieben.</value></data>
+  <data name="CropRotateLeft.Text" xml:space="preserve"><value>Links drehen</value></data>
+  <data name="CropRotateLeftButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Links drehen</value></data>
+  <data name="CropRotateRight.Text" xml:space="preserve"><value>Rechts drehen</value></data>
+  <data name="CropRotateRightButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Rechts drehen</value></data>
+  <data name="CropKeepWhole.Text" xml:space="preserve"><value>Ganzes Bild</value></data>
+  <data name="CropKeepWholeButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Ganzes Bild</value></data>
+  <data name="CropHandle" xml:space="preserve"><value>Rahmen ändern</value></data>
+  <data name="CropNewSize" xml:space="preserve"><value>Neue Größe: {0:N0} × {1:N0} Pixel</value></data>
+  <data name="CropImageSave.Text" xml:space="preserve"><value>Zugeschnitten speichern</value></data>
+  <data name="CropImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zugeschnitten speichern</value></data>
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>

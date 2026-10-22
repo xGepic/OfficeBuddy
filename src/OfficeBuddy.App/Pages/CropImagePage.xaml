@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.CropImagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:OfficeBuddy.App.Controls">
+
+    <Page.Resources>
+        <!-- A round grip on the crop frame; its Tag names the edges it moves: Left, Top, Right, Bottom. -->
+        <Style x:Key="CropHandleStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Fill" Value="{ThemeResource AccentFillColorDefaultBrush}" />
+            <Setter Property="Stroke" Value="White" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="ManipulationMode" Value="TranslateX,TranslateY" />
+        </Style>
+    </Page.Resources>
+
+    <controls:ToolShell x:Name="Shell" BackRequested="Shell_BackRequested" FilesOpened="Shell_FilesOpened">
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE7A8;" />
+                    <TextBlock
+                        x:Uid="CropImageEmptyHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:Name="EditArea" RowSpacing="12" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Uid="CropRotateLeftButton" Click="RotateLeft_Click" Padding="14,8">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE7AD;" />
+                                <TextBlock x:Uid="CropRotateLeft" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Column="1" x:Uid="CropRotateRightButton" Click="RotateRight_Click" Padding="14,8">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <!-- The same circular arrow, mirrored. -->
+                                <FontIcon FontSize="16" Glyph="&#xE7AD;" RenderTransformOrigin="0.5,0.5">
+                                    <FontIcon.RenderTransform>
+                                        <ScaleTransform ScaleX="-1" />
+                                    </FontIcon.RenderTransform>
+                                </FontIcon>
+                                <TextBlock x:Uid="CropRotateRight" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            x:Name="KeepWholeButton"
+                            Grid.Column="2"
+                            x:Uid="CropKeepWholeButton"
+                            Margin="12,0,0,0"
+                            Click="KeepWhole_Click"
+                            Padding="14,8">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE9A6;" />
+                                <TextBlock x:Uid="CropKeepWhole" />
+                            </StackPanel>
+                        </Button>
+                        <TextBlock
+                            x:Name="NewSizeText"
+                            Grid.Column="3"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    </Grid>
+
+                    <TextBlock
+                        x:Uid="CropImageHint"
+                        Grid.Row="1"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+
+                    <!-- Room around the photo, so the grips on its edges can be grabbed. -->
+                    <Grid x:Name="StageHost" Grid.Row="2" Margin="12" SizeChanged="StageHost_SizeChanged">
+                        <Grid x:Name="Stage" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image x:Name="Picture" Stretch="Fill" />
+                            <Canvas x:Name="Overlay">
+                                <Rectangle x:Name="ShadeTop" Fill="#99000000" IsHitTestVisible="False" />
+                                <Rectangle x:Name="ShadeBottom" Fill="#99000000" IsHitTestVisible="False" />
+                                <Rectangle x:Name="ShadeLeft" Fill="#99000000" IsHitTestVisible="False" />
+                                <Rectangle x:Name="ShadeRight" Fill="#99000000" IsHitTestVisible="False" />
+                                <Border
+                                    x:Name="CropFrame"
+                                    Background="Transparent"
+                                    BorderBrush="White"
+                                    BorderThickness="2"
+                                    ManipulationCompleted="Manipulation_Completed"
+                                    ManipulationDelta="CropFrame_ManipulationDelta"
+                                    ManipulationMode="TranslateX,TranslateY"
+                                    ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="LT" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="T" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="RT" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="R" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="RB" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="B" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="LB" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                                <Ellipse Style="{StaticResource CropHandleStyle}" Tag="L" ManipulationCompleted="Manipulation_Completed" ManipulationDelta="Handle_ManipulationDelta" ManipulationStarting="Manipulation_Starting" />
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Button
+                x:Name="SaveButton"
+                x:Uid="CropImageSaveButton"
+                HorizontalAlignment="Right"
+                Click="Save_Click"
+                IsEnabled="False"
+                Padding="24,10"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                    <TextBlock x:Uid="CropImageSave" />
+                </StackPanel>
+            </Button>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>
