@@ -12,9 +12,6 @@ public sealed record ImageSize(int Width, int Height)
 /// </summary>
 public sealed class ResizeImageSession() : ToolSession<ImageSize?>(null)
 {
-    // A bigger image would hardly fit in memory; larger sizes are scaled down to this, as for Page to image.
-    private const long MaxPixels = 64_000_000;
-
     public ImageFile? Image { get; private set; }
 
     /// <summary>The size of the opened image, the right way up.</summary>
@@ -93,10 +90,10 @@ public sealed class ResizeImageSession() : ToolSession<ImageSize?>(null)
     /// <summary>Makes <paramref name="size"/> the new size, scaled down if it would be too big; no change if it is the same.</summary>
     private void SetSize(ImageSize size)
     {
-        if (size.Pixels > MaxPixels)
+        if (size.Pixels > ImageCanvas.MaxPixels)
         {
             // Rounded down, so the scaled image stays under the limit.
-            var scale = Math.Sqrt((double)MaxPixels / size.Pixels);
+            var scale = Math.Sqrt((double)ImageCanvas.MaxPixels / size.Pixels);
             size = new ImageSize(Math.Max(1, (int)(size.Width * scale)), Math.Max(1, (int)(size.Height * scale)));
         }
 

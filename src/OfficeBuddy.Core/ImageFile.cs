@@ -28,8 +28,8 @@ internal readonly record struct ImageTurn(bool Mirrored, int Rotation)
 }
 
 /// <summary>
-/// A JPG or PNG image added to Images to PDF or opened in Resize image, such as a phone photo of a
-/// letter. Its content is read fully into memory, like a Document's.
+/// A JPG or PNG image opened in one of the image Tools, such as a phone photo of a letter. Its
+/// content is read fully into memory, like a Document's.
 /// </summary>
 public sealed class ImageFile
 {
@@ -183,7 +183,29 @@ public sealed class ImageFile
     {
         using var source = await ToStreamAsync(Content);
         var decoder = await BitmapDecoder.CreateAsync(source);
-        var transform = new BitmapTransform
+        // Premultiplied, so scaling doesn't leave dark fringes along transparent edges.
+        using var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8,
+            IsPng ? BitmapAlphaMode.Premultiplied : BitmapAlphaMode.Ignore,
+            UprightTransform(width, height), ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
+        return IsPng ? await EncodePngAsync(bitmap) : await EncodeJpegAsync(bitmap);
+    }
+
+    /// <summary>
+    /// The image the right way up at exactly <paramref name="width"/> by <paramref name="height"/>
+    /// pixels, ready to be drawn onto another image. A JPG's pixels are all opaque.
+    /// </summary>
+    internal async Task<ImageCanvas> ReadPixelsAsync(int width, int height)
+    {
+        using var source = await ToStreamAsync(Content);
+        var decoder = await BitmapDecoder.CreateAsync(source);
+        var pixels = await decoder.GetPixelDataAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+            UprightTransform(width, height), ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
+        return new ImageCanvas(width, height, pixels.DetachPixelData());
+    }
+
+    /// <summary>Scales the stored pixels so that, turned the right way up, they are <paramref name="width"/> by <paramref name="height"/>.</summary>
+    private BitmapTransform UprightTransform(int width, int height) =>
+        new()
         {
             // Scaled in stored pixels, then mirrored and rotated the right way up. The turn is applied
             // here rather than from the EXIF data, which a content converted to PNG no longer has.
@@ -199,12 +221,6 @@ public sealed class ImageFile
             },
             InterpolationMode = BitmapInterpolationMode.Fant,
         };
-        // Premultiplied, so scaling doesn't leave dark fringes along transparent edges.
-        using var bitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8,
-            IsPng ? BitmapAlphaMode.Premultiplied : BitmapAlphaMode.Ignore,
-            transform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
-        return IsPng ? await EncodePngAsync(bitmap) : await EncodeJpegAsync(bitmap);
-    }
 
     private static async Task<ushort> ReadExifOrientationAsync(BitmapDecoder decoder)
     {
@@ -241,7 +257,7 @@ public sealed class ImageFile
         return await EncodePngAsync(bitmap);
     }
 
-    private static async Task<byte[]> EncodePngAsync(SoftwareBitmap bitmap)
+    internal static async Task<byte[]> EncodePngAsync(SoftwareBitmap bitmap)
     {
         using var output = new InMemoryRandomAccessStream();
         var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, output);
@@ -250,7 +266,7 @@ public sealed class ImageFile
         return await ReadAllAsync(output);
     }
 
-    private static async Task<byte[]> EncodeJpegAsync(SoftwareBitmap bitmap)
+    internal static async Task<byte[]> EncodeJpegAsync(SoftwareBitmap bitmap)
     {
         using var output = new InMemoryRandomAccessStream();
         var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, output,

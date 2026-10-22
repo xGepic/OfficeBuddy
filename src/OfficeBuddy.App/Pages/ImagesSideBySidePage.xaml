@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.ImagesSideBySidePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:OfficeBuddy.App.Controls"
+    xmlns:pages="using:OfficeBuddy.App.Pages">
+
+    <controls:ToolShell x:Name="Shell" BackRequested="Shell_BackRequested" FilesOpened="Shell_FilesOpened">
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE90C;" />
+                    <TextBlock
+                        x:Uid="ImagesSideBySideEmptyHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:Name="ListArea" ColumnSpacing="24" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MaxWidth="560" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <RadioButtons
+                            x:Name="ArrangementChoice"
+                            x:Uid="ImagesSideBySideArrangement"
+                            MaxColumns="2"
+                            SelectionChanged="ArrangementChoice_SelectionChanged">
+                            <RadioButton x:Uid="ArrangeSideBySide" />
+                            <RadioButton x:Uid="ArrangeOneBelowTheOther" />
+                        </RadioButtons>
+
+                        <TextBlock
+                            x:Uid="ImagesSideBySideOrderHint"
+                            Grid.Row="1"
+                            Margin="0,8,0,0"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                        <ListView
+                            x:Name="ImageList"
+                            Grid.Row="2"
+                            AllowDrop="True"
+                            CanDragItems="True"
+                            CanReorderItems="True"
+                            DragItemsCompleted="ImageList_DragItemsCompleted"
+                            DragItemsStarting="ImageList_DragItemsStarting"
+                            ItemsSource="{x:Bind Cards}"
+                            SelectionMode="None">
+                            <ListView.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Margin" Value="0,4" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="pages:ImageCard">
+                                    <Grid
+                                        Padding="16,12"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        ColumnSpacing="16"
+                                        CornerRadius="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            MinWidth="28"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource SubtitleTextBlockStyle}"
+                                            Text="{x:Bind PositionText}" />
+                                        <Grid Grid.Column="1" Width="64" Height="64">
+                                            <FontIcon
+                                                FontSize="32"
+                                                Glyph="&#xEB9F;"
+                                                Visibility="{x:Bind PlaceholderVisibility, Mode=OneWay}" />
+                                            <Image Source="{x:Bind Thumbnail, Mode=OneWay}" Stretch="Uniform" />
+                                        </Grid>
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                            <TextBlock
+                                                FontWeight="SemiBold"
+                                                Text="{x:Bind Name}"
+                                                TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind Detail}" />
+                                        </StackPanel>
+                                        <Button
+                                            Grid.Column="3"
+                                            AutomationProperties.Name="{x:Bind RemoveLabel}"
+                                            Click="Remove_Click"
+                                            Padding="10"
+                                            Tag="{x:Bind}"
+                                            ToolTipService.ToolTip="{x:Bind RemoveLabel}">
+                                            <FontIcon FontSize="18" Glyph="&#xE74D;" />
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+
+                    <Grid Grid.Column="1" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Padding="12"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <Image x:Name="Preview" Stretch="Uniform" />
+                        </Border>
+                        <TextBlock
+                            x:Name="ResultText"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Button
+                x:Name="SaveButton"
+                x:Uid="ImagesSideBySideSaveButton"
+                HorizontalAlignment="Right"
+                Click="Save_Click"
+                IsEnabled="False"
+                Padding="24,10"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                    <TextBlock x:Uid="ImagesSideBySideSave" />
+                </StackPanel>
+            </Button>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>

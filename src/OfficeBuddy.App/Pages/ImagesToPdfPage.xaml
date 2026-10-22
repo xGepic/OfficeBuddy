@@ -85,7 +85,7 @@
                                             FontWeight="SemiBold"
                                             Text="{x:Bind Name}"
                                             TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind PageText}" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind Detail}" />
                                     </StackPanel>
                                     <Button
                                         Grid.Column="3"

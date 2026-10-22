@@ -26,6 +26,13 @@ internal static class PageImages
     public static Task<ImageSource?> RenderAsync(ImageFile image, double width, double height) =>
         ShowAsync(image.RenderPngAsync, width, height);
 
+    /// <summary>
+    /// Renders the image Images side by side would save now, to fit a box of the given size in
+    /// effective pixels. Call on the UI thread. Null if Windows cannot draw it.
+    /// </summary>
+    public static Task<ImageSource?> RenderAsync(ImagesSideBySideSession session, double width, double height) =>
+        ShowAsync(session.RenderPreviewPngAsync, width, height);
+
     private static async Task<ImageSource?> ShowAsync(Func<int, int, Task<byte[]>> renderPng, double width, double height)
     {
         var scale = App.MainWindow.Content?.XamlRoot?.RasterizationScale ?? 1.0;

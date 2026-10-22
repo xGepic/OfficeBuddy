@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -97,7 +96,9 @@ public sealed partial class ImagesToPdfPage : Page
         Cards.Clear();
         for (var i = 0; i < _session.Images.Count; i++)
         {
-            var card = new ImageCard(_session.Images[i], i);
+            // Which way round its A4 Page will be.
+            var image = _session.Images[i];
+            var card = new ImageCard(image, i, Strings.Get(image.IsLandscape ? "ImagePageLandscape" : "ImagePagePortrait"));
             Cards.Add(card);
             _ = ShowThumbnailAsync(card);
         }
@@ -117,41 +118,4 @@ public sealed partial class ImagesToPdfPage : Page
         }
         card.Thumbnail = await thumbnail;
     }
-}
-
-/// <summary>One image in the Images to PDF list, at its current position.</summary>
-public sealed class ImageCard(ImageFile image, int index) : INotifyPropertyChanged
-{
-    public const double ThumbnailSize = 64;
-
-    private ImageSource? _thumbnail;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public ImageFile Image { get; } = image;
-
-    public int Index { get; } = index;
-
-    /// <summary>The image the right way up, once it is drawn.</summary>
-    public ImageSource? Thumbnail
-    {
-        get => _thumbnail;
-        set
-        {
-            _thumbnail = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Thumbnail)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlaceholderVisibility)));
-        }
-    }
-
-    public Visibility PlaceholderVisibility => _thumbnail is null ? Visibility.Visible : Visibility.Collapsed;
-
-    public string PositionText => $"{Index + 1}.";
-
-    public string Name => Image.FileName;
-
-    /// <summary>Which way round its A4 Page will be.</summary>
-    public string PageText => Strings.Get(Image.IsLandscape ? "ImagePageLandscape" : "ImagePagePortrait");
-
-    public string RemoveLabel => Strings.Get("RemoveFromList");
 }

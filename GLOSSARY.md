@@ -80,6 +80,22 @@ _Avoid_: Export, render, screenshot
 Saving one JPG or PNG image at a different size in pixels, given either as a percentage or as a width and height, keeping its proportions unless the user turns that off. The result keeps the image's format and is written the right way up. UI term: *Bildgröße ändern*.
 _Avoid_: Scale, shrink image, compress image
 
+**Picture in picture**:
+Placing one image, the Inserted image, on top of another, the Main image, and saving the result as one image at the Main image's size and in its format. The Inserted image always lies whole on the Main image; where it is transparent, the Main image shows through. UI term: *Bild in Bild*.
+_Avoid_: Overlay, watermark, stamp
+
+**Main image**:
+The photo or image in Picture in picture that another image is placed on. UI term: *Foto* or *Bild*.
+_Avoid_: Background, base image
+
+**Inserted image**:
+The image placed on top of the Main image, such as a logo or a signature. UI term: *eingefügtes Bild*.
+_Avoid_: Overlay, sticker
+
+**Images side by side**:
+Saving two or more images as one, lined up in a row or a column with a thin white gap between them, all at the height (in a row) or width (in a column) of the smallest. UI term: *Bilder nebeneinander*.
+_Avoid_: Collage, merge images, combine images
+
 **Favorite**:
 A Tool the user has marked in the settings so that its tile shows first on the start screen, centered above the other tiles. UI term: *Favorit*.
 _Avoid_: Pinned, starred, bookmark

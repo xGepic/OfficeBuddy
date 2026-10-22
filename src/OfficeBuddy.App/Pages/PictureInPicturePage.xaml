@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.PictureInPicturePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:OfficeBuddy.App.Controls">
+
+    <controls:ToolShell x:Name="Shell" BackRequested="Shell_BackRequested" FilesOpened="Shell_FilesOpened">
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="460"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xEE49;" />
+                    <TextBlock
+                        x:Uid="PictureInPictureEmptyHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Grid x:Name="EditArea" RowSpacing="12" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button x:Name="InsertButton" Click="Insert_Click" Padding="16,8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon FontSize="18" Glyph="&#xE710;" />
+                                <TextBlock x:Name="InsertText" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="RemoveButton" x:Uid="PictureInPictureRemoveButton" Click="Remove_Click" Padding="16,8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon FontSize="18" Glyph="&#xE74D;" />
+                                <TextBlock x:Uid="PictureInPictureRemove" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock
+                        x:Name="HintText"
+                        Grid.Row="1"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        TextWrapping="Wrap" />
+
+                    <Grid x:Name="StageHost" Grid.Row="2" SizeChanged="StageHost_SizeChanged">
+                        <Grid
+                            x:Name="Stage"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Image x:Name="MainPicture" Stretch="Fill" />
+                            <Canvas>
+                                <Grid
+                                    x:Name="InsertedFrame"
+                                    BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                    BorderThickness="2"
+                                    ManipulationCompleted="Manipulation_Completed"
+                                    ManipulationDelta="InsertedFrame_ManipulationDelta"
+                                    ManipulationMode="TranslateX,TranslateY"
+                                    ManipulationStarting="Manipulation_Starting">
+                                    <Image x:Name="InsertedPicture" Stretch="Fill" />
+                                </Grid>
+                                <Ellipse
+                                    x:Name="SizeHandle"
+                                    Width="{x:Bind HandleSize}"
+                                    Height="{x:Bind HandleSize}"
+                                    Fill="{ThemeResource AccentFillColorDefaultBrush}"
+                                    ManipulationCompleted="Manipulation_Completed"
+                                    ManipulationDelta="SizeHandle_ManipulationDelta"
+                                    ManipulationMode="TranslateX,TranslateY"
+                                    ManipulationStarting="Manipulation_Starting"
+                                    Stroke="White"
+                                    StrokeThickness="2" />
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Button
+                x:Name="SaveButton"
+                x:Uid="PictureInPictureSaveButton"
+                HorizontalAlignment="Right"
+                Click="Save_Click"
+                IsEnabled="False"
+                Padding="24,10"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                    <TextBlock x:Uid="PictureInPictureSave" />
+                </StackPanel>
+            </Button>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>

@@ -25,6 +25,28 @@ public static class SampleImages
     public static Task<string> CreatePngAsync(string folder, string fileName, int width, int height, (int R, int G, int B) colour) =>
         CreateAsync(folder, fileName, BitmapEncoder.PngEncoderId, width, height, colour, exifOrientation: 1, markLeft: false);
 
+    /// <summary>
+    /// A scanned signature as a PNG: transparent, apart from a black stroke across the middle third of
+    /// its height.
+    /// </summary>
+    public static async Task<string> CreateSignatureAsync(string folder, string fileName, int width, int height)
+    {
+        var pixels = new byte[width * height * 4];
+        for (var y = height / 3; y < 2 * height / 3; y++)
+        {
+            for (var x = 0; x < width; x++)
+            {
+                pixels[(y * width + x) * 4 + 3] = 255;
+            }
+        }
+
+        using var stream = new InMemoryRandomAccessStream();
+        var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+        encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint)width, (uint)height, 96, 96, pixels);
+        await encoder.FlushAsync();
+        return await WriteAsync(folder, fileName, stream);
+    }
+
     /// <summary>The start of a HEIC photo, as iPhones save them.</summary>
     public static string CreateHeic(string folder, string fileName)
     {
@@ -58,7 +80,11 @@ public static class SampleImages
                 [new("System.Photo.Orientation", new BitmapTypedValue(exifOrientation, PropertyType.UInt16))]);
         }
         await encoder.FlushAsync();
+        return await WriteAsync(folder, fileName, stream);
+    }
 
+    private static async Task<string> WriteAsync(string folder, string fileName, InMemoryRandomAccessStream stream)
+    {
         var content = new byte[stream.Size];
         stream.Seek(0);
         await stream.ReadAsync(content.AsBuffer(), (uint)content.Length, InputStreamOptions.None);

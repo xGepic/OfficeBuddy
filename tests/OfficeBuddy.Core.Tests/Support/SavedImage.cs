@@ -41,6 +41,29 @@ public sealed record SavedImage(bool IsJpeg, int Width, int Height, Edges Darkne
             Left: Darkness(0, 0, stripX, height));
         return new SavedImage(decoder.DecoderInformation.CodecId == BitmapDecoder.JpegDecoderId, width, height, edges);
     }
+
+    /// <summary>
+    /// The colour of the pixel at <paramref name="x"/>, <paramref name="y"/>, given as shares of the
+    /// image's width and height, as it shows on a white background.
+    /// </summary>
+    public static async Task<(int R, int G, int B)> ColourAtAsync(string path, double x, double y)
+    {
+        var file = await StorageFile.GetFileFromPathAsync(path);
+        using var stream = await file.OpenReadAsync();
+        var decoder = await BitmapDecoder.CreateAsync(stream);
+        var width = (int)decoder.PixelWidth;
+        var pixels = (await decoder.GetPixelDataAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied,
+            new BitmapTransform(), ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage))
+            .DetachPixelData();
+
+        var i = ((int)(y * decoder.PixelHeight) * width + (int)(x * width)) * 4;
+        var white = 255 - pixels[i + 3];
+        return (pixels[i + 2] + white, pixels[i + 1] + white, pixels[i] + white);
+    }
+
+    /// <summary>Whether two colours look alike, allowing for what JPG compression changes.</summary>
+    public static bool AreAlike((int R, int G, int B) actual, (int R, int G, int B) expected) =>
+        Math.Abs(actual.R - expected.R) <= 40 && Math.Abs(actual.G - expected.G) <= 40 && Math.Abs(actual.B - expected.B) <= 40;
 }
 
 public sealed record Edges(double Top, double Right, double Bottom, double Left);
