@@ -28,7 +28,7 @@ dotnet publish src\OfficeBuddy.App -c Release -o artifacts\single -p:PublishSing
 
 `artifacts\single\OfficeBuddy.exe` contains everything the app needs, so nothing else has to be installed. Copy it to the PC and put a shortcut on the desktop; to update, replace the exe with a newer one. It unpacks itself into a temporary folder on its first start, which takes a few seconds; later starts are quick.
 
-Every push to `main` also builds it on GitHub, after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)): open the run under **Actions** and download `OfficeBuddy-<run number>` from its **Artifacts**. Each one is kept for 30 days.
+Every push to `main` also builds it on GitHub, after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)), and puts it on the **latest** release: download `OfficeBuddy.exe` from **Releases** on the repository's front page. Each build replaces the one before.
 
 ## Development
 

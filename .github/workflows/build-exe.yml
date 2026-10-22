@@ -1,5 +1,5 @@
-# Builds OfficeBuddy.exe on every push to main, the same way as in the README, once the tests pass.
-# The exe is attached to the run as an artifact: Actions → the run → Artifacts.
+# Builds OfficeBuddy.exe on every push to main, the same way as in the README, once the tests pass,
+# and puts it on the "latest" release, linked from the repository's front page.
 name: Build exe
 
 on:
@@ -40,6 +40,9 @@ jobs:
     name: Build exe
     needs: test
     runs-on: windows-latest
+    # Creating the release needs write access to the repository.
+    permissions:
+      contents: write
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -58,10 +61,17 @@ jobs:
           -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
           -p:EnableCompressionInSingleFile=true -p:DebugType=none
 
-      - name: Upload exe
-        uses: actions/upload-artifact@v5
-        with:
-          name: OfficeBuddy-${{ github.run_number }}
-          path: artifacts/single/OfficeBuddy.exe
-          if-no-files-found: error
-          retention-days: 30
+      # One release, "latest", replaced by every build: shown on the repository's front page.
+      - name: Replace the latest release
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release delete latest --cleanup-tag --yes || true
+          gh release create latest artifacts/single/OfficeBuddy.exe \
+            --target "$GITHUB_SHA" \
+            --title "Office Buddy (neueste Version)" \
+            --notes "Gebaut aus ${GITHUB_SHA::7}: $(git log -1 --format=%s)" \
+            --latest
