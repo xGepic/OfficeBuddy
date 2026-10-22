@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Images;
 
 namespace OfficeBuddy.App.Controls;
 

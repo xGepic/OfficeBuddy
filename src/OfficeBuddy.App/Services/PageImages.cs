@@ -1,7 +1,9 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Images;
+using OfficeBuddy.Core.Pdf;
+using OfficeBuddy.Core.Tools;
 using Windows.Storage.Streams;
 
 namespace OfficeBuddy.App.Services;

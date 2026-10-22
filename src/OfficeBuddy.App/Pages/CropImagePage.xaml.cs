@@ -5,7 +5,8 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using OfficeBuddy.App.Services;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Images;
+using OfficeBuddy.Core.Tools;
 
 namespace OfficeBuddy.App.Pages;
 

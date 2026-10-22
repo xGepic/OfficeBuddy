@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Images;
 
 namespace OfficeBuddy.App.Pages;
 

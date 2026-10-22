@@ -1,4 +1,7 @@
+using OfficeBuddy.Core.Files;
+using OfficeBuddy.Core.Images;
 using OfficeBuddy.Core.Tests.Support;
+using OfficeBuddy.Core.Tools;
 using static OfficeBuddy.Core.Tests.Support.SampleImages;
 
 namespace OfficeBuddy.Core.Tests;

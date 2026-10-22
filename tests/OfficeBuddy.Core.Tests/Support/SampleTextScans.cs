@@ -1,3 +1,5 @@
+using OfficeBuddy.Core.Pdf;
+using OfficeBuddy.Core.Tools;
 using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;

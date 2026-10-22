@@ -1,4 +1,5 @@
 using OfficeBuddy.Core.Tests.Support;
+using OfficeBuddy.Core.Tools;
 
 namespace OfficeBuddy.Core.Tests;
 

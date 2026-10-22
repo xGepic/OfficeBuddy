@@ -1,7 +1,9 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Files;
+using OfficeBuddy.Core.Pdf;
+using OfficeBuddy.Core.Tools;
 
 namespace OfficeBuddy.App.Pages;
 

@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using OfficeBuddy.App.Services;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Pdf;
 using Windows.Foundation;
 using Windows.System;
 

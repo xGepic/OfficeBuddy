@@ -1,5 +1,5 @@
 using System.Text.Json;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Tools;
 
 namespace OfficeBuddy.App.Services;
 

@@ -3,7 +3,8 @@ using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using OfficeBuddy.App.Services;
-using OfficeBuddy.Core;
+using OfficeBuddy.Core.Pdf;
+using OfficeBuddy.Core.Tools;
 
 namespace OfficeBuddy.App.Pages;
 
