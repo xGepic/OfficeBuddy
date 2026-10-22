@@ -72,39 +72,12 @@
                         TextWrapping="Wrap" />
 
                     <!-- Room around the Page, so the grip on its edge can be grabbed. -->
-                    <Grid x:Name="StageHost" Grid.Row="2" Margin="12" SizeChanged="StageHost_SizeChanged">
-                        <Grid
-                            x:Name="Stage"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="White">
-                            <Image x:Name="PagePicture" Stretch="Fill" />
-                            <Canvas>
-                                <Border
-                                    x:Name="SignatureFrame"
-                                    Background="Transparent"
-                                    BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
-                                    BorderThickness="2"
-                                    ManipulationCompleted="Manipulation_Completed"
-                                    ManipulationDelta="SignatureFrame_ManipulationDelta"
-                                    ManipulationMode="TranslateX,TranslateY"
-                                    ManipulationStarting="Manipulation_Starting">
-                                    <Image x:Name="SignatureOnPage" Stretch="Fill" />
-                                </Border>
-                                <Ellipse
-                                    x:Name="SizeHandle"
-                                    Width="{x:Bind HandleSize}"
-                                    Height="{x:Bind HandleSize}"
-                                    Fill="{ThemeResource AccentFillColorDefaultBrush}"
-                                    ManipulationCompleted="Manipulation_Completed"
-                                    ManipulationDelta="SizeHandle_ManipulationDelta"
-                                    ManipulationMode="TranslateX,TranslateY"
-                                    ManipulationStarting="Manipulation_Starting"
-                                    Stroke="White"
-                                    StrokeThickness="2" />
-                            </Canvas>
-                        </Grid>
-                    </Grid>
+                    <controls:PlacementStage
+                        x:Name="Stage"
+                        Grid.Row="2"
+                        Margin="12"
+                        PictureBackground="White"
+                        Placed="Stage_Placed" />
 
                     <StackPanel
                         Grid.Row="3"

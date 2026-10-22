@@ -54,37 +54,7 @@
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         TextWrapping="Wrap" />
 
-                    <Grid x:Name="StageHost" Grid.Row="2" SizeChanged="StageHost_SizeChanged">
-                        <Grid
-                            x:Name="Stage"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                            <Image x:Name="MainPicture" Stretch="Fill" />
-                            <Canvas>
-                                <Grid
-                                    x:Name="InsertedFrame"
-                                    BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
-                                    BorderThickness="2"
-                                    ManipulationCompleted="Manipulation_Completed"
-                                    ManipulationDelta="InsertedFrame_ManipulationDelta"
-                                    ManipulationMode="TranslateX,TranslateY"
-                                    ManipulationStarting="Manipulation_Starting">
-                                    <Image x:Name="InsertedPicture" Stretch="Fill" />
-                                </Grid>
-                                <Ellipse
-                                    x:Name="SizeHandle"
-                                    Width="{x:Bind HandleSize}"
-                                    Height="{x:Bind HandleSize}"
-                                    Fill="{ThemeResource AccentFillColorDefaultBrush}"
-                                    ManipulationCompleted="Manipulation_Completed"
-                                    ManipulationDelta="SizeHandle_ManipulationDelta"
-                                    ManipulationMode="TranslateX,TranslateY"
-                                    ManipulationStarting="Manipulation_Starting"
-                                    Stroke="White"
-                                    StrokeThickness="2" />
-                            </Canvas>
-                        </Grid>
-                    </Grid>
+                    <controls:PlacementStage x:Name="Stage" Grid.Row="2" Placed="Stage_Placed" />
                 </Grid>
             </Grid>
         </controls:ToolShell.Body>

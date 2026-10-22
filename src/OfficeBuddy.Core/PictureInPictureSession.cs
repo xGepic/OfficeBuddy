@@ -1,11 +1,5 @@
 namespace OfficeBuddy.Core;
 
-/// <summary>
-/// Where the Inserted image sits on the Main image: its top left corner and its width, each as a
-/// share of the Main image's width or height, from 0 to 1. Its height follows from its proportions.
-/// </summary>
-public sealed record Placement(double Left, double Top, double Width);
-
 /// <summary>An image placed on top of the Main image, and where.</summary>
 public sealed record InsertedImage(ImageFile Image, Placement Placement);
 
@@ -123,14 +117,7 @@ public sealed class PictureInPictureSession() : ToolSession<InsertedImage?>(null
     }
 
     /// <summary>The place nearest to <paramref name="placement"/> where <paramref name="image"/> lies whole on the Main image.</summary>
-    private Placement Fit(ImageFile image, Placement placement)
-    {
-        var heightPerWidth = HeightPerWidth(image);
-        var maxWidth = Math.Min(1, 1 / heightPerWidth);
-        var width = Math.Clamp(placement.Width, Math.Min(MinWidth, maxWidth), maxWidth);
-        var height = width * heightPerWidth;
-        return new Placement(Math.Clamp(placement.Left, 0, 1 - width), Math.Clamp(placement.Top, 0, 1 - height), width);
-    }
+    private Placement Fit(ImageFile image, Placement placement) => placement.Fit(HeightPerWidth(image), MinWidth);
 
     /// <summary>How many shares of the Main image's height <paramref name="image"/> takes per share of its width.</summary>
     private double HeightPerWidth(ImageFile image) =>

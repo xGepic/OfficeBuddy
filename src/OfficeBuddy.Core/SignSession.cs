@@ -150,14 +150,8 @@ public sealed class SignSession() : DocumentSession<Signing>(new(null, []))
     }
 
     /// <summary>The place nearest to <paramref name="placement"/> where the signature lies whole on the Page.</summary>
-    private Placement Fit(ImageFile signature, int pageIndex, Placement placement)
-    {
-        var heightPerWidth = HeightPerWidth(signature, pageIndex);
-        var maxWidth = Math.Min(1, 1 / heightPerWidth);
-        var width = Math.Clamp(placement.Width, Math.Min(MinWidth, maxWidth), maxWidth);
-        var height = width * heightPerWidth;
-        return new Placement(Math.Clamp(placement.Left, 0, 1 - width), Math.Clamp(placement.Top, 0, 1 - height), width);
-    }
+    private Placement Fit(ImageFile signature, int pageIndex, Placement placement) =>
+        placement.Fit(HeightPerWidth(signature, pageIndex), MinWidth);
 
     /// <summary>How many shares of the Page's height the signature takes per share of its width.</summary>
     private double HeightPerWidth(ImageFile signature, int pageIndex)

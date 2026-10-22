@@ -239,7 +239,7 @@
   <data name="PictureInPictureRemoveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Eingefügtes Bild entfernen</value></data>
   <data name="PictureInPictureInsertHint" xml:space="preserve"><value>Klicken Sie auf „Bild einfügen“ und wählen Sie das Bild aus, das auf dieses Foto soll, z. B. ein Logo oder eine Unterschrift.</value></data>
   <data name="PictureInPicturePlaceHint" xml:space="preserve"><value>Ziehen Sie das eingefügte Bild an die gewünschte Stelle. Mit dem runden Griff unten rechts machen Sie es größer oder kleiner.</value></data>
-  <data name="PictureInPictureSizeHandle" xml:space="preserve"><value>Größe ändern</value></data>
+  <data name="PlacementSizeHandle" xml:space="preserve"><value>Größe ändern</value></data>
   <data name="PictureInPictureSave.Text" xml:space="preserve"><value>Als Bild speichern</value></data>
   <data name="PictureInPictureSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als Bild speichern</value></data>
 
@@ -288,7 +288,6 @@
   <data name="SignPageOf" xml:space="preserve"><value>Seite {0} von {1}</value></data>
   <data name="SignPreviousPage" xml:space="preserve"><value>Vorherige Seite</value></data>
   <data name="SignNextPage" xml:space="preserve"><value>Nächste Seite</value></data>
-  <data name="SignSizeHandle" xml:space="preserve"><value>Größe ändern</value></data>
   <data name="SignSave.Text" xml:space="preserve"><value>Unterschrieben speichern</value></data>
   <data name="SignSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Unterschrieben speichern</value></data>
 

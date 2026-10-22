@@ -2,7 +2,6 @@ using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using OfficeBuddy.App.Services;
 using OfficeBuddy.Core;
@@ -19,19 +18,12 @@ public sealed partial class SignPage : Page
     private int _pageIndex;
     private (Document Document, int PageIndex)? _pageShown;
     private ImageFile? _signatureShown;
-    // Where the signature was when a drag started, and where it is while being dragged or sized,
-    // before the session gets the new place as one undoable change.
-    private Placement? _dragStart;
-    private Placement? _dragged;
 
     public SignPage()
     {
         InitializeComponent();
         Shell.Title = Strings.Get("SignTitle");
         Shell.Session = _session;
-        var sizeHandleName = Strings.Get("SignSizeHandle");
-        AutomationProperties.SetName(SizeHandle, sizeHandleName);
-        ToolTipService.SetToolTip(SizeHandle, sizeHandleName);
         foreach (var (button, key) in new[] { (PreviousButton, "SignPreviousPage"), (NextButton, "SignNextPage") })
         {
             AutomationProperties.SetName(button, Strings.Get(key));
@@ -39,8 +31,6 @@ public sealed partial class SignPage : Page
         }
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }
-
-    public double HandleSize => 22;
 
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -119,65 +109,11 @@ public sealed partial class SignPage : Page
 
     private Placement? PlacementHere => _session.Placements.TryGetValue(_pageIndex, out var placement) ? placement : null;
 
-    private void Manipulation_Starting(object sender, ManipulationStartingRoutedEventArgs e)
+    private void Stage_Placed(object? sender, Placement placement)
     {
-        // Measured against the Page, which stays put, not against the signature being moved.
-        e.Container = Stage;
-        _dragStart = PlacementHere;
-        _dragged = null;
+        _session.Place(_pageIndex, placement);
+        ShowStage();
     }
-
-    private void SignatureFrame_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-    {
-        if (_dragStart is not { } start)
-        {
-            return;
-        }
-
-        var moved = e.Cumulative.Translation;
-        _dragged = start with
-        {
-            Left = Math.Clamp(start.Left + moved.X / Stage.Width, 0, 1 - start.Width),
-            Top = Math.Clamp(start.Top + moved.Y / Stage.Height, 0, 1 - _session.HeightFor(_pageIndex, start.Width)),
-        };
-        ShowSignature(_dragged);
-    }
-
-    private void SizeHandle_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-    {
-        if (_dragStart is not { } start)
-        {
-            return;
-        }
-
-        // The pointer, from the signature's top left corner, and how far its bottom right corner
-        // moves across and down per share of the Page's width.
-        var moved = e.Cumulative.Translation;
-        var (perWidthX, perWidthY) = (Stage.Width, _session.HeightFor(_pageIndex, 1) * Stage.Height);
-        var pointerX = start.Width * perWidthX + moved.X;
-        var pointerY = start.Width * perWidthY + moved.Y;
-
-        // The width whose corner comes closest to the pointer, staying whole on the Page and big
-        // enough to grab.
-        var width = (pointerX * perWidthX + pointerY * perWidthY) / (perWidthX * perWidthX + perWidthY * perWidthY);
-        var maxWidth = Math.Min(1 - start.Left, (1 - start.Top) / _session.HeightFor(_pageIndex, 1));
-        _dragged = start with { Width = Math.Clamp(width, Math.Min(HandleSize / Stage.Width, maxWidth), maxWidth) };
-        ShowSignature(_dragged);
-    }
-
-    private void Manipulation_Completed(object sender, ManipulationCompletedRoutedEventArgs e)
-    {
-        var dragged = _dragged;
-        (_dragStart, _dragged) = (null, null);
-        if (dragged is not null)
-        {
-            _session.Place(_pageIndex, dragged);
-        }
-        // Where the session put it; also if it stayed where it was, which is no change to the session.
-        ShowSignature(PlacementHere);
-    }
-
-    private void StageHost_SizeChanged(object sender, SizeChangedEventArgs e) => Layout();
 
     private async void Save_Click(object sender, RoutedEventArgs e)
     {
@@ -224,52 +160,30 @@ public sealed partial class SignPage : Page
             _pageShown = (document, _pageIndex);
             _ = ShowPageAsync(document, _pageIndex);
         }
-        Layout();
+        ShowStage();
     }
 
-    /// <summary>Sizes the Page, as it is shown, to fill the space it has in its own proportions, and puts the signature on it.</summary>
-    private void Layout()
+    /// <summary>Shows the Page as it is shown, with the signature where it is put on it.</summary>
+    private void ShowStage()
     {
-        if (_session.Document is not { } document || StageHost.ActualWidth <= 0 || StageHost.ActualHeight <= 0)
+        if (_session.Document is not { } document)
         {
             return;
         }
 
         var size = document.ShownPageSize(_pageIndex);
-        var scale = Math.Min(StageHost.ActualWidth / size.Width, StageHost.ActualHeight / size.Height);
-        Stage.Width = size.Width * scale;
-        Stage.Height = size.Height * scale;
-        ShowSignature(_dragged ?? PlacementHere);
-    }
-
-    private void ShowSignature(Placement? placement)
-    {
-        var visibility = placement is null ? Visibility.Collapsed : Visibility.Visible;
-        SignatureFrame.Visibility = visibility;
-        SizeHandle.Visibility = visibility;
-        if (placement is null || double.IsNaN(Stage.Width))
-        {
-            return;
-        }
-
-        var (left, top) = (placement.Left * Stage.Width, placement.Top * Stage.Height);
-        var (width, height) = (placement.Width * Stage.Width, _session.HeightFor(_pageIndex, placement.Width) * Stage.Height);
-        Canvas.SetLeft(SignatureFrame, left);
-        Canvas.SetTop(SignatureFrame, top);
-        SignatureFrame.Width = width;
-        SignatureFrame.Height = height;
-        Canvas.SetLeft(SizeHandle, left + width - HandleSize / 2);
-        Canvas.SetTop(SizeHandle, top + height - HandleSize / 2);
+        var placement = PlacementHere;
+        Stage.Show(size.Width, size.Height, placement, placement is null ? 0 : _session.HeightFor(_pageIndex, 1));
     }
 
     /// <summary>Shows the Page, unless another one is wanted meanwhile.</summary>
     private async Task ShowPageAsync(Document document, int pageIndex)
     {
-        PagePicture.Source = null;
+        Stage.Picture = null;
         var source = await PageImages.RenderAsync(document, pageIndex, PageRenderSize, PageRenderSize);
         if (_pageShown == (document, pageIndex))
         {
-            PagePicture.Source = source;
+            Stage.Picture = source;
         }
     }
 
@@ -277,7 +191,7 @@ public sealed partial class SignPage : Page
     private async Task ShowSignatureImageAsync(ImageFile? signature)
     {
         SignaturePreview.Source = null;
-        SignatureOnPage.Source = null;
+        Stage.PlacedPicture = null;
         if (signature is null)
         {
             return;
@@ -287,7 +201,7 @@ public sealed partial class SignPage : Page
         if (ReferenceEquals(signature, _signatureShown))
         {
             SignaturePreview.Source = source;
-            SignatureOnPage.Source = source;
+            Stage.PlacedPicture = source;
         }
     }
 }

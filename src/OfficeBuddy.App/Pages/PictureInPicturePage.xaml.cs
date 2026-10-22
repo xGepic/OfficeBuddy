@@ -2,7 +2,6 @@ using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using OfficeBuddy.App.Services;
 using OfficeBuddy.Core;
@@ -19,10 +18,6 @@ public sealed partial class PictureInPicturePage : Page
     private readonly PictureInPictureSession _session = new();
     private ImageFile? _mainShown;
     private ImageFile? _insertedShown;
-    // Where the Inserted image was when a drag started, and where it is while being dragged or sized,
-    // before the session gets the new place as one undoable change.
-    private Placement? _dragStart;
-    private Placement? _dragged;
 
     public PictureInPicturePage()
     {
@@ -30,13 +25,8 @@ public sealed partial class PictureInPicturePage : Page
         Shell.Title = Strings.Get("PictureInPictureTitle");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
-        var sizeHandleName = Strings.Get("PictureInPictureSizeHandle");
-        AutomationProperties.SetName(SizeHandle, sizeHandleName);
-        ToolTipService.SetToolTip(SizeHandle, sizeHandleName);
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }
-
-    public double HandleSize => 22;
 
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -98,65 +88,11 @@ public sealed partial class PictureInPicturePage : Page
 
     private void Remove_Click(object sender, RoutedEventArgs e) => _session.Remove();
 
-    private void Manipulation_Starting(object sender, ManipulationStartingRoutedEventArgs e)
+    private void Stage_Placed(object? sender, Placement placement)
     {
-        // Measured against the photo, which stays put, not against the image being moved.
-        e.Container = Stage;
-        _dragStart = _session.Inserted?.Placement;
-        _dragged = null;
+        _session.Place(placement);
+        ShowStage();
     }
-
-    private void InsertedFrame_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-    {
-        if (_dragStart is not { } start)
-        {
-            return;
-        }
-
-        var moved = e.Cumulative.Translation;
-        _dragged = start with
-        {
-            Left = Math.Clamp(start.Left + moved.X / Stage.Width, 0, 1 - start.Width),
-            Top = Math.Clamp(start.Top + moved.Y / Stage.Height, 0, 1 - _session.HeightFor(start.Width)),
-        };
-        ShowInserted(_dragged);
-    }
-
-    private void SizeHandle_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-    {
-        if (_dragStart is not { } start)
-        {
-            return;
-        }
-
-        // The pointer, from the Inserted image's top left corner, and how far its bottom right corner
-        // moves across and down per share of the photo's width.
-        var moved = e.Cumulative.Translation;
-        var (perWidthX, perWidthY) = (Stage.Width, _session.HeightFor(1) * Stage.Height);
-        var pointerX = start.Width * perWidthX + moved.X;
-        var pointerY = start.Width * perWidthY + moved.Y;
-
-        // The width whose corner comes closest to the pointer, staying whole on the photo and big
-        // enough to grab.
-        var width = (pointerX * perWidthX + pointerY * perWidthY) / (perWidthX * perWidthX + perWidthY * perWidthY);
-        var maxWidth = Math.Min(1 - start.Left, (1 - start.Top) / _session.HeightFor(1));
-        _dragged = start with { Width = Math.Clamp(width, Math.Min(HandleSize / Stage.Width, maxWidth), maxWidth) };
-        ShowInserted(_dragged);
-    }
-
-    private void Manipulation_Completed(object sender, ManipulationCompletedRoutedEventArgs e)
-    {
-        var dragged = _dragged;
-        (_dragStart, _dragged) = (null, null);
-        if (dragged is not null)
-        {
-            _session.Place(dragged);
-        }
-        // Where the session put it; also if it stayed where it was, which is no change to the session.
-        ShowInserted(_session.Inserted?.Placement);
-    }
-
-    private void StageHost_SizeChanged(object sender, SizeChangedEventArgs e) => Layout();
 
     private async void Save_Click(object sender, RoutedEventArgs e)
     {
@@ -192,62 +128,40 @@ public sealed partial class PictureInPicturePage : Page
             _insertedShown = inserted.Image;
             _ = ShowInsertedAsync(inserted.Image);
         }
-        Layout();
+        ShowStage();
     }
 
-    /// <summary>Sizes the photo to fill the space it has, in its own proportions, and puts the Inserted image on it.</summary>
-    private void Layout()
+    /// <summary>Shows the photo with the Inserted image where it is put on it.</summary>
+    private void ShowStage()
     {
-        if (_session.MainImage is not { } main || StageHost.ActualWidth <= 0 || StageHost.ActualHeight <= 0)
+        if (_session.MainImage is not { } main)
         {
             return;
         }
 
-        var scale = Math.Min(StageHost.ActualWidth / main.Width, StageHost.ActualHeight / main.Height);
-        Stage.Width = main.Width * scale;
-        Stage.Height = main.Height * scale;
-        ShowInserted(_dragged ?? _session.Inserted?.Placement);
-    }
-
-    private void ShowInserted(Placement? placement)
-    {
-        var visibility = placement is null ? Visibility.Collapsed : Visibility.Visible;
-        InsertedFrame.Visibility = visibility;
-        SizeHandle.Visibility = visibility;
-        if (placement is null || double.IsNaN(Stage.Width))
-        {
-            return;
-        }
-
-        var (left, top) = (placement.Left * Stage.Width, placement.Top * Stage.Height);
-        var (width, height) = (placement.Width * Stage.Width, _session.HeightFor(placement.Width) * Stage.Height);
-        Canvas.SetLeft(InsertedFrame, left);
-        Canvas.SetTop(InsertedFrame, top);
-        InsertedFrame.Width = width;
-        InsertedFrame.Height = height;
-        Canvas.SetLeft(SizeHandle, left + width - HandleSize / 2);
-        Canvas.SetTop(SizeHandle, top + height - HandleSize / 2);
+        var placement = _session.Inserted?.Placement;
+        Stage.Show(main.Width, main.Height, placement, placement is null ? 0 : _session.HeightFor(1));
     }
 
     /// <summary>Shows the photo the right way up, unless another one was opened meanwhile.</summary>
     private async Task ShowMainAsync(ImageFile main)
     {
-        MainPicture.Source = null;
+        Stage.Picture = null;
         var source = await PageImages.RenderAsync(main, MainRenderWidth, MainRenderHeight);
         if (ReferenceEquals(main, _mainShown))
         {
-            MainPicture.Source = source;
+            Stage.Picture = source;
         }
     }
 
     /// <summary>Shows the Inserted image the right way up, unless another one was inserted meanwhile.</summary>
     private async Task ShowInsertedAsync(ImageFile image)
     {
-        InsertedPicture.Source = null;
+        Stage.PlacedPicture = null;
         var source = await PageImages.RenderAsync(image, InsertedRenderSize, InsertedRenderSize);
         if (ReferenceEquals(image, _insertedShown))
         {
-            InsertedPicture.Source = source;
+            Stage.PlacedPicture = source;
         }
     }
 }

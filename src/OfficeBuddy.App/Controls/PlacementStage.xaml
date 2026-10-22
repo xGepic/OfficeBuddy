@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="OfficeBuddy.App.Controls.PlacementStage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Name="StageHost" SizeChanged="StageHost_SizeChanged">
+        <Grid
+            x:Name="Stage"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{x:Bind PictureBackground, Mode=OneWay}">
+            <Image x:Name="BackgroundImage" Stretch="Fill" />
+            <Canvas>
+                <Border
+                    x:Name="PlacedFrame"
+                    Background="Transparent"
+                    BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                    BorderThickness="2"
+                    ManipulationCompleted="Manipulation_Completed"
+                    ManipulationDelta="PlacedFrame_ManipulationDelta"
+                    ManipulationMode="TranslateX,TranslateY"
+                    ManipulationStarting="Manipulation_Starting">
+                    <Image x:Name="PlacedImage" Stretch="Fill" />
+                </Border>
+                <Ellipse
+                    x:Name="SizeHandle"
+                    Width="{x:Bind HandleSize}"
+                    Height="{x:Bind HandleSize}"
+                    Fill="{ThemeResource AccentFillColorDefaultBrush}"
+                    ManipulationCompleted="Manipulation_Completed"
+                    ManipulationDelta="SizeHandle_ManipulationDelta"
+                    ManipulationMode="TranslateX,TranslateY"
+                    ManipulationStarting="Manipulation_Starting"
+                    Stroke="White"
+                    StrokeThickness="2" />
+            </Canvas>
+        </Grid>
+    </Grid>
+</UserControl>
