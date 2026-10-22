@@ -120,10 +120,6 @@ _Avoid_: Autograph, initials
 Reading the text on a Document's Pages, usually a scan, with Windows' text recognition, to copy it or to save the Document searchable: the text lies invisibly over each Page where it was seen, so the Document looks the same. UI term: *Text erkennen*.
 _Avoid_: OCR (in the UI), convert to text, extract text
 
-**Scan**:
-Making a Document from paper with a scanner connected to the PC, one Page per sheet, each the size of the paper. Pages can be turned, reordered and removed before saving. UI term: *Scannen*.
-_Avoid_: Import, capture, digitise
-
 **PDF password**:
 The Tool that saves a Protected Document without its password, once the user has typed it, or gives any Document a new password. It never tries to find a password out. UI term: *PDF-Passwort*.
 _Avoid_: Unlock, crack, encrypt, decrypt
@@ -133,7 +129,7 @@ Rebuilding a damaged Document, such as a broken-off download, into one that open
 _Avoid_: Fix, recover, restore
 
 **Tool group**:
-The heading a Tool's tile is shown under on the start screen, by what it works on: putting PDF Pages in order (*PDF-Seiten ordnen*), changing a whole PDF (*PDF-Dateien bearbeiten*), from paper or pictures to PDF and back (*Scannen und umwandeln*), and photos (*Fotos und Bilder*).
+The heading a Tool's tile is shown under on the start screen, by what it works on: putting PDF Pages in order (*PDF-Seiten ordnen*), changing a whole PDF (*PDF-Dateien bearbeiten*), from pictures to PDF and back (*PDF und Bilder umwandeln*), and photos (*Fotos und Bilder*).
 _Avoid_: Category, section, tab
 
 **Protected Document**:

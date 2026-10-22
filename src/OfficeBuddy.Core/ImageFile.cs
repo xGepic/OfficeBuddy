@@ -42,9 +42,8 @@ public sealed class ImageFile
     // As close to the original as a JPG gets without becoming much bigger.
     private const float JpegQuality = 0.92f;
 
-    private ImageFile(string filePath, bool isPng, byte[] content, int storedWidth, int storedHeight, ImageTurn turn, double dpi)
+    private ImageFile(string filePath, bool isPng, byte[] content, int storedWidth, int storedHeight, ImageTurn turn)
     {
-        Dpi = dpi;
         FilePath = filePath;
         IsPng = isPng;
         Content = content;
@@ -68,12 +67,6 @@ public sealed class ImageFile
 
     /// <summary>The height in pixels, the right way up.</summary>
     public int Height => Turn.SwapsSides ? _storedWidth : _storedHeight;
-
-    /// <summary>
-    /// The resolution the file states, in pixels per inch: a scanner's is real, a phone photo's (often
-    /// 72) only a default.
-    /// </summary>
-    public double Dpi { get; }
 
     /// <summary>Wider than high, the right way up; such an image gets a landscape Page.</summary>
     public bool IsLandscape => Width > Height;
@@ -131,7 +124,7 @@ public sealed class ImageFile
             var decoder = await BitmapDecoder.CreateAsync(stream);
             var turn = ImageTurn.FromExifOrientation(await ReadExifOrientationAsync(decoder));
             var readable = await Task.Run(() => CanEmbed(content)) ? content : await ToPngAsync(decoder);
-            return new ImageFile(filePath, isPng, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn, decoder.DpiX);
+            return new ImageFile(filePath, isPng, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn);
         }
         catch (Exception)
         {

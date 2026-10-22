@@ -17,14 +17,13 @@ public static class SampleImages
     public static readonly (int R, int G, int B) Blue = (30, 60, 200);
     public static readonly (int R, int G, int B) Magenta = (200, 0, 200);
 
-    /// <param name="dpi">The resolution the file states, as a scanner writes it.</param>
     public static Task<string> CreateJpegAsync(
         string folder, string fileName, int width, int height, (int R, int G, int B) colour, ushort exifOrientation = 1,
-        bool markLeft = false, double dpi = 96) =>
-        CreateAsync(folder, fileName, BitmapEncoder.JpegEncoderId, width, height, colour, exifOrientation, markLeft, dpi);
+        bool markLeft = false) =>
+        CreateAsync(folder, fileName, BitmapEncoder.JpegEncoderId, width, height, colour, exifOrientation, markLeft);
 
     public static Task<string> CreatePngAsync(string folder, string fileName, int width, int height, (int R, int G, int B) colour) =>
-        CreateAsync(folder, fileName, BitmapEncoder.PngEncoderId, width, height, colour, exifOrientation: 1, markLeft: false, dpi: 96);
+        CreateAsync(folder, fileName, BitmapEncoder.PngEncoderId, width, height, colour, exifOrientation: 1, markLeft: false);
 
     /// <summary>
     /// A scanned signature: a black stroke across the middle third of its height, on transparency as
@@ -67,7 +66,7 @@ public static class SampleImages
 
     private static async Task<string> CreateAsync(
         string folder, string fileName, Guid encoderId, int width, int height, (int R, int G, int B) colour, ushort exifOrientation,
-        bool markLeft, double dpi)
+        bool markLeft)
     {
         var (bar, leftBar) = (height / 6, markLeft ? width / 6 : 0);
         var pixels = new byte[width * height * 4];
@@ -83,7 +82,7 @@ public static class SampleImages
 
         using var stream = new InMemoryRandomAccessStream();
         var encoder = await BitmapEncoder.CreateAsync(encoderId, stream);
-        encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)width, (uint)height, dpi, dpi, pixels);
+        encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)width, (uint)height, 96, 96, pixels);
         if (exifOrientation != 1)
         {
             await encoder.BitmapProperties.SetPropertiesAsync(

@@ -23,7 +23,7 @@
   <data name="StartGroupFavorites" xml:space="preserve"><value>Favoriten</value></data>
   <data name="StartGroupPdfPages" xml:space="preserve"><value>PDF-Seiten ordnen</value></data>
   <data name="StartGroupPdfFiles" xml:space="preserve"><value>PDF-Dateien bearbeiten</value></data>
-  <data name="StartGroupScanAndConvert" xml:space="preserve"><value>Scannen und umwandeln</value></data>
+  <data name="StartGroupConvert" xml:space="preserve"><value>PDF und Bilder umwandeln</value></data>
   <data name="StartGroupImages" xml:space="preserve"><value>Fotos und Bilder</value></data>
   <data name="StartSettings.Text" xml:space="preserve"><value>Einstellungen</value></data>
   <data name="StartSettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Einstellungen</value></data>
@@ -54,8 +54,6 @@
   <data name="ToolSignDescription" xml:space="preserve"><value>Ihre Unterschrift auf eine PDF-Datei setzen</value></data>
   <data name="ToolRecognizeTextName" xml:space="preserve"><value>Text erkennen</value></data>
   <data name="ToolRecognizeTextDescription" xml:space="preserve"><value>Gescannte PDF-Dateien durchsuchbar machen und ihren Text kopieren</value></data>
-  <data name="ToolScanName" xml:space="preserve"><value>Scannen</value></data>
-  <data name="ToolScanDescription" xml:space="preserve"><value>Papier direkt als PDF-Datei einscannen</value></data>
   <data name="ToolPdfPasswordName" xml:space="preserve"><value>PDF-Passwort</value></data>
   <data name="ToolPdfPasswordDescription" xml:space="preserve"><value>Ein Passwort entfernen, das Sie kennen, oder ein neues festlegen</value></data>
   <data name="ToolRepairName" xml:space="preserve"><value>PDF reparieren</value></data>
@@ -288,24 +286,6 @@
   <data name="RecognizeTextBox.Header" xml:space="preserve"><value>Erkannter Text</value></data>
   <data name="RecognizeTextSave.Text" xml:space="preserve"><value>Durchsuchbar speichern</value></data>
   <data name="RecognizeTextSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Durchsuchbar speichern</value></data>
-
-  <!-- Scan -->
-  <data name="ScanTitle" xml:space="preserve"><value>Scannen</value></data>
-  <data name="ScanEmptyHint.Text" xml:space="preserve"><value>Legen Sie das Papier in den Scanner und klicken Sie auf „Scannen“.</value></data>
-  <data name="ScanStart" xml:space="preserve"><value>Scannen</value></data>
-  <data name="ScanMore" xml:space="preserve"><value>Weitere Seiten scannen</value></data>
-  <data name="ScanScanner.Header" xml:space="preserve"><value>Scanner</value></data>
-  <data name="ScanSource.Header" xml:space="preserve"><value>Papier liegt</value></data>
-  <data name="ScanSourceAuto" xml:space="preserve"><value>wie der Scanner es erkennt</value></data>
-  <data name="ScanSourceFlatbed" xml:space="preserve"><value>auf der Glasplatte (eine Seite)</value></data>
-  <data name="ScanSourceFeeder" xml:space="preserve"><value>im Einzug (mehrere Seiten)</value></data>
-  <data name="BusyScanning" xml:space="preserve"><value>Wird gescannt …</value></data>
-  <data name="ScanNoScanner" xml:space="preserve"><value>Es wurde kein Scanner gefunden. Ist er eingeschaltet und mit dem PC verbunden?</value></data>
-  <data name="ScanFailed" xml:space="preserve"><value>Der Scanner hat nichts gescannt. Ist Papier eingelegt und der Scanner bereit?</value></data>
-  <data name="ScanOrderHint.Text" xml:space="preserve"><value>Ziehen Sie die Seiten in die gewünschte Reihenfolge. Eine falsch herum gescannte Seite drehen Sie mit dem Pfeil.</value></data>
-  <data name="ScanRotate" xml:space="preserve"><value>Rechts drehen</value></data>
-  <data name="ScanSave.Text" xml:space="preserve"><value>Als PDF speichern</value></data>
-  <data name="ScanSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF speichern</value></data>
 
   <!-- PDF password -->
   <data name="PdfPasswordTitle" xml:space="preserve"><value>Passwort einer PDF-Datei</value></data>

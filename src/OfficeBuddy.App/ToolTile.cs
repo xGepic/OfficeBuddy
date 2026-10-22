@@ -12,8 +12,8 @@ public enum ToolGroup
     /// <summary>Changing a whole PDF: smaller, signed, searchable, with or without a password, repaired.</summary>
     PdfFiles,
 
-    /// <summary>From paper or pictures to PDF and back.</summary>
-    ScanAndConvert,
+    /// <summary>From pictures to PDF and back.</summary>
+    Convert,
 
     /// <summary>Photos and other pictures.</summary>
     Images,
@@ -58,9 +58,8 @@ public sealed class ToolTile(string glyph, string resourceKey, ToolGroup group, 
         new("", "PdfPassword", ToolGroup.PdfFiles, typeof(PdfPasswordPage)),
         new("", "Repair", ToolGroup.PdfFiles, typeof(RepairPage)),
 
-        new("", "Scan", ToolGroup.ScanAndConvert, typeof(ScanPage)),
-        new("", "ImagesToPdf", ToolGroup.ScanAndConvert, typeof(ImagesToPdfPage)),
-        new("", "PageToImage", ToolGroup.ScanAndConvert, typeof(PageToImagePage)),
+        new("", "ImagesToPdf", ToolGroup.Convert, typeof(ImagesToPdfPage)),
+        new("", "PageToImage", ToolGroup.Convert, typeof(PageToImagePage)),
 
         new("", "ResizeImage", ToolGroup.Images, typeof(ResizeImagePage)),
         new("", "CropImage", ToolGroup.Images, typeof(CropImagePage)),
