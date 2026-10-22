@@ -5,7 +5,8 @@ namespace OfficeBuddy.App.Services;
 /// <summary>
 /// Puts Office Buddy on the desktop for users who started the downloaded exe straight from their
 /// Downloads folder, where it is easily lost or cleaned away: copies the exe to
-/// %LOCALAPPDATA%\Programs\Office Buddy and puts a shortcut to that copy on the desktop.
+/// %LOCALAPPDATA%\Programs\Office Buddy and puts a shortcut to that copy on the desktop and under
+/// "Senden an".
 /// </summary>
 internal static class DesktopShortcut
 {
@@ -34,7 +35,7 @@ internal static class DesktopShortcut
 
     /// <summary>
     /// Copies this exe to its own folder, replacing an older copy, and puts "Office Buddy" on the
-    /// desktop pointing to it. Throws an <see cref="IOException"/>, <see cref="UnauthorizedAccessException"/>
+    /// desktop and under "Senden an", pointing to it. Throws an <see cref="IOException"/>, <see cref="UnauthorizedAccessException"/>
     /// or <see cref="COMException"/> if that fails, e.g. while the installed copy is running.
     /// </summary>
     public static void Create()
@@ -46,14 +47,21 @@ internal static class DesktopShortcut
         try { File.Delete(InstalledExe + ":Zone.Identifier"); }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException) { }
 
+        SaveShortcut(Environment.SpecialFolder.DesktopDirectory);
+        // Also under "Senden an" in File Explorer's context menu, which starts the app with the files.
+        SaveShortcut(Environment.SpecialFolder.SendTo);
+    }
+
+    /// <summary>Puts a shortcut named "Office Buddy" to the installed exe into the folder.</summary>
+    private static void SaveShortcut(Environment.SpecialFolder folder)
+    {
         var link = (IShellLinkW)Activator.CreateInstance(Type.GetTypeFromCLSID(ShellLinkClsid, throwOnError: true)!)!;
         try
         {
             link.SetPath(InstalledExe);
             link.SetWorkingDirectory(Path.GetDirectoryName(InstalledExe)!);
             link.SetDescription(Strings.Get("DesktopShortcutDescription"));
-            var shortcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Office Buddy.lnk");
-            ((IPersistFile)link).Save(shortcut, true);
+            ((IPersistFile)link).Save(Path.Combine(Environment.GetFolderPath(folder), "Office Buddy.lnk"), true);
         }
         finally
         {

@@ -100,11 +100,23 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Spacing="4">
-                    <TextBlock x:Uid="StartHeading" Style="{StaticResource TitleLargeTextBlockStyle}" />
                     <TextBlock
+                        x:Name="HeadingText"
+                        x:Uid="StartHeading"
+                        Style="{StaticResource TitleLargeTextBlockStyle}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        x:Name="SubheadingText"
                         x:Uid="StartSubheading"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         TextWrapping="Wrap" />
+                    <!-- Only with files the app was started with: back to every Tool. -->
+                    <HyperlinkButton
+                        x:Name="ShowAllButton"
+                        x:Uid="StartShowAll"
+                        Margin="-12,0,0,0"
+                        Click="ShowAll_Click"
+                        Visibility="Collapsed" />
                 </StackPanel>
                 <Button
                     x:Uid="StartSettingsButton"
@@ -123,7 +135,6 @@
                 x:Name="TileList"
                 Grid.Row="1"
                 IsTabStop="False"
-                ItemsSource="{x:Bind Items}"
                 ItemTemplateSelector="{StaticResource StartItemTemplates}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

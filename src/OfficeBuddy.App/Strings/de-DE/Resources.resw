@@ -19,6 +19,12 @@
   <!-- Start screen -->
   <data name="StartHeading.Text" xml:space="preserve"><value>Was möchten Sie tun?</value></data>
   <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine Datei direkt auf eine Kachel.</value></data>
+  <data name="StartHeadingOneFile" xml:space="preserve"><value>Was möchten Sie mit „{0}“ tun?</value></data>
+  <data name="StartHeadingFiles" xml:space="preserve"><value>Was möchten Sie mit diesen {0} Dateien tun?</value></data>
+  <data name="StartSubheadingOneFile" xml:space="preserve"><value>Wählen Sie eine Aufgabe – Ihre Datei wird darin gleich geöffnet.</value></data>
+  <data name="StartSubheadingFiles" xml:space="preserve"><value>Wählen Sie eine Aufgabe – Ihre Dateien werden darin gleich geöffnet.</value></data>
+  <data name="StartFilesUnsupported" xml:space="preserve"><value>Office Buddy öffnet nur PDF-Dateien oder JPG- und PNG-Bilder, und immer nur eine Sorte auf einmal. Wählen Sie eine Aufgabe und öffnen Sie dort eine passende Datei.</value></data>
+  <data name="StartShowAll.Content" xml:space="preserve"><value>Alle Aufgaben zeigen</value></data>
   <data name="StartComingSoon" xml:space="preserve"><value>Bald verfügbar</value></data>
   <data name="StartGroupFavorites" xml:space="preserve"><value>Favoriten</value></data>
   <data name="StartGroupPdfPages" xml:space="preserve"><value>PDF-Seiten ordnen</value></data>
@@ -64,7 +70,7 @@
   <data name="DesktopOfferMessage" xml:space="preserve"><value>Sie haben Office Buddy aus dem Ordner „Downloads“ gestartet. Soll es ein Symbol auf dem Desktop bekommen? Dann finden Sie es jederzeit mit einem Doppelklick wieder.</value></data>
   <data name="DesktopOfferConfirm" xml:space="preserve"><value>Auf den Desktop legen</value></data>
   <data name="DesktopOfferDecline" xml:space="preserve"><value>Nein, danke</value></data>
-  <data name="DesktopDone" xml:space="preserve"><value>Office Buddy liegt jetzt auf Ihrem Desktop. Die heruntergeladene Datei im Ordner „Downloads“ brauchen Sie nicht mehr und können sie löschen.</value></data>
+  <data name="DesktopDone" xml:space="preserve"><value>Office Buddy liegt jetzt auf Ihrem Desktop. Ziehen Sie eine PDF-Datei oder ein Foto einfach auf das Symbol, um es damit zu öffnen. Die heruntergeladene Datei im Ordner „Downloads“ brauchen Sie nicht mehr und können sie löschen.</value></data>
   <data name="DesktopFailed" xml:space="preserve"><value>Office Buddy konnte nicht auf den Desktop gelegt werden. Sie können es weiter aus dem Ordner „Downloads“ starten.</value></data>
   <data name="DesktopOk" xml:space="preserve"><value>OK</value></data>
   <data name="DesktopShortcutDescription" xml:space="preserve"><value>PDF-Dateien und Bilder einfach bearbeiten</value></data>

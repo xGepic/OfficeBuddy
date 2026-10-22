@@ -13,7 +13,9 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        MainWindow = new MainWindow();
+        // Files dragged onto the exe or its shortcut, or sent to it from File Explorer, come as arguments.
+        var files = Environment.GetCommandLineArgs().Skip(1).Where(File.Exists).ToList();
+        MainWindow = new MainWindow(files);
         MainWindow.Activate();
     }
 }

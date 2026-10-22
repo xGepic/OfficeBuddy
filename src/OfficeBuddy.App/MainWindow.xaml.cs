@@ -14,7 +14,8 @@ public sealed partial class MainWindow : Window
     private const double SmallScreenWidth = 1500;
     private const double SmallScreenHeight = 860;
 
-    public MainWindow()
+    /// <param name="files">Files the app was started with, to choose a Tool for on the start screen.</param>
+    public MainWindow(IReadOnlyList<string> files)
     {
         InitializeComponent();
         Title = Strings.Get("AppTitle");
@@ -36,7 +37,7 @@ public sealed partial class MainWindow : Window
             CenterOnScreen(workArea, widthShare: 0.8, heightShare: 0.85);
         }
 
-        RootFrame.Navigate(typeof(StartPage));
+        RootFrame.Navigate(typeof(StartPage), files.Count > 0 ? new ToolLaunch(files) : null);
     }
 
     /// <summary>The native window handle, needed as owner for file dialogs.</summary>

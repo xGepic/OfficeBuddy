@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using OfficeBuddy.App.Controls;
 using OfficeBuddy.App.Services;
 
@@ -9,14 +10,48 @@ public sealed partial class StartPage : Page
 {
     private readonly HashSet<int> _headings = [];
 
+    /// <summary>Files the app was started with, which a Tool opens straight away when its tile is clicked.</summary>
+    private ToolLaunch? _launch;
+
     public StartPage()
     {
+        InitializeComponent();
+    }
+
+    /// <summary>
+    /// Shows the favorites under their own heading first, then every other Tool under the heading of
+    /// its group, each in their usual order. With files the app was started with, only the Tools that
+    /// can work on them; if none can, every Tool and why. Groups with no tiles left are left out.
+    /// </summary>
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
         // Built anew on every visit, so favorites changed in the settings show straight away.
+        Func<ToolTile, bool> fits = _ => true;
+        if (e.Parameter is ToolLaunch launch)
+        {
+            if (launch.Kind is { } kind)
+            {
+                _launch = launch;
+                fits = tile => tile.Fits(kind, launch.FilePaths.Count);
+                var one = launch.FilePaths.Count == 1;
+                HeadingText.Text = one
+                    ? Strings.Format("StartHeadingOneFile", Path.GetFileName(launch.FilePaths[0]))
+                    : Strings.Format("StartHeadingFiles", launch.FilePaths.Count);
+                SubheadingText.Text = Strings.Get(one ? "StartSubheadingOneFile" : "StartSubheadingFiles");
+            }
+            else
+            {
+                SubheadingText.Text = Strings.Get("StartFilesUnsupported");
+            }
+            ShowAllButton.Visibility = Visibility.Visible;
+        }
+
         var favorites = AppSettings.Favorites;
         var items = new List<object>();
         void AddGroup(string headingKey, IEnumerable<ToolTile> tiles)
         {
-            var group = tiles.ToList();
+            var group = tiles.Where(fits).ToList();
             if (group.Count > 0)
             {
                 _headings.Add(items.Count);
@@ -30,15 +65,15 @@ public sealed partial class StartPage : Page
         {
             AddGroup($"StartGroup{group}", ToolTile.All.Where(tile => tile.Group == group && !favorites.Contains(tile.Id)));
         }
-        Items = items;
-        InitializeComponent();
+        TileList.ItemsSource = items;
     }
 
-    /// <summary>
-    /// The favorites under their own heading first, then every other Tool under the heading of its
-    /// group, each in their usual order. Groups with no tiles left are left out.
-    /// </summary>
-    public IReadOnlyList<object> Items { get; }
+    /// <summary>Leaves the files the app was started with and shows every Tool, as if started plainly.</summary>
+    private void ShowAll_Click(object sender, RoutedEventArgs e)
+    {
+        Frame.Navigate(typeof(StartPage));
+        Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+    }
 
     /// <summary>Tells the tile grid which items are headings and how much height is left below the header, so all tiles fit without scrolling.</summary>
     private void Layout_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -101,7 +136,7 @@ public sealed partial class StartPage : Page
     {
         if (TileOf(sender) is { PageType: { } pageType })
         {
-            Frame.Navigate(pageType);
+            Frame.Navigate(pageType, _launch);
         }
     }
 
