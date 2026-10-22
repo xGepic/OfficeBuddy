@@ -66,6 +66,34 @@ internal sealed class ImageCanvas
         }
     }
 
+    /// <summary>
+    /// Makes light, paper-coloured pixels transparent and the others more or less see-through by how
+    /// dark they are, so a signature scanned on white paper lies on a Page like ink. The ink keeps
+    /// its colour.
+    /// </summary>
+    public void ClearPaper()
+    {
+        // Brightness at and above which a pixel counts as paper, and at and below which as ink.
+        const double Paper = 230;
+        const double Ink = 160;
+        for (var i = 0; i < _pixels.Length; i += 4)
+        {
+            var alpha = _pixels[i + 3];
+            if (alpha == 0)
+            {
+                continue;
+            }
+
+            // Brightness as the eye sees it, of the colour before it was multiplied by alpha.
+            var brightness = (0.114 * _pixels[i] + 0.587 * _pixels[i + 1] + 0.299 * _pixels[i + 2]) * 255 / alpha;
+            var ink = Math.Clamp((Paper - brightness) / (Paper - Ink), 0, 1);
+            for (var channel = 0; channel < 4; channel++)
+            {
+                _pixels[i + channel] = (byte)Math.Round(_pixels[i + channel] * ink);
+            }
+        }
+    }
+
     /// <summary>The canvas as a PNG file, keeping its transparency, or as a JPG file.</summary>
     public async Task<byte[]> EncodeAsync(bool asPng)
     {

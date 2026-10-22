@@ -6,10 +6,11 @@ using OfficeBuddy.Core;
 namespace OfficeBuddy.App.Pages;
 
 /// <summary>
-/// One image in the list of Images to PDF or Images side by side, at its current position, with a
-/// line about it such as which way round its Page will be.
+/// One image in the list of Images to PDF, Images side by side or Scan, at its current position,
+/// with a line about it such as which way round its Page will be, and a name other than the file's
+/// if given (a scanned Page's file name means nothing to the user).
 /// </summary>
-public sealed class ImageCard(ImageFile image, int index, string detail) : INotifyPropertyChanged
+public sealed class ImageCard(ImageFile image, int index, string detail, string? name = null) : INotifyPropertyChanged
 {
     public const double ThumbnailSize = 64;
 
@@ -37,9 +38,11 @@ public sealed class ImageCard(ImageFile image, int index, string detail) : INoti
 
     public string PositionText => $"{Index + 1}.";
 
-    public string Name => Image.FileName;
+    public string Name => name ?? Image.FileName;
 
     public string Detail { get; } = detail;
 
     public string RemoveLabel => Strings.Get("RemoveFromList");
+
+    public string RotateLabel => Strings.Get("ScanRotate");
 }

@@ -20,6 +20,11 @@
   <data name="StartHeading.Text" xml:space="preserve"><value>Was möchten Sie tun?</value></data>
   <data name="StartSubheading.Text" xml:space="preserve"><value>Wählen Sie eine Aufgabe – oder ziehen Sie eine Datei direkt auf eine Kachel.</value></data>
   <data name="StartComingSoon" xml:space="preserve"><value>Bald verfügbar</value></data>
+  <data name="StartGroupFavorites" xml:space="preserve"><value>Favoriten</value></data>
+  <data name="StartGroupPdfPages" xml:space="preserve"><value>PDF-Seiten ordnen</value></data>
+  <data name="StartGroupPdfFiles" xml:space="preserve"><value>PDF-Dateien bearbeiten</value></data>
+  <data name="StartGroupScanAndConvert" xml:space="preserve"><value>Scannen und umwandeln</value></data>
+  <data name="StartGroupImages" xml:space="preserve"><value>Fotos und Bilder</value></data>
   <data name="StartSettings.Text" xml:space="preserve"><value>Einstellungen</value></data>
   <data name="StartSettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Einstellungen</value></data>
 
@@ -45,6 +50,16 @@
   <data name="ToolImagesSideBySideDescription" xml:space="preserve"><value>Mehrere Bilder neben- oder untereinander zu einem Bild zusammensetzen</value></data>
   <data name="ToolCropImageName" xml:space="preserve"><value>Bild zuschneiden</value></data>
   <data name="ToolCropImageDescription" xml:space="preserve"><value>Ränder eines Fotos abschneiden und es drehen</value></data>
+  <data name="ToolSignName" xml:space="preserve"><value>Unterschreiben</value></data>
+  <data name="ToolSignDescription" xml:space="preserve"><value>Ihre Unterschrift auf eine PDF-Datei setzen</value></data>
+  <data name="ToolRecognizeTextName" xml:space="preserve"><value>Text erkennen</value></data>
+  <data name="ToolRecognizeTextDescription" xml:space="preserve"><value>Gescannte PDF-Dateien durchsuchbar machen und ihren Text kopieren</value></data>
+  <data name="ToolScanName" xml:space="preserve"><value>Scannen</value></data>
+  <data name="ToolScanDescription" xml:space="preserve"><value>Papier direkt als PDF-Datei einscannen</value></data>
+  <data name="ToolPdfPasswordName" xml:space="preserve"><value>PDF-Passwort</value></data>
+  <data name="ToolPdfPasswordDescription" xml:space="preserve"><value>Ein Passwort entfernen, das Sie kennen, oder ein neues festlegen</value></data>
+  <data name="ToolRepairName" xml:space="preserve"><value>PDF reparieren</value></data>
+  <data name="ToolRepairDescription" xml:space="preserve"><value>Beschädigte PDF-Dateien wieder lesbar machen</value></data>
 
   <!-- Settings -->
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
@@ -236,6 +251,90 @@
   <data name="CropNewSize" xml:space="preserve"><value>Neue Größe: {0:N0} × {1:N0} Pixel</value></data>
   <data name="CropImageSave.Text" xml:space="preserve"><value>Zugeschnitten speichern</value></data>
   <data name="CropImageSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Zugeschnitten speichern</value></data>
+
+  <!-- Sign -->
+  <data name="SignTitle" xml:space="preserve"><value>PDF-Datei unterschreiben</value></data>
+  <data name="SignEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie die PDF-Datei, die Sie unterschreiben möchten – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="SignChooseSignature" xml:space="preserve"><value>Unterschrift wählen</value></data>
+  <data name="SignChooseOtherSignature" xml:space="preserve"><value>Andere Unterschrift wählen</value></data>
+  <data name="SignSignatureDialogTitle" xml:space="preserve"><value>Bild Ihrer Unterschrift auswählen</value></data>
+  <data name="SignNoSignatureHint" xml:space="preserve"><value>Wählen Sie zuerst ein Foto oder einen Scan Ihrer Unterschrift (JPG oder PNG), am besten mit dunklem Stift auf weißem Papier. Das Weiß wird automatisch durchsichtig. Office Buddy merkt sich die Unterschrift für das nächste Mal.</value></data>
+  <data name="SignPlaceHint" xml:space="preserve"><value>Klicken Sie auf der richtigen Seite auf „Hier unterschreiben“. Ziehen Sie die Unterschrift dann an die richtige Stelle; mit dem runden Griff unten rechts machen Sie sie größer oder kleiner.</value></data>
+  <data name="SignSignedOn" xml:space="preserve"><value>Unterschrieben auf Seite {0}</value></data>
+  <data name="SignNotSignedYet" xml:space="preserve"><value>Noch auf keiner Seite unterschrieben.</value></data>
+  <data name="SignHere.Text" xml:space="preserve"><value>Hier unterschreiben</value></data>
+  <data name="SignHereButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Hier unterschreiben</value></data>
+  <data name="SignRemoveHere.Text" xml:space="preserve"><value>Unterschrift hier entfernen</value></data>
+  <data name="SignRemoveHereButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Unterschrift hier entfernen</value></data>
+  <data name="SignPageOf" xml:space="preserve"><value>Seite {0} von {1}</value></data>
+  <data name="SignPreviousPage" xml:space="preserve"><value>Vorherige Seite</value></data>
+  <data name="SignNextPage" xml:space="preserve"><value>Nächste Seite</value></data>
+  <data name="SignSizeHandle" xml:space="preserve"><value>Größe ändern</value></data>
+  <data name="SignSave.Text" xml:space="preserve"><value>Unterschrieben speichern</value></data>
+  <data name="SignSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Unterschrieben speichern</value></data>
+
+  <!-- Recognize text -->
+  <data name="RecognizeTextTitle" xml:space="preserve"><value>Text in Scans erkennen</value></data>
+  <data name="RecognizeTextEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie einen Scan als PDF-Datei – oder ziehen Sie ihn einfach hierher. Office Buddy liest den Text darauf, damit Sie darin suchen und ihn kopieren können.</value></data>
+  <data name="RecognizeTextUnavailable" xml:space="preserve"><value>Auf diesem PC ist keine Texterkennung eingerichtet. Sie gehört zum Sprachpaket von Windows: Fügen Sie in den Einstellungen unter „Zeit und Sprache“ › „Sprache und Region“ die Sprache Deutsch hinzu.</value></data>
+  <data name="BusyRecognizing" xml:space="preserve"><value>Seite {0} von {1} wird gelesen …</value></data>
+  <data name="RecognizeTextStart.Text" xml:space="preserve"><value>Text erkennen</value></data>
+  <data name="RecognizeTextStartButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Text erkennen</value></data>
+  <data name="RecognizeTextFound" xml:space="preserve"><value>Auf {0} wurden {1:N0} Wörter erkannt. Speichern Sie die Datei, um später darin suchen zu können – sie sieht genauso aus wie vorher.</value></data>
+  <data name="RecognizeTextNothing" xml:space="preserve"><value>Auf diesen Seiten wurde kein Text gefunden.</value></data>
+  <data name="RecognizeTextCopy.Text" xml:space="preserve"><value>Text kopieren</value></data>
+  <data name="RecognizeTextCopyButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Text kopieren</value></data>
+  <data name="RecognizeTextCopied" xml:space="preserve"><value>Der Text ist kopiert. Sie können ihn jetzt z. B. in eine E-Mail einfügen.</value></data>
+  <data name="RecognizeTextBox.Header" xml:space="preserve"><value>Erkannter Text</value></data>
+  <data name="RecognizeTextSave.Text" xml:space="preserve"><value>Durchsuchbar speichern</value></data>
+  <data name="RecognizeTextSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Durchsuchbar speichern</value></data>
+
+  <!-- Scan -->
+  <data name="ScanTitle" xml:space="preserve"><value>Scannen</value></data>
+  <data name="ScanEmptyHint.Text" xml:space="preserve"><value>Legen Sie das Papier in den Scanner und klicken Sie auf „Scannen“.</value></data>
+  <data name="ScanStart" xml:space="preserve"><value>Scannen</value></data>
+  <data name="ScanMore" xml:space="preserve"><value>Weitere Seiten scannen</value></data>
+  <data name="ScanScanner.Header" xml:space="preserve"><value>Scanner</value></data>
+  <data name="ScanSource.Header" xml:space="preserve"><value>Papier liegt</value></data>
+  <data name="ScanSourceAuto" xml:space="preserve"><value>wie der Scanner es erkennt</value></data>
+  <data name="ScanSourceFlatbed" xml:space="preserve"><value>auf der Glasplatte (eine Seite)</value></data>
+  <data name="ScanSourceFeeder" xml:space="preserve"><value>im Einzug (mehrere Seiten)</value></data>
+  <data name="BusyScanning" xml:space="preserve"><value>Wird gescannt …</value></data>
+  <data name="ScanNoScanner" xml:space="preserve"><value>Es wurde kein Scanner gefunden. Ist er eingeschaltet und mit dem PC verbunden?</value></data>
+  <data name="ScanFailed" xml:space="preserve"><value>Der Scanner hat nichts gescannt. Ist Papier eingelegt und der Scanner bereit?</value></data>
+  <data name="ScanOrderHint.Text" xml:space="preserve"><value>Ziehen Sie die Seiten in die gewünschte Reihenfolge. Eine falsch herum gescannte Seite drehen Sie mit dem Pfeil.</value></data>
+  <data name="ScanRotate" xml:space="preserve"><value>Rechts drehen</value></data>
+  <data name="ScanSave.Text" xml:space="preserve"><value>Als PDF speichern</value></data>
+  <data name="ScanSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF speichern</value></data>
+
+  <!-- PDF password -->
+  <data name="PdfPasswordTitle" xml:space="preserve"><value>Passwort einer PDF-Datei</value></data>
+  <data name="PdfPasswordEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie eine PDF-Datei – oder ziehen Sie sie einfach hierher. Hat sie ein Passwort, werden Sie danach gefragt.</value></data>
+  <data name="PasswordDialogTitle" xml:space="preserve"><value>Passwort eingeben</value></data>
+  <data name="PasswordDialogMessage" xml:space="preserve"><value>„{0}“ ist mit einem Passwort geschützt. Geben Sie es ein, um die Datei zu öffnen.</value></data>
+  <data name="PasswordDialogWrong" xml:space="preserve"><value>Das Passwort stimmt nicht. Bitte versuchen Sie es noch einmal.</value></data>
+  <data name="PasswordDialogOpen" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="PasswordDialogBox" xml:space="preserve"><value>Passwort</value></data>
+  <data name="PdfPasswordWasProtected" xml:space="preserve"><value>Diese Datei war mit einem Passwort geschützt.</value></data>
+  <data name="PdfPasswordNotProtected" xml:space="preserve"><value>Diese Datei hat kein Passwort. Legen Sie eines fest, wenn sie z. B. per E-Mail nur von bestimmten Personen geöffnet werden soll.</value></data>
+  <data name="PdfPasswordRemove.Content" xml:space="preserve"><value>Passwort entfernen – die Datei lässt sich dann ohne Passwort öffnen</value></data>
+  <data name="PdfPasswordChange.Content" xml:space="preserve"><value>Ein neues Passwort festlegen</value></data>
+  <data name="PdfPasswordNewBox.Header" xml:space="preserve"><value>Neues Passwort</value></data>
+  <data name="PdfPasswordRepeatBox.Header" xml:space="preserve"><value>Passwort wiederholen</value></data>
+  <data name="PdfPasswordMismatch" xml:space="preserve"><value>Die beiden Passwörter stimmen nicht überein.</value></data>
+  <data name="PdfPasswordWarning.Text" xml:space="preserve"><value>Merken Sie sich das Passwort gut: Ohne es lässt sich die Datei nicht mehr öffnen, und auch Office Buddy kann es nicht herausfinden.</value></data>
+  <data name="PdfPasswordSaveWithout" xml:space="preserve"><value>Ohne Passwort speichern</value></data>
+  <data name="PdfPasswordSaveWith" xml:space="preserve"><value>Mit Passwort speichern</value></data>
+
+  <!-- Repair -->
+  <data name="RepairTitle" xml:space="preserve"><value>Beschädigte PDF-Datei reparieren</value></data>
+  <data name="RepairEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie eine PDF-Datei, die sich nicht mehr öffnen lässt – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="BusyRepairing" xml:space="preserve"><value>Datei wird untersucht und repariert …</value></data>
+  <data name="RepairRepaired" xml:space="preserve"><value>Die Datei war beschädigt. {0} konnten gerettet werden. Sehen Sie die Seiten unten durch und speichern Sie die reparierte Datei.</value></data>
+  <data name="RepairNotNeeded" xml:space="preserve"><value>Diese Datei ist in Ordnung: Sie lässt sich normal öffnen und muss nicht repariert werden.</value></data>
+  <data name="RepairFailed" xml:space="preserve"><value>„{0}“ ist so stark beschädigt, dass nichts davon gerettet werden konnte.</value></data>
+  <data name="RepairSave.Text" xml:space="preserve"><value>Reparierte Datei speichern</value></data>
+  <data name="RepairSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Reparierte Datei speichern</value></data>
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>

@@ -42,8 +42,9 @@ public sealed class ImageFile
     // As close to the original as a JPG gets without becoming much bigger.
     private const float JpegQuality = 0.92f;
 
-    private ImageFile(string filePath, bool isPng, byte[] content, int storedWidth, int storedHeight, ImageTurn turn)
+    private ImageFile(string filePath, bool isPng, byte[] content, int storedWidth, int storedHeight, ImageTurn turn, double dpi)
     {
+        Dpi = dpi;
         FilePath = filePath;
         IsPng = isPng;
         Content = content;
@@ -67,6 +68,12 @@ public sealed class ImageFile
 
     /// <summary>The height in pixels, the right way up.</summary>
     public int Height => Turn.SwapsSides ? _storedWidth : _storedHeight;
+
+    /// <summary>
+    /// The resolution the file states, in pixels per inch: a scanner's is real, a phone photo's (often
+    /// 72) only a default.
+    /// </summary>
+    public double Dpi { get; }
 
     /// <summary>Wider than high, the right way up; such an image gets a landscape Page.</summary>
     public bool IsLandscape => Width > Height;
@@ -124,7 +131,7 @@ public sealed class ImageFile
             var decoder = await BitmapDecoder.CreateAsync(stream);
             var turn = ImageTurn.FromExifOrientation(await ReadExifOrientationAsync(decoder));
             var readable = await Task.Run(() => CanEmbed(content)) ? content : await ToPngAsync(decoder);
-            return new ImageFile(filePath, isPng, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn);
+            return new ImageFile(filePath, isPng, readable, (int)decoder.PixelWidth, (int)decoder.PixelHeight, turn, decoder.DpiX);
         }
         catch (Exception)
         {
@@ -202,6 +209,18 @@ public sealed class ImageFile
             IsPng ? BitmapAlphaMode.Premultiplied : BitmapAlphaMode.Ignore,
             transform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
         return IsPng ? await EncodePngAsync(bitmap) : await EncodeJpegAsync(bitmap);
+    }
+
+    /// <summary>
+    /// The image the right way up as a PNG at most <paramref name="maxWidth"/> pixels wide, with
+    /// its paper made transparent (see <see cref="ImageCanvas.ClearPaper"/>), e.g. a signature.
+    /// </summary>
+    internal async Task<byte[]> InkPngAsync(int maxWidth)
+    {
+        var scale = Math.Min(1, (double)maxWidth / Width);
+        var canvas = await ReadPixelsAsync(Math.Max(1, (int)Math.Round(Width * scale)), Math.Max(1, (int)Math.Round(Height * scale)));
+        canvas.ClearPaper();
+        return await canvas.EncodeAsync(asPng: true);
     }
 
     /// <summary>

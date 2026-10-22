@@ -17,31 +17,41 @@ public static class SampleImages
     public static readonly (int R, int G, int B) Blue = (30, 60, 200);
     public static readonly (int R, int G, int B) Magenta = (200, 0, 200);
 
+    /// <param name="dpi">The resolution the file states, as a scanner writes it.</param>
     public static Task<string> CreateJpegAsync(
         string folder, string fileName, int width, int height, (int R, int G, int B) colour, ushort exifOrientation = 1,
-        bool markLeft = false) =>
-        CreateAsync(folder, fileName, BitmapEncoder.JpegEncoderId, width, height, colour, exifOrientation, markLeft);
+        bool markLeft = false, double dpi = 96) =>
+        CreateAsync(folder, fileName, BitmapEncoder.JpegEncoderId, width, height, colour, exifOrientation, markLeft, dpi);
 
     public static Task<string> CreatePngAsync(string folder, string fileName, int width, int height, (int R, int G, int B) colour) =>
-        CreateAsync(folder, fileName, BitmapEncoder.PngEncoderId, width, height, colour, exifOrientation: 1, markLeft: false);
+        CreateAsync(folder, fileName, BitmapEncoder.PngEncoderId, width, height, colour, exifOrientation: 1, markLeft: false, dpi: 96);
 
     /// <summary>
-    /// A scanned signature as a PNG: transparent, apart from a black stroke across the middle third of
-    /// its height.
+    /// A scanned signature: a black stroke across the middle third of its height, on transparency as
+    /// a PNG, or <paramref name="onWhitePaper"/> as a JPG like a phone photo of it.
     /// </summary>
-    public static async Task<string> CreateSignatureAsync(string folder, string fileName, int width, int height)
+    public static async Task<string> CreateSignatureAsync(string folder, string fileName, int width, int height, bool onWhitePaper = false)
     {
         var pixels = new byte[width * height * 4];
-        for (var y = height / 3; y < 2 * height / 3; y++)
+        for (var y = 0; y < height; y++)
         {
+            var isStroke = y >= height / 3 && y < 2 * height / 3;
             for (var x = 0; x < width; x++)
             {
-                pixels[(y * width + x) * 4 + 3] = 255;
+                var i = (y * width + x) * 4;
+                if (isStroke)
+                {
+                    pixels[i + 3] = 255;
+                }
+                else if (onWhitePaper)
+                {
+                    (pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]) = (255, 255, 255, 255);
+                }
             }
         }
 
         using var stream = new InMemoryRandomAccessStream();
-        var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream);
+        var encoder = await BitmapEncoder.CreateAsync(onWhitePaper ? BitmapEncoder.JpegEncoderId : BitmapEncoder.PngEncoderId, stream);
         encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, (uint)width, (uint)height, 96, 96, pixels);
         await encoder.FlushAsync();
         return await WriteAsync(folder, fileName, stream);
@@ -57,7 +67,7 @@ public static class SampleImages
 
     private static async Task<string> CreateAsync(
         string folder, string fileName, Guid encoderId, int width, int height, (int R, int G, int B) colour, ushort exifOrientation,
-        bool markLeft)
+        bool markLeft, double dpi)
     {
         var (bar, leftBar) = (height / 6, markLeft ? width / 6 : 0);
         var pixels = new byte[width * height * 4];
@@ -73,7 +83,7 @@ public static class SampleImages
 
         using var stream = new InMemoryRandomAccessStream();
         var encoder = await BitmapEncoder.CreateAsync(encoderId, stream);
-        encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)width, (uint)height, 96, 96, pixels);
+        encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)width, (uint)height, dpi, dpi, pixels);
         if (exifOrientation != 1)
         {
             await encoder.BitmapProperties.SetPropertiesAsync(

@@ -26,6 +26,17 @@ internal static class AppSettings
         }
     }
 
+    /// <summary>The image of the user's signature chosen last in Sign, to offer again.</summary>
+    public static string? SignaturePath => Load().SignaturePath;
+
+    public static void SetSignaturePath(string path)
+    {
+        if (path != SignaturePath)
+        {
+            Save(Load() with { SignaturePath = path });
+        }
+    }
+
     private static Stored Load()
     {
         if (_stored is null)
@@ -58,5 +69,5 @@ internal static class AppSettings
         }
     }
 
-    private sealed record Stored(HashSet<string> Favorites);
+    private sealed record Stored(HashSet<string> Favorites, string? SignaturePath = null);
 }

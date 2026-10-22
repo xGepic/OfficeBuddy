@@ -1,20 +1,29 @@
 # Office Buddy
 
-A German Windows desktop app that makes everyday PDF and image tasks simple for people who are not computer experts. It opens on a start screen with eleven large tiles, one per task. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
+A German Windows desktop app that makes everyday PDF and image tasks simple for people who are not computer experts. It opens on a start screen with sixteen large tiles, one per task, grouped under four headings. Everything runs on the PC itself: nothing is uploaded, and the app never goes online.
 
 | Tile | What it does |
 |---|---|
+| *PDF-Seiten ordnen* | |
 | **Zusammenfügen** | Combine several PDFs into one, in the order you drag them into |
 | **Seiten bearbeiten** | Rotate, reorder and remove Pages, and insert the Pages of other PDFs at a chosen place; blank backs of duplex scans are found automatically |
 | **Seiten herauslösen** | Save selected Pages as a new PDF |
 | **Aufteilen** | Split a PDF into several Parts |
+| *PDF-Dateien bearbeiten* | |
 | **Verkleinern** | Make a PDF small enough to send by email (under 10 MB), or split it into email-sized Parts |
+| **Unterschreiben** | Put a photo or scan of one's signature on PDF Pages, its white paper made transparent; the signature is remembered for next time |
+| **Text erkennen** | Read the text in a scanned PDF, to copy it or to save the PDF searchable with the text invisibly behind each Page |
+| **PDF-Passwort** | Remove a PDF's password one knows, or give a PDF a password |
+| **PDF reparieren** | Rebuild a damaged PDF, e.g. a broken download, as far as anything of it can be saved |
+| *Scannen und umwandeln* | |
+| **Scannen** | Scan paper straight into a PDF, each Page at the size of the paper, from the glass or the feeder |
 | **Bilder zu PDF** | Turn phone photos and other JPG/PNG images into one PDF, one A4 Page each, the right way up |
 | **PDF als Bild** | Save Pages as JPG images |
+| *Fotos und Bilder* | |
 | **Bildgröße ändern** | Make a photo or other JPG/PNG image smaller or bigger, by percentage or by width and height in pixels |
+| **Bild zuschneiden** | Cut away the edges of a photo, such as the table around a photographed letter, and turn it in 90° steps |
 | **Bild in Bild** | Put one image on top of a photo, such as a logo or a signature, and drag and size it into place |
 | **Bilder nebeneinander** | Line up two or more images side by side or one below the other as one image, such as both sides of an ID card |
-| **Bild zuschneiden** | Cut away the edges of a photo, such as the table around a photographed letter, and turn it in 90° steps |
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name next to the original.
 
@@ -53,8 +62,10 @@ The screens are not tested automatically; check them by hand.
 
 - [PDFsharp](https://www.pdfsharp.com/) 6.2 (MIT) builds the PDFs. Stay on 6.2: from 6.5 on it is AGPL with a licence check.
 - `Windows.Data.Pdf`, built into Windows, draws Pages for thumbnails, the preview, Page to image and blank-page detection.
-- [Ghostscript](https://ghostscript.com/) 10.06 (AGPL), run as a separate program, compresses PDFs. Its licence is why the whole app is AGPL (see [Licence](#licence)).
-- [PdfPig](https://github.com/UglyToad/PdfPig) reads PDFs back in the tests.
+- `Windows.Media.Ocr`, built into Windows, recognises text for Text erkennen. It needs a Windows language with text recognition, which a German Windows has.
+- `Windows.Devices.Scanners`, built into Windows (the same as the Windows Scan app), drives the scanner for Scannen.
+- [Ghostscript](https://ghostscript.com/) 10.06 (AGPL), run as a separate program, compresses PDFs, takes passwords off and rebuilds damaged files. Its licence is why the whole app is AGPL (see [Licence](#licence)).
+- [PdfPig](https://github.com/UglyToad/PdfPig) reads PDFs back in the tests, and [Xunit.SkippableFact](https://github.com/AArnott/Xunit.SkippableFact) skips the text recognition tests where Windows can't recognise text.
 
 ## Documentation
 

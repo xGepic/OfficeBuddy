@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="OfficeBuddy.App.Pages.RecognizeTextPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:OfficeBuddy.App.Controls">
+
+    <controls:ToolShell x:Name="Shell" BackRequested="Shell_BackRequested" FilesOpened="Shell_FilesOpened">
+        <controls:ToolShell.Body>
+            <Grid>
+                <StackPanel
+                    x:Name="EmptyState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MaxWidth="480"
+                    Spacing="16">
+                    <FontIcon
+                        FontSize="64"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Glyph="&#xE8AC;" />
+                    <TextBlock
+                        x:Uid="RecognizeTextEmptyHint"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <InfoBar x:Name="UnavailableBar" IsClosable="False" Severity="Warning" />
+                </StackPanel>
+
+                <Grid x:Name="DocumentArea" RowSpacing="16" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                            <TextBlock x:Name="NameText" Style="{StaticResource SubtitleTextBlockStyle}" TextWrapping="Wrap" />
+                            <TextBlock x:Name="PagesText" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                        <Button
+                            x:Name="StartButton"
+                            Grid.Column="1"
+                            x:Uid="RecognizeTextStartButton"
+                            Click="Start_Click"
+                            Padding="16,8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon FontSize="18" Glyph="&#xE8AC;" />
+                                <TextBlock x:Uid="RecognizeTextStart" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <InfoBar x:Name="ResultBar" Grid.Row="1" IsClosable="False" />
+
+                    <Grid x:Name="TextArea" Grid.Row="2" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBox
+                            x:Name="RecognizedText"
+                            x:Uid="RecognizeTextBox"
+                            AcceptsReturn="True"
+                            IsReadOnly="True"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            TextWrapping="Wrap" />
+                        <Button
+                            Grid.Row="1"
+                            x:Uid="RecognizeTextCopyButton"
+                            Click="Copy_Click"
+                            Padding="16,8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon FontSize="18" Glyph="&#xE8C8;" />
+                                <TextBlock x:Uid="RecognizeTextCopy" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </controls:ToolShell.Body>
+
+        <controls:ToolShell.Footer>
+            <Button
+                x:Name="SaveButton"
+                x:Uid="RecognizeTextSaveButton"
+                HorizontalAlignment="Right"
+                Click="Save_Click"
+                IsEnabled="False"
+                Padding="24,10"
+                Style="{StaticResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <FontIcon FontSize="18" Glyph="&#xE74E;" />
+                    <TextBlock x:Uid="RecognizeTextSave" />
+                </StackPanel>
+            </Button>
+        </controls:ToolShell.Footer>
+    </controls:ToolShell>
+</Page>

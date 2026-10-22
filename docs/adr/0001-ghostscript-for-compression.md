@@ -12,3 +12,5 @@ Compress has to re-encode the images inside scanned Documents, and no free .NET 
 Ghostscript is AGPL. That is fine while the app is used only within the family and never distributed publicly. If the app is ever published or sold, this decision must be revisited, most likely in favour of re-encoding images on top of PDFsharp.
 
 Revisited when the repository went public: Ghostscript stays, and Office Buddy is AGPL too ([ADR-0003](0003-publish-under-agpl.md)).
+
+Later Tools use Ghostscript too, where it already does what no free .NET library does: rewriting a PDF without its password when only the password to open it is known, rebuilding a damaged one, and writing anew one whose owner forbids changes.

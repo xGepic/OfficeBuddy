@@ -34,6 +34,13 @@ internal static class PageImages
     public static Task<ImageSource?> RenderAsync(ImagesSideBySideSession session, double width, double height) =>
         ShowAsync(session.RenderPreviewPngAsync, width, height);
 
+    /// <summary>
+    /// Renders the signature chosen in Sign, its paper transparent, to fit a box of the given width in
+    /// effective pixels. Call on the UI thread. Null if Windows cannot draw it.
+    /// </summary>
+    public static Task<ImageSource?> RenderSignatureAsync(SignSession session, double width) =>
+        ShowAsync((maxWidth, _) => session.RenderSignaturePngAsync(maxWidth), width, width);
+
     private static async Task<ImageSource?> ShowAsync(Func<int, int, Task<byte[]>> renderPng, double width, double height)
     {
         var scale = App.MainWindow.Content?.XamlRoot?.RasterizationScale ?? 1.0;

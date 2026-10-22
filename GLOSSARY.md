@@ -105,9 +105,37 @@ Saving only a chosen rectangle of one JPG or PNG image, optionally turned in 90Â
 _Avoid_: Trim, cut, clip
 
 **Favorite**:
-A Tool the user has marked in the settings so that its tile shows first on the start screen, centered above the other tiles. UI term: *Favorit*.
+A Tool the user has marked in the settings so that its tile shows first on the start screen, under its own heading, instead of in its group. UI term: *Favorit*.
 _Avoid_: Pinned, starred, bookmark
 
+**Sign**:
+Putting a picture of the user's own signature onto one or more Pages of a Document, each placed and sized on its Page, and saving the result. The signature's white paper becomes transparent. It is a picture, not a legally binding electronic signature. UI term: *Unterschreiben*.
+_Avoid_: E-signature, digital signature, stamp
+
+**Signature**:
+The JPG or PNG picture of the user's signature used by Sign, usually a phone photo or scan of it on white paper. Remembered for the next time. UI term: *Unterschrift*.
+_Avoid_: Autograph, initials
+
+**Recognize text**:
+Reading the text on a Document's Pages, usually a scan, with Windows' text recognition, to copy it or to save the Document searchable: the text lies invisibly over each Page where it was seen, so the Document looks the same. UI term: *Text erkennen*.
+_Avoid_: OCR (in the UI), convert to text, extract text
+
+**Scan**:
+Making a Document from paper with a scanner connected to the PC, one Page per sheet, each the size of the paper. Pages can be turned, reordered and removed before saving. UI term: *Scannen*.
+_Avoid_: Import, capture, digitise
+
+**PDF password**:
+The Tool that saves a Protected Document without its password, once the user has typed it, or gives any Document a new password. It never tries to find a password out. UI term: *PDF-Passwort*.
+_Avoid_: Unlock, crack, encrypt, decrypt
+
+**Repair**:
+Rebuilding a damaged Document, such as a broken-off download, into one that opens again, with whatever Pages could be saved. A Document that isn't damaged needs no repair. UI term: *PDF reparieren*.
+_Avoid_: Fix, recover, restore
+
+**Tool group**:
+The heading a Tool's tile is shown under on the start screen, by what it works on: putting PDF Pages in order (*PDF-Seiten ordnen*), changing a whole PDF (*PDF-Dateien bearbeiten*), from paper or pictures to PDF and back (*Scannen und umwandeln*), and photos (*Fotos und Bilder*).
+_Avoid_: Category, section, tab
+
 **Protected Document**:
-A Document that needs a password to open. The app refuses to work on it and does not try to remove the password.
+A Document that needs a password to open. Every Tool but PDF password refuses it; PDF password opens it only with its password, and the app never tries to find the password out.
 _Avoid_: Encrypted PDF, locked file

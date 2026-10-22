@@ -7,26 +7,45 @@ namespace OfficeBuddy.App.Pages;
 
 public sealed partial class StartPage : Page
 {
-    private readonly int _favoriteCount;
+    private readonly HashSet<int> _headings = [];
 
     public StartPage()
     {
         // Built anew on every visit, so favorites changed in the settings show straight away.
         var favorites = AppSettings.Favorites;
-        Tiles = [.. ToolTile.All.Where(tile => favorites.Contains(tile.Id)), .. ToolTile.All.Where(tile => !favorites.Contains(tile.Id))];
-        _favoriteCount = Tiles.Count(tile => favorites.Contains(tile.Id));
+        var items = new List<object>();
+        void AddGroup(string headingKey, IEnumerable<ToolTile> tiles)
+        {
+            var group = tiles.ToList();
+            if (group.Count > 0)
+            {
+                _headings.Add(items.Count);
+                items.Add(new TileGroupHeader(Strings.Get(headingKey)));
+                items.AddRange(group);
+            }
+        }
+
+        AddGroup("StartGroupFavorites", ToolTile.All.Where(tile => favorites.Contains(tile.Id)));
+        foreach (var group in Enum.GetValues<ToolGroup>())
+        {
+            AddGroup($"StartGroup{group}", ToolTile.All.Where(tile => tile.Group == group && !favorites.Contains(tile.Id)));
+        }
+        Items = items;
         InitializeComponent();
     }
 
-    /// <summary>The favorites first, then the other Tools, each in their usual order.</summary>
-    public IReadOnlyList<ToolTile> Tiles { get; }
+    /// <summary>
+    /// The favorites under their own heading first, then every other Tool under the heading of its
+    /// group, each in their usual order. Groups with no tiles left are left out.
+    /// </summary>
+    public IReadOnlyList<object> Items { get; }
 
-    /// <summary>Tells the tile grid which tiles are favorites and how much height is left below the header, so all tiles fit without scrolling.</summary>
+    /// <summary>Tells the tile grid which items are headings and how much height is left below the header, so all tiles fit without scrolling.</summary>
     private void Layout_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         if (TileList.ItemsPanelRoot is TileGrid grid)
         {
-            grid.FavoriteCount = _favoriteCount;
+            grid.Headings = _headings;
             var padding = PageContent.Padding;
             grid.FitHeight = Scroller.ViewportHeight - padding.Top - padding.Bottom
                 - Header.ActualHeight - PageContent.RowSpacing;

@@ -5,10 +5,10 @@ using Windows.Foundation;
 namespace OfficeBuddy.App.Controls;
 
 /// <summary>
-/// Lays out start-screen tiles in equal columns, giving every tile the height of the tallest one
-/// so no description is cut off, whatever the Windows text size. When the tiles would not fit into
-/// <see cref="FitHeight"/>, it uses more, narrower columns before leaving the rest to scrolling.
-/// The first <see cref="FavoriteCount"/> tiles get rows of their own, centered, above the others.
+/// Lays out start-screen tiles in groups, each under its heading, in equal columns shared by all
+/// groups, giving every tile the height of the tallest one so no description is cut off, whatever
+/// the Windows text size. When it all would not fit into <see cref="FitHeight"/>, it uses more,
+/// narrower columns before leaving the rest to scrolling.
 /// </summary>
 public sealed partial class TileGrid : Panel
 {
@@ -17,11 +17,12 @@ public sealed partial class TileGrid : Panel
     private const double NarrowestItemWidth = 260;
     private const double MinItemHeight = 140;
     private const double Spacing = 16;
-    // Between the favorites and the other tiles, so they read as two groups.
-    private const double GroupSpacing = 40;
+    // Below a heading, and above the next one, so each group reads as one.
+    private const double HeadingSpacing = 10;
+    private const double GroupSpacing = 32;
 
     private double _fitHeight = double.PositiveInfinity;
-    private int _favoriteCount;
+    private IReadOnlySet<int> _headings = new HashSet<int>();
     private Layout _layout;
 
     /// <summary>The height the tiles should fit into without scrolling.</summary>
@@ -38,15 +39,15 @@ public sealed partial class TileGrid : Panel
         }
     }
 
-    /// <summary>How many of the first tiles are favorites.</summary>
-    public int FavoriteCount
+    /// <summary>The positions of the children that are group headings; every other child is a tile.</summary>
+    public IReadOnlySet<int> Headings
     {
-        get => _favoriteCount;
+        get => _headings;
         set
         {
-            if (value != _favoriteCount)
+            if (!value.SetEquals(_headings))
             {
-                _favoriteCount = value;
+                _headings = value;
                 InvalidateMeasure();
             }
         }
@@ -55,10 +56,11 @@ public sealed partial class TileGrid : Panel
     protected override Size MeasureOverride(Size availableSize)
     {
         var width = double.IsInfinity(availableSize.Width) ? ComfortableItemWidth : availableSize.Width;
+        var tiles = Children.Count - _headings.Count(index => index < Children.Count);
 
         var columns = Math.Max(1, (int)((width + Spacing) / (ComfortableItemWidth + Spacing)));
         _layout = MeasureWith(width, columns);
-        while (_layout.Height > FitHeight && columns < Children.Count && ItemWidth(width, columns + 1) >= NarrowestItemWidth)
+        while (_layout.Height > FitHeight && columns < tiles && ItemWidth(width, columns + 1) >= NarrowestItemWidth)
         {
             columns++;
             _layout = MeasureWith(width, columns);
@@ -69,54 +71,70 @@ public sealed partial class TileGrid : Panel
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        var favorites = Math.Min(FavoriteCount, Children.Count);
-        var top = ArrangeGroup(0, favorites, 0, finalSize.Width, centered: true);
-        ArrangeGroup(favorites, Children.Count, top + (favorites > 0 ? GroupSpacing : 0), finalSize.Width, centered: false);
-
+        Place(finalSize.Width, (child, rect) => child.Arrange(rect));
         return finalSize;
     }
-
-    /// <summary>Arranges children <paramref name="start"/> to <paramref name="end"/> in rows from <paramref name="top"/>; returns the height they take.</summary>
-    private double ArrangeGroup(int start, int end, double top, double width, bool centered)
-    {
-        for (var i = start; i < end; i++)
-        {
-            var column = (i - start) % _layout.Columns;
-            var row = (i - start) / _layout.Columns;
-            var rowStart = start + row * _layout.Columns;
-            var tilesInRow = Math.Min(_layout.Columns, end - rowStart);
-            var indent = centered ? (width - RowWidth(tilesInRow)) / 2 : 0;
-            var x = indent + column * (_layout.ItemWidth + Spacing);
-            var y = top + row * (_layout.ItemHeight + Spacing);
-            Children[i].Arrange(new Rect(x, y, _layout.ItemWidth, _layout.ItemHeight));
-        }
-
-        return top + GroupHeight(end - start, _layout.Columns, _layout.ItemHeight);
-    }
-
-    private double RowWidth(int tiles) => tiles * _layout.ItemWidth + (tiles - 1) * Spacing;
 
     private Layout MeasureWith(double width, int columns)
     {
         var itemWidth = ItemWidth(width, columns);
         var itemHeight = MinItemHeight;
-        foreach (var child in Children)
+        for (var i = 0; i < Children.Count; i++)
         {
-            child.Measure(new Size(itemWidth, double.PositiveInfinity));
-            itemHeight = Math.Max(itemHeight, child.DesiredSize.Height);
+            if (_headings.Contains(i))
+            {
+                Children[i].Measure(new Size(width, double.PositiveInfinity));
+            }
+            else
+            {
+                Children[i].Measure(new Size(itemWidth, double.PositiveInfinity));
+                itemHeight = Math.Max(itemHeight, Children[i].DesiredSize.Height);
+            }
         }
 
-        var favorites = Math.Min(FavoriteCount, Children.Count);
-        var others = Children.Count - favorites;
-        var height = GroupHeight(favorites, columns, itemHeight) + GroupHeight(others, columns, itemHeight)
-            + (favorites > 0 && others > 0 ? GroupSpacing : 0);
-        return new Layout(columns, itemWidth, itemHeight, height);
+        _layout = new Layout(columns, itemWidth, itemHeight, 0);
+        return _layout with { Height = Place(width, arrange: null) };
     }
 
-    private static double GroupHeight(int tiles, int columns, double itemHeight)
+    /// <summary>
+    /// Goes through the children in order: a heading across the full width, then its group's tiles
+    /// in rows. Arranges them if asked, and returns the height it all takes.
+    /// </summary>
+    private double Place(double width, Action<UIElement, Rect>? arrange)
     {
-        var rows = (int)Math.Ceiling(tiles / (double)columns);
-        return rows * itemHeight + Math.Max(0, rows - 1) * Spacing;
+        var (top, column, rowOpen) = (0.0, 0, false);
+        for (var i = 0; i < Children.Count; i++)
+        {
+            var child = Children[i];
+            if (_headings.Contains(i))
+            {
+                if (rowOpen)
+                {
+                    top += _layout.ItemHeight;
+                    rowOpen = false;
+                }
+                if (i > 0)
+                {
+                    top += GroupSpacing;
+                }
+
+                arrange?.Invoke(child, new Rect(0, top, width, child.DesiredSize.Height));
+                top += child.DesiredSize.Height + HeadingSpacing;
+                column = 0;
+                continue;
+            }
+
+            if (column == _layout.Columns)
+            {
+                top += _layout.ItemHeight + Spacing;
+                column = 0;
+            }
+            arrange?.Invoke(child, new Rect(column * (_layout.ItemWidth + Spacing), top, _layout.ItemWidth, _layout.ItemHeight));
+            column++;
+            rowOpen = true;
+        }
+
+        return rowOpen ? top + _layout.ItemHeight : top;
     }
 
     private static double ItemWidth(double width, int columns) => (width - (columns - 1) * Spacing) / columns;

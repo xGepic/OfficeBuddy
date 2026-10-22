@@ -4,8 +4,9 @@ using System.Text;
 namespace OfficeBuddy.Core;
 
 /// <summary>
-/// The Ghostscript bundled next to the app (ADR-0001), run as a separate process to rewrite a PDF
-/// with smaller images. Text, fonts, colours and the Pages' rotation stay as they are.
+/// The Ghostscript bundled next to the app (ADR-0001), run as a separate process to rewrite a PDF:
+/// with smaller images, without its password, or rebuilt from a damaged file. Text, fonts, colours
+/// and the Pages' rotation stay as they are.
 /// </summary>
 internal static class Ghostscript
 {
@@ -17,8 +18,51 @@ internal static class Ghostscript
     /// <paramref name="dpi"/>.
     /// </summary>
     /// <param name="pageStarted">Told the number of each Page as Ghostscript starts on it.</param>
-    public static async Task DownsampleImagesAsync(
-        string workFolder, string inputFile, string outputFile, int dpi, Action<int>? pageStarted)
+    public static Task DownsampleImagesAsync(
+        string workFolder, string inputFile, string outputFile, int dpi, Action<int>? pageStarted) =>
+        RunAsync(workFolder, DownsampleArguments(inputFile, outputFile, dpi), pageStarted);
+
+    /// <summary>
+    /// Writes the PDF <paramref name="content"/> anew, as Ghostscript reads it, changing nothing on
+    /// purpose. A damaged file comes out readable if Ghostscript can make sense of it, and a file
+    /// opened with <paramref name="password"/> comes out without one.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Ghostscript could not read it, e.g. because of a wrong password, or found no Pages in it.</exception>
+    public static async Task<byte[]> RewriteAsync(byte[] content, string? password = null)
+    {
+        var workFolder = Directory.CreateDirectory(
+            Path.Combine(Path.GetTempPath(), "OfficeBuddy", Guid.NewGuid().ToString("N"))).FullName;
+        try
+        {
+            const string original = "Original.pdf";
+            const string rewritten = "Neu.pdf";
+            await File.WriteAllBytesAsync(Path.Combine(workFolder, original), content);
+            var pages = 0;
+            await RunAsync(workFolder,
+            [
+                "-dBATCH", "-dNOPAUSE", "-dSAFER",
+                "-sDEVICE=pdfwrite",
+                "-sColorConversionStrategy=LeaveColorUnchanged",
+                "-dAutoRotatePages=/None",
+                .. password is null ? Array.Empty<string>() : [$"-sPDFPassword={password}"],
+                $"-sOutputFile={rewritten}",
+                original,
+            ], pageStarted: _ => Interlocked.Increment(ref pages));
+            if (pages == 0)
+            {
+                // Ghostscript still writes a blank Page when it found none.
+                throw new InvalidOperationException("Ghostscript found no Pages to write.");
+            }
+            return await File.ReadAllBytesAsync(Path.Combine(workFolder, rewritten));
+        }
+        finally
+        {
+            try { Directory.Delete(workFolder, recursive: true); }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        }
+    }
+
+    private static async Task RunAsync(string workFolder, IEnumerable<string> arguments, Action<int>? pageStarted)
     {
         var start = new ProcessStartInfo(Path.Combine(Folder, "gswin64c.exe"))
         {
@@ -31,7 +75,7 @@ internal static class Ghostscript
         };
         // Only the bundled files, whichever Ghostscript is installed on this PC.
         start.Environment["GS_LIB"] = Folder;
-        foreach (var argument in Arguments(inputFile, outputFile, dpi))
+        foreach (var argument in arguments)
         {
             start.ArgumentList.Add(argument);
         }
@@ -63,7 +107,7 @@ internal static class Ghostscript
         }
     }
 
-    private static IEnumerable<string> Arguments(string inputFile, string outputFile, int dpi) =>
+    private static IEnumerable<string> DownsampleArguments(string inputFile, string outputFile, int dpi) =>
     [
         "-dBATCH", "-dNOPAUSE", "-dSAFER",
         "-sDEVICE=pdfwrite",

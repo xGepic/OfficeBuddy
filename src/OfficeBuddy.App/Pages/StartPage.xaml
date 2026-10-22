@@ -6,6 +6,78 @@
     xmlns:app="using:OfficeBuddy.App"
     xmlns:controls="using:OfficeBuddy.App.Controls">
 
+    <Page.Resources>
+        <DataTemplate x:Key="HeadingTemplate" x:DataType="app:TileGroupHeader">
+            <TextBlock
+                AutomationProperties.HeadingLevel="Level2"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="{x:Bind Title}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="TileTemplate" x:DataType="app:ToolTile">
+            <Button
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Top"
+                AllowDrop="{x:Bind IsAvailable}"
+                AutomationProperties.Name="{x:Bind Name}"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                Click="Tile_Click"
+                CornerRadius="12"
+                DragOver="Tile_DragOver"
+                Drop="Tile_Drop"
+                IsEnabled="{x:Bind IsAvailable}"
+                Padding="20,18"
+                Tag="{x:Bind}">
+                <Button.Resources>
+                    <!-- Hovered, a tile lights up blue at its edge. -->
+                    <StaticResource x:Key="ButtonBackgroundPointerOver" ResourceKey="TileBackgroundPointerOverBrush" />
+                    <StaticResource x:Key="ButtonBackgroundPressed" ResourceKey="TileBackgroundPressedBrush" />
+                    <StaticResource x:Key="ButtonBorderBrushPointerOver" ResourceKey="AccentFillColorDefaultBrush" />
+                    <StaticResource x:Key="ButtonBorderBrushPressed" ResourceKey="AccentFillColorDefaultBrush" />
+                </Button.Resources>
+                <Grid ColumnSpacing="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Width="60"
+                        Height="60"
+                        VerticalAlignment="Top"
+                        Background="{ThemeResource TileIconBadgeBrush}"
+                        CornerRadius="14">
+                        <FontIcon
+                            FontSize="30"
+                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                            Glyph="{x:Bind Glyph}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                        <TextBlock
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{x:Bind Name}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{x:Bind Description}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            FontStyle="Italic"
+                            Text="{x:Bind ComingSoonText}"
+                            Visibility="{x:Bind ComingSoonVisibility}" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
+        <controls:StartItemTemplateSelector
+            x:Key="StartItemTemplates"
+            Heading="{StaticResource HeadingTemplate}"
+            Tile="{StaticResource TileTemplate}" />
+    </Page.Resources>
+
     <ScrollViewer
         x:Name="Scroller"
         HorizontalScrollBarVisibility="Disabled"
@@ -50,71 +122,13 @@
                 x:Name="TileList"
                 Grid.Row="1"
                 IsTabStop="False"
-                ItemsSource="{x:Bind Tiles}">
+                ItemsSource="{x:Bind Items}"
+                ItemTemplateSelector="{StaticResource StartItemTemplates}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <controls:TileGrid />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="app:ToolTile">
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Top"
-                            AllowDrop="{x:Bind IsAvailable}"
-                            AutomationProperties.Name="{x:Bind Name}"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            Click="Tile_Click"
-                            CornerRadius="12"
-                            DragOver="Tile_DragOver"
-                            Drop="Tile_Drop"
-                            IsEnabled="{x:Bind IsAvailable}"
-                            Padding="20,18"
-                            Tag="{x:Bind}">
-                            <Button.Resources>
-                                <!-- Hovered, a tile lights up blue at its edge. -->
-                                <StaticResource x:Key="ButtonBackgroundPointerOver" ResourceKey="TileBackgroundPointerOverBrush" />
-                                <StaticResource x:Key="ButtonBackgroundPressed" ResourceKey="TileBackgroundPressedBrush" />
-                                <StaticResource x:Key="ButtonBorderBrushPointerOver" ResourceKey="AccentFillColorDefaultBrush" />
-                                <StaticResource x:Key="ButtonBorderBrushPressed" ResourceKey="AccentFillColorDefaultBrush" />
-                            </Button.Resources>
-                            <Grid ColumnSpacing="18">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border
-                                    Width="60"
-                                    Height="60"
-                                    VerticalAlignment="Top"
-                                    Background="{ThemeResource TileIconBadgeBrush}"
-                                    CornerRadius="14">
-                                    <FontIcon
-                                        FontSize="30"
-                                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Glyph="{x:Bind Glyph}" />
-                                </Border>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
-                                    <TextBlock
-                                        Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="{x:Bind Name}"
-                                        TextWrapping="Wrap" />
-                                    <TextBlock
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Text="{x:Bind Description}"
-                                        TextWrapping="Wrap" />
-                                    <TextBlock
-                                        FontStyle="Italic"
-                                        Text="{x:Bind ComingSoonText}"
-                                        Visibility="{x:Bind ComingSoonVisibility}" />
-                                </StackPanel>
-                            </Grid>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
     </ScrollViewer>
