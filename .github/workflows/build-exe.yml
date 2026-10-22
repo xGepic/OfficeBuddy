@@ -1,0 +1,41 @@
+# Builds OfficeBuddy.exe on every push to main, the same way as in the README, after the tests pass.
+# The exe is attached to the run as an artifact: Actions → the run → Artifacts.
+name: Build exe
+
+on:
+  push:
+    branches: [main]
+  # Also startable by hand from the Actions tab.
+  workflow_dispatch:
+
+# A newer push makes an older build that is still running pointless.
+concurrency:
+  group: build-exe
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # WinUI and Windows.Data.Pdf need Windows.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Test
+        run: dotnet test tests/OfficeBuddy.Core.Tests -c Release
+
+      - name: Publish single exe
+        run: >
+          dotnet publish src/OfficeBuddy.App -c Release -o artifacts/single
+          -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true -p:DebugType=none
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: OfficeBuddy-${{ github.run_number }}
+          path: artifacts/single/OfficeBuddy.exe
+          if-no-files-found: error
+          retention-days: 30
