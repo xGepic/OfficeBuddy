@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid ColumnSpacing="20">
+        <Grid MaxWidth="720" ColumnSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -32,7 +32,7 @@
         </Grid>
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled">
-            <StackPanel MaxWidth="720" HorizontalAlignment="Left" Spacing="12">
+            <StackPanel MaxWidth="720" Spacing="12">
                 <TextBlock x:Uid="SettingsSaveHeading" Margin="0,8,0,0" Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock
                     x:Uid="SettingsSaveHint"
