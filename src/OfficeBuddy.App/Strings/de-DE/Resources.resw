@@ -65,16 +65,6 @@
   <data name="ToolRepairName" xml:space="preserve"><value>PDF reparieren</value></data>
   <data name="ToolRepairDescription" xml:space="preserve"><value>Beschädigte PDF-Dateien wieder lesbar machen</value></data>
 
-  <!-- Put on the desktop, on the first start from Downloads -->
-  <data name="DesktopOfferTitle" xml:space="preserve"><value>Office Buddy auf den Desktop legen?</value></data>
-  <data name="DesktopOfferMessage" xml:space="preserve"><value>Sie haben Office Buddy aus dem Ordner „Downloads“ gestartet. Soll es ein Symbol auf dem Desktop bekommen? Dann finden Sie es jederzeit mit einem Doppelklick wieder.</value></data>
-  <data name="DesktopOfferConfirm" xml:space="preserve"><value>Auf den Desktop legen</value></data>
-  <data name="DesktopOfferDecline" xml:space="preserve"><value>Nein, danke</value></data>
-  <data name="DesktopDone" xml:space="preserve"><value>Office Buddy liegt jetzt auf Ihrem Desktop. Ziehen Sie eine PDF-Datei oder ein Foto einfach auf das Symbol, um es damit zu öffnen. Die heruntergeladene Datei im Ordner „Downloads“ brauchen Sie nicht mehr und können sie löschen.</value></data>
-  <data name="DesktopFailed" xml:space="preserve"><value>Office Buddy konnte nicht auf den Desktop gelegt werden. Sie können es weiter aus dem Ordner „Downloads“ starten.</value></data>
-  <data name="DesktopOk" xml:space="preserve"><value>OK</value></data>
-  <data name="DesktopShortcutDescription" xml:space="preserve"><value>PDF-Dateien und Bilder einfach bearbeiten</value></data>
-
   <!-- Settings -->
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
   <data name="SettingsFavoritesHeading.Text" xml:space="preserve"><value>Favoriten</value></data>

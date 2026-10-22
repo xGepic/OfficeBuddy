@@ -24,7 +24,7 @@ A German Windows desktop app that makes everyday PDF and image tasks simple for 
 | **Bild in Bild** | Put one image on top of a photo, such as a logo or a signature, and drag and size it into place |
 | **Bilder nebeneinander** | Line up two or more images side by side or one below the other as one image, such as both sides of an ID card |
 
-Files can also be opened from File Explorer: dragged onto the app's icon, or with right-click → *Senden an* → *Office Buddy*. The start screen then asks *„Was möchten Sie mit … tun?“* and shows only the tiles that can work on them; the chosen Tool opens them straight away.
+Files can also be opened from File Explorer by dragging them onto the app's exe or a shortcut to it. The start screen then asks *„Was möchten Sie mit … tun?“* and shows only the tiles that can work on them; the chosen Tool opens them straight away.
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name and, unless Einstellungen say otherwise, the original's folder.
 
@@ -36,7 +36,7 @@ Every change can be undone until the result is saved, and saving always asks whe
 
 ## Download
 
-Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself. Started from the Downloads folder for the first time, it offers once to put itself on the desktop: it copies itself to `%LOCALAPPDATA%\Programs\Office Buddy` and puts a shortcut to that copy on the desktop and under *Senden an*, so the download can be deleted.
+Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself.
 
 Every push to `main` builds it after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)) and replaces the release before.
 
