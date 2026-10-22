@@ -1,4 +1,4 @@
-# Builds OfficeBuddy.exe on every push to main, the same way as in the README, after the tests pass.
+# Builds OfficeBuddy.exe on every push to main, the same way as in the README, once the tests pass.
 # The exe is attached to the run as an artifact: Actions → the run → Artifacts.
 name: Build exe
 
@@ -14,26 +14,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  test:
+    name: Test
     # WinUI and Windows.Data.Pdf need Windows.
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - name: Check out code
+        uses: actions/checkout@v5
 
-      - uses: actions/setup-dotnet@v5
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
 
-      - name: Test
-        run: dotnet test tests/OfficeBuddy.Core.Tests -c Release
+      - name: Restore packages
+        run: dotnet restore tests/OfficeBuddy.Core.Tests
+
+      - name: Build
+        run: dotnet build tests/OfficeBuddy.Core.Tests -c Release --no-restore
+
+      - name: Run tests
+        run: dotnet test tests/OfficeBuddy.Core.Tests -c Release --no-build
+
+  publish:
+    name: Build exe
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Install .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore packages
+        run: dotnet restore src/OfficeBuddy.App
 
       - name: Publish single exe
         run: >
-          dotnet publish src/OfficeBuddy.App -c Release -o artifacts/single
+          dotnet publish src/OfficeBuddy.App -c Release --no-restore -o artifacts/single
           -p:PublishSingleFile=true -p:IncludeAllContentForSelfExtract=true
           -p:EnableCompressionInSingleFile=true -p:DebugType=none
 
-      - uses: actions/upload-artifact@v5
+      - name: Upload exe
+        uses: actions/upload-artifact@v5
         with:
           name: OfficeBuddy-${{ github.run_number }}
           path: artifacts/single/OfficeBuddy.exe
