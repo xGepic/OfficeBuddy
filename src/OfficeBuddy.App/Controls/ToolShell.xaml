@@ -45,7 +45,15 @@
                     </StackPanel>
                     <Button.Flyout>
                         <Flyout Placement="BottomEdgeAlignedRight">
-                            <StackPanel MaxWidth="460" Spacing="14">
+                            <!-- Wider than a flyout's usual 456, and wrapping rather than scrolling sideways at any text size. -->
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                                    <Setter Property="MaxWidth" Value="560" />
+                                    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <StackPanel Spacing="14">
                                 <TextBlock x:Uid="ToolShellHelpHeading" Style="{StaticResource SubtitleTextBlockStyle}" />
                                 <ItemsControl x:Name="HelpStepList" IsTabStop="False">
                                     <ItemsControl.ItemsPanel>
