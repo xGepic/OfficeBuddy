@@ -17,6 +17,7 @@ public sealed partial class CompressPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("CompressTitle");
+        Shell.Help = Strings.Get("CompressHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }

@@ -20,6 +20,8 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
         Title = Strings.Get("AppTitle");
         AppTitleText.Text = Title;
+        // Text that has no style of its own takes its size from the frame.
+        RootFrame.FontSize = Math.Round(RootFrame.FontSize * App.TextScale);
         Handle = WindowNative.GetWindowHandle(this);
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);

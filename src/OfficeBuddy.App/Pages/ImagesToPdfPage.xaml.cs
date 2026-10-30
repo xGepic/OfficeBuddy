@@ -21,6 +21,7 @@ public sealed partial class ImagesToPdfPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("ImagesToPdfTitle");
+        Shell.Help = Strings.Get("ImagesToPdfHelp");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
         // Deferred: a move arrives while the ListView is still finishing its own drop handling.

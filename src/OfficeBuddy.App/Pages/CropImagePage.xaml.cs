@@ -29,6 +29,7 @@ public sealed partial class CropImagePage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("CropImageTitle");
+        Shell.Help = Strings.Get("CropImageHelp");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
         _handles = [.. Overlay.Children.OfType<Ellipse>()];

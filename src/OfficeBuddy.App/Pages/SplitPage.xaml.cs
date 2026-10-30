@@ -14,6 +14,7 @@ public sealed partial class SplitPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("SplitTitle");
+        Shell.Help = Strings.Get("SplitHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }

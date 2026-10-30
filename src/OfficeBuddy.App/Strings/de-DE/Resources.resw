@@ -33,6 +33,8 @@
   <data name="StartGroupImages" xml:space="preserve"><value>Fotos und Bilder</value></data>
   <data name="StartSettings.Text" xml:space="preserve"><value>Einstellungen</value></data>
   <data name="StartSettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="StartRecentHeading.Text" xml:space="preserve"><value>Zuletzt gespeichert</value></data>
+  <data name="StartRecentOpen" xml:space="preserve"><value>Mit „{0}“ weiterarbeiten</value></data>
 
   <data name="ToolMergeName" xml:space="preserve"><value>Zusammenfügen</value></data>
   <data name="ToolMergeDescription" xml:space="preserve"><value>Mehrere PDF-Dateien zu einer einzigen verbinden</value></data>
@@ -67,6 +69,14 @@
 
   <!-- Settings -->
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="SettingsTextSizeHeading.Text" xml:space="preserve"><value>Schriftgröße</value></data>
+  <data name="SettingsTextSizeHint.Text" xml:space="preserve"><value>Wie groß Office Buddy Texte zeigt. Die neue Größe gilt, sobald Office Buddy neu gestartet ist.</value></data>
+  <data name="SettingsTextSizeChoice.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Schriftgröße</value></data>
+  <data name="SettingsTextSizeNormal.Content" xml:space="preserve"><value>Normal</value></data>
+  <data name="SettingsTextSizeLarge.Content" xml:space="preserve"><value>Groß</value></data>
+  <data name="SettingsTextSizeLarger.Content" xml:space="preserve"><value>Sehr groß</value></data>
+  <data name="SettingsRestart.Text" xml:space="preserve"><value>Jetzt neu starten</value></data>
+  <data name="SettingsRestartButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Office Buddy jetzt neu starten</value></data>
   <data name="SettingsFavoritesHeading.Text" xml:space="preserve"><value>Favoriten</value></data>
   <data name="SettingsFavoritesHint.Text" xml:space="preserve"><value>Ihre Favoriten stehen auf der Startseite ganz oben, in der Mitte.</value></data>
   <data name="SettingsSaveHeading.Text" xml:space="preserve"><value>Speichern unter</value></data>
@@ -94,6 +104,11 @@
   <data name="ToolShellRedo.Text" xml:space="preserve"><value>Wiederholen</value></data>
   <data name="ToolShellUndoButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Rückgängig</value></data>
   <data name="ToolShellRedoButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Wiederholen</value></data>
+  <data name="ToolShellHelp.Text" xml:space="preserve"><value>So geht's</value></data>
+  <data name="ToolShellHelpButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>So geht's</value></data>
+  <data name="ToolShellHelpButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve"><value>Kurz erklärt, wie diese Aufgabe geht (F1)</value></data>
+  <data name="ToolShellHelpHeading.Text" xml:space="preserve"><value>So geht's</value></data>
+  <data name="ToolShellHelpUndo.Text" xml:space="preserve"><value>Bis zum Speichern können Sie jeden Schritt mit „Rückgängig“ zurücknehmen.</value></data>
   <data name="DiscardTitle" xml:space="preserve"><value>Änderungen verwerfen?</value></data>
   <data name="DiscardMessage" xml:space="preserve"><value>Ihre Änderungen sind noch nicht gespeichert. Wenn Sie fortfahren, gehen sie verloren.</value></data>
   <data name="DiscardConfirm" xml:space="preserve"><value>Verwerfen</value></data>
@@ -156,6 +171,9 @@
 
   <!-- Merge -->
   <data name="MergeTitle" xml:space="preserve"><value>PDF-Dateien zusammenfügen</value></data>
+  <data name="MergeHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie die PDF-Dateien aus – oder ziehen Sie sie in dieses Fenster.
+Ziehen Sie die Dokumente in die Reihenfolge, in der sie hintereinander stehen sollen.
+Klicken Sie auf „Zusammenfügen und speichern“ und wählen Sie, wohin die neue Datei soll.</value></data>
   <data name="MergeEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie zwei oder mehr PDF-Dateien – oder ziehen Sie sie einfach hierher.</value></data>
   <data name="MergeOrderHint.Text" xml:space="preserve"><value>Ziehen Sie die Dokumente in die gewünschte Reihenfolge.</value></data>
   <data name="MergeNeedTwo.Text" xml:space="preserve"><value>Fügen Sie mindestens zwei Dokumente hinzu.</value></data>
@@ -164,6 +182,10 @@
 
   <!-- Edit pages -->
   <data name="EditPagesTitle" xml:space="preserve"><value>Seiten bearbeiten</value></data>
+  <data name="EditPagesHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei – oder ziehen Sie sie in dieses Fenster.
+Klicken Sie eine Seite an und dann auf „Links drehen“, „Rechts drehen“ oder „Entfernen“. Mit Strg oder Umschalt wählen Sie mehrere Seiten.
+Ziehen Sie eine Seite an eine andere Stelle, um die Reihenfolge zu ändern. Mit „Seiten einfügen“ holen Sie Seiten aus einer anderen PDF-Datei dazu.
+Klicken Sie auf „Speichern“.</value></data>
   <data name="EditPagesHint.Text" xml:space="preserve"><value>Klicken Sie Seiten an, um sie auszuwählen – mit Strg oder Umschalt auch mehrere. Ziehen Sie eine Seite an eine andere Stelle, um die Reihenfolge zu ändern. Ein Doppelklick öffnet die Vorschau. Mit „Seiten einfügen“ holen Sie Seiten aus einer anderen PDF-Datei dazu – hinter die ausgewählte Seite oder ans Ende.</value></data>
   <data name="EditPagesRotateLeft.Text" xml:space="preserve"><value>Links drehen</value></data>
   <data name="EditPagesRotateLeftButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Links drehen</value></data>
@@ -186,6 +208,9 @@
 
   <!-- Split -->
   <data name="SplitTitle" xml:space="preserve"><value>PDF-Datei aufteilen</value></data>
+  <data name="SplitHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei – oder ziehen Sie sie in dieses Fenster.
+Klicken Sie zwischen zwei Seiten, um dort zu trennen – eine Schere zeigt die Stelle. Oder schalten Sie „Jede Seite einzeln“ ein.
+Klicken Sie auf „Teile speichern“ und wählen Sie Ordner und Namen. Die Teile heißen dann z. B. „Name - Teil 1“, „Name - Teil 2“.</value></data>
   <data name="SplitHint.Text" xml:space="preserve"><value>Klicken Sie zwischen zwei Seiten, um dort zu trennen – eine Schere zeigt die Trennstelle. Ein zweiter Klick entfernt sie wieder. Ein Doppelklick auf eine Seite öffnet die Vorschau.</value></data>
   <data name="SplitEachPage.Header" xml:space="preserve"><value>Jede Seite einzeln</value></data>
   <data name="SplitEachPage.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Jede Seite einzeln</value></data>
@@ -199,6 +224,9 @@
 
   <!-- Page to image -->
   <data name="PageToImageTitle" xml:space="preserve"><value>Seiten als Bild speichern</value></data>
+  <data name="PageToImageHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei – oder ziehen Sie sie in dieses Fenster.
+Klicken Sie die Seiten an, die Sie als Bild haben möchten.
+Klicken Sie auf „Als Bild speichern“. Jede Seite wird ein eigenes JPG-Bild.</value></data>
   <data name="PageToImageHint.Text" xml:space="preserve"><value>Klicken Sie die Seiten an, die Sie als Bild (JPG) speichern möchten. Ein zweiter Klick hebt die Auswahl wieder auf, ein Doppelklick öffnet die Vorschau. Jede Seite wird ein eigenes Bild.</value></data>
   <data name="BusySavingImages" xml:space="preserve"><value>Bild {0} von {1} wird gespeichert …</value></data>
   <data name="PageToImageSave.Text" xml:space="preserve"><value>Als Bild speichern</value></data>
@@ -206,6 +234,9 @@
 
   <!-- Images to PDF -->
   <data name="ImagesToPdfTitle" xml:space="preserve"><value>Bilder zu einer PDF-Datei zusammenfassen</value></data>
+  <data name="ImagesToPdfHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie Fotos oder Bilder (JPG oder PNG) – oder ziehen Sie sie in dieses Fenster.
+Ziehen Sie die Bilder in die richtige Reihenfolge. Jedes Bild wird eine A4-Seite.
+Klicken Sie auf „Als PDF speichern“.</value></data>
   <data name="ImagesToPdfEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie Fotos oder Bilder (JPG oder PNG) – oder ziehen Sie sie einfach hierher.</value></data>
   <data name="ImagesToPdfOrderHint.Text" xml:space="preserve"><value>Jedes Bild wird eine A4-Seite. Ziehen Sie die Bilder in die gewünschte Reihenfolge.</value></data>
   <data name="ImagePagePortrait" xml:space="preserve"><value>Seite im Hochformat</value></data>
@@ -216,6 +247,9 @@
 
   <!-- Resize image -->
   <data name="ResizeImageTitle" xml:space="preserve"><value>Bildgröße ändern</value></data>
+  <data name="ResizeImageHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es in dieses Fenster.
+Geben Sie die neue Größe in Prozent ein – 50 % ist halb so groß – oder Breite und Höhe in Pixel.
+Klicken Sie auf „In neuer Größe speichern“.</value></data>
   <data name="ResizeImageEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es einfach hierher.</value></data>
   <data name="ResizeOriginalSize" xml:space="preserve"><value>Jetzt {0:N0} × {1:N0} Pixel</value></data>
   <data name="ResizeByPercentage.Content" xml:space="preserve"><value>Größe in Prozent</value></data>
@@ -231,6 +265,10 @@
 
   <!-- Picture in picture -->
   <data name="PictureInPictureTitle" xml:space="preserve"><value>Ein Bild in ein anderes einfügen</value></data>
+  <data name="PictureInPictureHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie das Foto, auf das ein anderes Bild soll.
+Klicken Sie auf „Bild einfügen“ und wählen Sie z. B. ein Logo oder eine Unterschrift.
+Ziehen Sie das eingefügte Bild an seinen Platz; mit dem runden Griff unten rechts ändern Sie die Größe.
+Klicken Sie auf „Als Bild speichern“.</value></data>
   <data name="PictureInPictureEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie das Foto oder Bild (JPG oder PNG), in das Sie ein anderes Bild einfügen möchten – oder ziehen Sie es einfach hierher.</value></data>
   <data name="PictureInPictureInsert" xml:space="preserve"><value>Bild einfügen</value></data>
   <data name="PictureInPictureInsertOther" xml:space="preserve"><value>Anderes Bild einfügen</value></data>
@@ -245,6 +283,9 @@
 
   <!-- Images side by side -->
   <data name="ImagesSideBySideTitle" xml:space="preserve"><value>Bilder nebeneinander zu einem Bild zusammensetzen</value></data>
+  <data name="ImagesSideBySideHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie zwei oder mehr Bilder, z. B. Vorder- und Rückseite eines Ausweises.
+Ziehen Sie die Bilder in die richtige Reihenfolge und wählen Sie „Nebeneinander“ oder „Untereinander“.
+Klicken Sie auf „Als ein Bild speichern“.</value></data>
   <data name="ImagesSideBySideEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie zwei oder mehr Fotos oder Bilder (JPG oder PNG) – oder ziehen Sie sie einfach hierher. Zum Beispiel Vorder- und Rückseite eines Ausweises.</value></data>
   <data name="ImagesSideBySideOrderHint.Text" xml:space="preserve"><value>Ziehen Sie die Bilder in die gewünschte Reihenfolge.</value></data>
   <data name="ImagesSideBySideArrangement.Header" xml:space="preserve"><value>Anordnung</value></data>
@@ -258,6 +299,9 @@
 
   <!-- Crop image -->
   <data name="CropImageTitle" xml:space="preserve"><value>Bild zuschneiden</value></data>
+  <data name="CropImageHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es in dieses Fenster.
+Ziehen Sie die runden Griffe, bis nur noch der gewünschte Teil hell ist. Mit „Links drehen“ und „Rechts drehen“ stellen Sie das Bild richtig herum.
+Klicken Sie auf „Zugeschnitten speichern“.</value></data>
   <data name="CropImageEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie ein Foto oder Bild (JPG oder PNG) – oder ziehen Sie es einfach hierher.</value></data>
   <data name="CropImageHint.Text" xml:space="preserve"><value>Ziehen Sie die runden Griffe an den Ecken und Kanten, bis nur noch der gewünschte Teil hell ist. Den Rahmen können Sie auch als Ganzes verschieben.</value></data>
   <data name="CropRotateLeft.Text" xml:space="preserve"><value>Links drehen</value></data>
@@ -273,6 +317,10 @@
 
   <!-- Sign -->
   <data name="SignTitle" xml:space="preserve"><value>PDF-Datei unterschreiben</value></data>
+  <data name="SignHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie die PDF-Datei, die Sie unterschreiben möchten.
+Klicken Sie auf „Unterschrift wählen“ und wählen Sie ein Foto oder einen Scan Ihrer Unterschrift. Beim nächsten Mal ist sie schon da.
+Blättern Sie zur richtigen Seite und klicken Sie auf „Hier unterschreiben“. Ziehen Sie die Unterschrift an ihren Platz; mit dem runden Griff unten rechts ändern Sie die Größe.
+Klicken Sie auf „Unterschrieben speichern“.</value></data>
   <data name="SignEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie die PDF-Datei, die Sie unterschreiben möchten – oder ziehen Sie sie einfach hierher.</value></data>
   <data name="SignChooseSignature" xml:space="preserve"><value>Unterschrift wählen</value></data>
   <data name="SignChooseOtherSignature" xml:space="preserve"><value>Andere Unterschrift wählen</value></data>
@@ -293,6 +341,9 @@
 
   <!-- Recognize text -->
   <data name="RecognizeTextTitle" xml:space="preserve"><value>Text in Scans erkennen</value></data>
+  <data name="RecognizeTextHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie einen Scan als PDF-Datei – oder ziehen Sie ihn in dieses Fenster.
+Klicken Sie auf „Text erkennen“.
+Mit „Text kopieren“ können Sie den Text z. B. in eine E-Mail einfügen. Mit „Durchsuchbar speichern“ können Sie später in der Datei suchen – sie sieht genauso aus wie vorher.</value></data>
   <data name="RecognizeTextEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie einen Scan als PDF-Datei – oder ziehen Sie ihn einfach hierher. Office Buddy liest den Text darauf, damit Sie darin suchen und ihn kopieren können.</value></data>
   <data name="RecognizeTextUnavailable" xml:space="preserve"><value>Auf diesem PC ist keine Texterkennung eingerichtet. Sie gehört zum Sprachpaket von Windows: Fügen Sie in den Einstellungen unter „Zeit und Sprache“ › „Sprache und Region“ die Sprache Deutsch hinzu.</value></data>
   <data name="BusyRecognizing" xml:space="preserve"><value>Seite {0} von {1} wird gelesen …</value></data>
@@ -309,6 +360,9 @@
 
   <!-- PDF password -->
   <data name="PdfPasswordTitle" xml:space="preserve"><value>Passwort einer PDF-Datei</value></data>
+  <data name="PdfPasswordHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei. Hat sie ein Passwort, geben Sie es ein.
+Wählen Sie, ob Sie das Passwort entfernen oder ein neues festlegen möchten. Ein neues Passwort geben Sie zweimal ein.
+Klicken Sie auf „Ohne Passwort speichern“ oder „Mit Passwort speichern“.</value></data>
   <data name="PdfPasswordEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie eine PDF-Datei – oder ziehen Sie sie einfach hierher. Hat sie ein Passwort, werden Sie danach gefragt.</value></data>
   <data name="PasswordDialogTitle" xml:space="preserve"><value>Passwort eingeben</value></data>
   <data name="PasswordDialogMessage" xml:space="preserve"><value>„{0}“ ist mit einem Passwort geschützt. Geben Sie es ein, um die Datei zu öffnen.</value></data>
@@ -328,6 +382,9 @@
 
   <!-- Repair -->
   <data name="RepairTitle" xml:space="preserve"><value>Beschädigte PDF-Datei reparieren</value></data>
+  <data name="RepairHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie die PDF-Datei, die sich nicht mehr öffnen lässt.
+Office Buddy rettet von selbst, was noch zu retten ist. Sehen Sie die Seiten danach durch.
+Klicken Sie auf „Reparierte Datei speichern“.</value></data>
   <data name="RepairEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie eine PDF-Datei, die sich nicht mehr öffnen lässt – oder ziehen Sie sie einfach hierher.</value></data>
   <data name="BusyRepairing" xml:space="preserve"><value>Datei wird untersucht und repariert …</value></data>
   <data name="RepairRepaired" xml:space="preserve"><value>Die Datei war beschädigt. {0} konnten gerettet werden. Sehen Sie die Seiten unten durch und speichern Sie die reparierte Datei.</value></data>
@@ -338,6 +395,10 @@
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>
+  <data name="CompressHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei – oder ziehen Sie sie in dieses Fenster.
+Klicken Sie auf „Verkleinern“. Das kann einen Moment dauern.
+Klicken Sie auf „Verkleinertes Dokument speichern“. Ist es dann noch zu groß, können Sie es in mehrere Teile aufteilen, die jeweils in eine E-Mail passen.
+Wie groß ein E-Mail-Anhang sein darf, legen Sie in den Einstellungen fest.</value></data>
   <data name="CompressTooLarge" xml:space="preserve"><value>Mit {0} ist das Dokument zu groß für eine E-Mail. Es wird auf unter {1} MB verkleinert.</value></data>
   <data name="CompressAlreadySmall" xml:space="preserve"><value>Mit {0} ist das Dokument schon klein genug für E-Mails. Sie können es trotzdem etwas verkleinern.</value></data>
   <data name="CompressStart" xml:space="preserve"><value>Verkleinern</value></data>
@@ -362,6 +423,9 @@
 
   <!-- Extract pages -->
   <data name="ExtractPagesTitle" xml:space="preserve"><value>Seiten herauslösen</value></data>
+  <data name="ExtractPagesHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie eine PDF-Datei – oder ziehen Sie sie in dieses Fenster.
+Klicken Sie die Seiten an, die Sie herauslösen möchten. Ein zweiter Klick hebt die Auswahl wieder auf.
+Klicken Sie auf „Als neues Dokument speichern“.</value></data>
   <data name="ExtractPagesHint.Text" xml:space="preserve"><value>Klicken Sie die Seiten an, die Sie als neues Dokument speichern möchten. Ein zweiter Klick hebt die Auswahl wieder auf, ein Doppelklick öffnet die Vorschau. Das Original bleibt unverändert.</value></data>
   <data name="ExtractPagesSave.Text" xml:space="preserve"><value>Als neues Dokument speichern</value></data>
   <data name="ExtractPagesSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als neues Dokument speichern</value></data>

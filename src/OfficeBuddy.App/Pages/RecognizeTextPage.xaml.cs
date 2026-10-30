@@ -15,6 +15,7 @@ public sealed partial class RecognizeTextPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("RecognizeTextTitle");
+        Shell.Help = Strings.Get("RecognizeTextHelp");
         Shell.Session = _session;
         UnavailableBar.Message = Strings.Get("RecognizeTextUnavailable");
         UnavailableBar.IsOpen = !_isAvailable;

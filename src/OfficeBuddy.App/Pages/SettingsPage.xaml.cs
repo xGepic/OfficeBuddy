@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using OfficeBuddy.App.Services;
@@ -6,14 +7,15 @@ using OfficeBuddy.Core.Tools;
 namespace OfficeBuddy.App.Pages;
 
 /// <summary>
-/// Lets the user choose where the save dialog opens, how big their emails may be, and favorite
-/// Tools, whose tiles the start screen shows first. Every change is saved at once.
+/// Lets the user choose how big the text is, where the save dialog opens, how big their emails may
+/// be, and favorite Tools, whose tiles the start screen shows first. Every change is saved at once.
 /// </summary>
 public sealed partial class SettingsPage : Page
 {
     public SettingsPage()
     {
         InitializeComponent();
+        TextSizeChoice.SelectedIndex = (int)AppSettings.TextSize;
         SaveLocationChoice.SelectedIndex = (int)AppSettings.SaveLocation;
         foreach (var megabytes in AppSettings.EmailSizeLimits)
         {
@@ -27,6 +29,32 @@ public sealed partial class SettingsPage : Page
     public IReadOnlyList<ToolTile> Tiles => ToolTile.All;
 
     private void Back_Click(object sender, RoutedEventArgs e) => Frame.GoBack();
+
+    /// <summary>Saves the text size, and offers a restart while it differs from the size the app is showing.</summary>
+    private void TextSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (TextSizeChoice.SelectedIndex >= 0)
+        {
+            AppSettings.SetTextSize((TextSize)TextSizeChoice.SelectedIndex);
+        }
+        RestartButton.Visibility = AppSettings.TextSize == App.TextSize ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    /// <summary>Starts the app anew, which builds every screen in the new text size, and closes this one.</summary>
+    private void Restart_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Not through the shell: started that way from the app, the new window opens minimized.
+            Process.Start(Environment.ProcessPath!);
+        }
+        catch (Exception)
+        {
+            // Could not start again; the new size still applies when the user starts the app.
+            return;
+        }
+        App.MainWindow.Close();
+    }
 
     /// <summary>Choosing "another folder" for the first time asks for it straight away; cancelling keeps the old choice.</summary>
     private void SaveLocation_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -108,9 +108,17 @@ _Avoid_: Trim, cut, clip
 A Tool the user has marked in the settings so that its tile shows first on the start screen, under its own heading, instead of in its group. UI term: *Favorit*.
 _Avoid_: Pinned, starred, bookmark
 
+**Recent file**:
+A file the app saved lately, which the start screen offers to work on with another Tool or to show in File Explorer. Only single-file saves count, newest first, and only files that are still there are shown. UI term: *Zuletzt gespeichert*.
+_Avoid_: History, recent documents, MRU
+
 **Save location**:
 The folder the save dialog opens in, chosen in the settings: next to the original (the default), the Documents folder, the Desktop, or a folder of the user's own. The user can still pick any folder in the dialog. UI term: *Speichern unter*.
 _Avoid_: Output folder, default directory, target path
+
+**Text size**:
+How big the app shows its text, chosen in the settings: Normal, Large or Larger. It takes effect when the app starts. UI term: *Schriftgröße* (*Normal*, *Groß*, *Sehr groß*).
+_Avoid_: Zoom, font scale, accessibility mode
 
 **Sign**:
 Putting a picture of the user's own signature onto one or more Pages of a Document, each placed and sized on its Page, and saving the result. The signature's white paper becomes transparent. It is a picture, not a legally binding electronic signature. UI term: *Unterschreiben*.

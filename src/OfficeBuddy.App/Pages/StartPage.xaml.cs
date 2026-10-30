@@ -8,6 +8,9 @@ namespace OfficeBuddy.App.Pages;
 
 public sealed partial class StartPage : Page
 {
+    /// <summary>How many of the files saved lately the start screen offers, so the tiles still fit below.</summary>
+    private const int RecentFileCount = 4;
+
     private readonly HashSet<int> _headings = [];
 
     /// <summary>Files the app was started with, which a Tool opens straight away when its tile is clicked.</summary>
@@ -19,9 +22,10 @@ public sealed partial class StartPage : Page
     }
 
     /// <summary>
-    /// Shows the favorites under their own heading first, then every other Tool under the heading of
-    /// its group, each in their usual order. With files the app was started with, only the Tools that
-    /// can work on them; if none can, every Tool and why. Groups with no tiles left are left out.
+    /// Shows the files saved lately that are still there, then the favorites under their own heading,
+    /// then every other Tool under the heading of its group, each in their usual order. With files
+    /// the app was started with, only the Tools that can work on them; if none can, every Tool and
+    /// why. Groups with no tiles left are left out.
     /// </summary>
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -46,6 +50,12 @@ public sealed partial class StartPage : Page
             }
             ShowAllButton.Visibility = Visibility.Visible;
         }
+        else
+        {
+            var recent = AppSettings.RecentFiles.Where(File.Exists).Take(RecentFileCount).Select(path => new RecentFile(path)).ToList();
+            RecentList.ItemsSource = recent;
+            RecentArea.Visibility = recent.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         var favorites = AppSettings.Favorites;
         var items = new List<object>();
@@ -69,13 +79,33 @@ public sealed partial class StartPage : Page
     }
 
     /// <summary>Leaves the files the app was started with and shows every Tool, as if started plainly.</summary>
-    private void ShowAll_Click(object sender, RoutedEventArgs e)
+    private void ShowAll_Click(object sender, RoutedEventArgs e) => ShowStart(null);
+
+    /// <summary>Asks what to do with a file saved lately, as if the app was started with it.</summary>
+    private void Recent_Click(object sender, RoutedEventArgs e)
     {
-        Frame.Navigate(typeof(StartPage));
+        if ((sender as FrameworkElement)?.Tag is RecentFile file)
+        {
+            ShowStart(new ToolLaunch([file.FilePath]));
+        }
+    }
+
+    private void RecentShowInFolder_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as FrameworkElement)?.Tag is RecentFile file)
+        {
+            FileExplorer.ShowInFolder(file.FilePath);
+        }
+    }
+
+    /// <summary>Replaces this start screen with one for <paramref name="launch"/>, without one to go back to.</summary>
+    private void ShowStart(ToolLaunch? launch)
+    {
+        Frame.Navigate(typeof(StartPage), launch);
         Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
     }
 
-    /// <summary>Tells the tile grid which items are headings and how much height is left below the header, so all tiles fit without scrolling.</summary>
+    /// <summary>Tells the tile grid which items are headings and how much height is left below the header and the files saved lately, so all tiles fit without scrolling.</summary>
     private void Layout_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         if (TileList.ItemsPanelRoot is TileGrid grid)
@@ -83,7 +113,7 @@ public sealed partial class StartPage : Page
             grid.Headings = _headings;
             var padding = PageContent.Padding;
             grid.FitHeight = Scroller.ViewportHeight - padding.Top - padding.Bottom
-                - Header.ActualHeight - PageContent.RowSpacing;
+                - Top.ActualHeight - PageContent.RowSpacing;
         }
     }
 

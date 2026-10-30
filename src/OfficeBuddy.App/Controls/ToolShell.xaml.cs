@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Windowing;
@@ -11,7 +10,7 @@ using OfficeBuddy.Core.Tools;
 namespace OfficeBuddy.App.Controls;
 
 /// <summary>
-/// The frame every Tool screen shares: back button, title, undo/redo and Öffnen buttons, a drop
+/// The frame every Tool screen shares: back button, title, "So geht's", undo/redo and Öffnen buttons, a drop
 /// zone for files from File Explorer, a message bar, the Tool's own body, and a footer for its main
 /// action. It asks "Änderungen verwerfen?" before the Tool is left with unsaved changes.
 /// </summary>
@@ -31,6 +30,7 @@ public sealed partial class ToolShell : UserControl
     private IToolSession? _session;
     private bool _isConfirmingDiscard;
     private bool _discardConfirmedForClose;
+    private string _help = "";
 
     public ToolShell()
     {
@@ -76,6 +76,19 @@ public sealed partial class ToolShell : UserControl
     {
         get => GetValue(FooterProperty);
         set => SetValue(FooterProperty, value);
+    }
+
+    /// <summary>The steps "So geht's" shows, one per line.</summary>
+    public string Help
+    {
+        get => _help;
+        set
+        {
+            _help = value;
+            HelpStepList.ItemsSource = value.Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                .Select((text, index) => new HelpStep(index + 1, text))
+                .ToList();
+        }
     }
 
     /// <summary>What Öffnen offers and which files count as unsupported: PDF Documents unless the Tool says otherwise.</summary>
@@ -152,6 +165,7 @@ public sealed partial class ToolShell : UserControl
             async path =>
             {
                 await save(path);
+                AppSettings.AddRecentFile(path);
                 ShowSuccess(Strings.Format("SavedAs", Path.GetFileName(path), Path.GetDirectoryName(path)!));
                 OfferToShowInFolder(path);
             },
@@ -229,24 +243,11 @@ public sealed partial class ToolShell : UserControl
         OfferToShowInFolder(written[0]);
     }
 
-    /// <summary>
-    /// Adds a button to the message that opens File Explorer on the folder of
-    /// <paramref name="path"/> with that file selected, ready to drag into an email.
-    /// </summary>
+    /// <summary>Adds a button to the message that shows <paramref name="path"/> in File Explorer.</summary>
     private void OfferToShowInFolder(string path)
     {
         var showInFolder = new Button { Content = Strings.Get("ShowInFolder") };
-        showInFolder.Click += (_, _) =>
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{path}\"") { UseShellExecute = true });
-            }
-            catch (Exception)
-            {
-                // Explorer would not start; the message already says where the file is.
-            }
-        };
+        showInFolder.Click += (_, _) => FileExplorer.ShowInFolder(path);
         MessageBar.ActionButton = showInFolder;
     }
 
@@ -452,3 +453,6 @@ public sealed partial class ToolShell : UserControl
         }
     }
 }
+
+/// <summary>One numbered step of a Tool's "So geht's".</summary>
+public sealed record HelpStep(int Number, string Text);

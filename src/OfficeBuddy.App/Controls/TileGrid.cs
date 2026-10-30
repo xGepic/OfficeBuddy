@@ -12,9 +12,10 @@ namespace OfficeBuddy.App.Controls;
 /// </summary>
 public sealed partial class TileGrid : Panel
 {
-    private const double ComfortableItemWidth = 280;
+    // Wider with the larger text sizes from the settings, which make the tiles' names longer.
+    private static readonly double ComfortableItemWidth = 280 * App.TextScale;
     // Narrower than this, long tile names such as "Zusammenfügen" break mid-word; scrolling is better.
-    private const double NarrowestItemWidth = 260;
+    private static readonly double NarrowestItemWidth = 260 * App.TextScale;
     private const double MinItemHeight = 140;
     private const double Spacing = 16;
     // Below a heading, and above the next one, so each group reads as one.

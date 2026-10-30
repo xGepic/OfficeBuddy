@@ -19,6 +19,7 @@ public sealed partial class EditPagesPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("EditPagesTitle");
+        Shell.Help = Strings.Get("EditPagesHelp");
         Shell.Session = _session;
         // Deferred: a move arrives while the GridView is still finishing its own drop handling.
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);

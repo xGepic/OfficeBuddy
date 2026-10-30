@@ -93,42 +93,123 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid x:Name="Header" ColumnSpacing="20" SizeChanged="Layout_SizeChanged">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Spacing="4">
-                    <TextBlock
-                        x:Name="HeadingText"
-                        x:Uid="StartHeading"
-                        Style="{StaticResource TitleLargeTextBlockStyle}"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        x:Name="SubheadingText"
-                        x:Uid="StartSubheading"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        TextWrapping="Wrap" />
-                    <!-- Only with files the app was started with: back to every Tool. -->
-                    <HyperlinkButton
-                        x:Name="ShowAllButton"
-                        x:Uid="StartShowAll"
-                        Margin="-12,0,0,0"
-                        Click="ShowAll_Click"
-                        Visibility="Collapsed" />
-                </StackPanel>
-                <Button
-                    x:Uid="StartSettingsButton"
-                    Grid.Column="1"
-                    VerticalAlignment="Top"
-                    Click="Settings_Click"
-                    Padding="14,8">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon FontSize="16" Glyph="&#xE713;" />
-                        <TextBlock x:Uid="StartSettings" />
+            <StackPanel x:Name="Top" SizeChanged="Layout_SizeChanged">
+                <Grid x:Name="Header" ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Spacing="4">
+                        <TextBlock
+                            x:Name="HeadingText"
+                            x:Uid="StartHeading"
+                            Style="{StaticResource TitleLargeTextBlockStyle}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            x:Name="SubheadingText"
+                            x:Uid="StartSubheading"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                        <!-- Only with files the app was started with: back to every Tool. -->
+                        <HyperlinkButton
+                            x:Name="ShowAllButton"
+                            x:Uid="StartShowAll"
+                            Margin="-12,0,0,0"
+                            Click="ShowAll_Click"
+                            Visibility="Collapsed" />
                     </StackPanel>
-                </Button>
-            </Grid>
+                    <Button
+                        x:Uid="StartSettingsButton"
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Click="Settings_Click"
+                        Padding="14,8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon FontSize="16" Glyph="&#xE713;" />
+                            <TextBlock x:Uid="StartSettings" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!-- Files saved lately, to find them again or work on with another Tool. -->
+                <StackPanel x:Name="RecentArea" Margin="0,24,0,0" Spacing="10" Visibility="Collapsed">
+                    <TextBlock
+                        x:Uid="StartRecentHeading"
+                        AutomationProperties.HeadingLevel="Level2"
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
+                    <ItemsRepeater x:Name="RecentList">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout
+                                ItemsStretch="Fill"
+                                MaximumRowsOrColumns="4"
+                                MinColumnSpacing="16"
+                                MinItemWidth="260"
+                                MinRowSpacing="12" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="app:RecentFile">
+                                <Grid
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        AutomationProperties.Name="{x:Bind OpenLabel}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Click="Recent_Click"
+                                        Padding="14,10"
+                                        Tag="{x:Bind}"
+                                        ToolTipService.ToolTip="{x:Bind FilePath}">
+                                        <Button.Resources>
+                                            <StaticResource x:Key="ButtonBackgroundPointerOver" ResourceKey="TileBackgroundPointerOverBrush" />
+                                            <StaticResource x:Key="ButtonBackgroundPressed" ResourceKey="TileBackgroundPressedBrush" />
+                                        </Button.Resources>
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <FontIcon
+                                                FontSize="24"
+                                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                Glyph="{x:Bind Glyph}" />
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{x:Bind Name}" TextTrimming="CharacterEllipsis" />
+                                                <TextBlock
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{x:Bind FolderName}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="NoWrap" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                    <Button
+                                        Grid.Column="1"
+                                        Margin="0,0,6,0"
+                                        VerticalAlignment="Center"
+                                        AutomationProperties.Name="{x:Bind ShowInFolderLabel}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Click="RecentShowInFolder_Click"
+                                        Padding="10"
+                                        Tag="{x:Bind}"
+                                        ToolTipService.ToolTip="{x:Bind ShowInFolderLabel}">
+                                        <FontIcon FontSize="18" Glyph="&#xE838;" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </StackPanel>
+            </StackPanel>
 
             <ItemsControl
                 x:Name="TileList"

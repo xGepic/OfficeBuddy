@@ -26,6 +26,7 @@ public sealed partial class SignPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("SignTitle");
+        Shell.Help = Strings.Get("SignHelp");
         Shell.Session = _session;
         foreach (var (button, key) in new[] { (PreviousButton, "SignPreviousPage"), (NextButton, "SignNextPage") })
         {

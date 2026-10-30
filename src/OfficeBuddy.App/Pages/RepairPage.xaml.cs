@@ -15,6 +15,7 @@ public sealed partial class RepairPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("RepairTitle");
+        Shell.Help = Strings.Get("RepairHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }

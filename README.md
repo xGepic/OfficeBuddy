@@ -28,7 +28,13 @@ Files can also be opened from File Explorer by dragging them onto the app's exe 
 
 Every change can be undone until the result is saved, and saving always asks where to put the file, suggesting a sensible name and, unless Einstellungen say otherwise, the original's folder.
 
-**Einstellungen**, from the start screen, holds three choices, each saved at once:
+The start screen lists the last four files saved that are still there, under *Zuletzt gespeichert*. Clicking one asks what to do with it next, as if it had been dragged onto the app; the folder button next to it shows it in File Explorer. Results saved as several files at once, such as Parts, are not listed.
+
+Every Tool screen has a **So geht's** button (or F1) that explains the Tool in three or four numbered steps.
+
+**Einstellungen**, from the start screen, holds four choices, each saved at once:
+
+- **Schriftgröße** – Normal, Groß (125 %) or Sehr groß (150 %). It applies from the next start, which a *Jetzt neu starten* button offers straight away.
 
 - **Speichern unter** – the folder the save dialog opens in: next to the original (the default), Dokumente, Desktop or a folder of one's own.
 - **Größe von E-Mail-Anhängen** – 10, 20 or 25 MB, the size Verkleinern gets PDFs under. 10 MB gets through almost anywhere.

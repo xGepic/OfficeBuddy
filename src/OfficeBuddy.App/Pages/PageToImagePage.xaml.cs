@@ -14,6 +14,7 @@ public sealed partial class PageToImagePage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("PageToImageTitle");
+        Shell.Help = Strings.Get("PageToImageHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }

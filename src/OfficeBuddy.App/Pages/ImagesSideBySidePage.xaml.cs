@@ -29,6 +29,7 @@ public sealed partial class ImagesSideBySidePage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("ImagesSideBySideTitle");
+        Shell.Help = Strings.Get("ImagesSideBySideHelp");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
         // Deferred: a move arrives while the ListView is still finishing its own drop handling.

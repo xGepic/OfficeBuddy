@@ -25,6 +25,7 @@ public sealed partial class PictureInPicturePage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("PictureInPictureTitle");
+        Shell.Help = Strings.Get("PictureInPictureHelp");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);

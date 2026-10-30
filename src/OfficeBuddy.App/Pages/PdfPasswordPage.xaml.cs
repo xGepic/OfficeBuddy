@@ -17,6 +17,7 @@ public sealed partial class PdfPasswordPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("PdfPasswordTitle");
+        Shell.Help = Strings.Get("PdfPasswordHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }

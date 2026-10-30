@@ -16,7 +16,8 @@ public sealed record ToolLaunch(IReadOnlyList<string> FilePaths)
         }
     }
 
-    private static FileKind? KindOf(string path) => Path.GetExtension(path).ToLowerInvariant() switch
+    /// <summary>The kind of file <paramref name="path"/> is, judged by its name; null if the app doesn't open it.</summary>
+    public static FileKind? KindOf(string path) => Path.GetExtension(path).ToLowerInvariant() switch
     {
         ".pdf" => FileKind.Pdf,
         ".jpg" or ".jpeg" or ".png" => FileKind.Image,

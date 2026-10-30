@@ -79,6 +79,29 @@ internal static class AppSettings
         }
     }
 
+    /// <summary>How many saved files the settings remember; the start screen shows fewer, of those still there.</summary>
+    private const int RecentFileLimit = 10;
+
+    /// <summary>The files the app saved last, newest first, which may since have been moved or deleted.</summary>
+    public static IReadOnlyList<string> RecentFiles => Load().RecentFiles ?? [];
+
+    public static void AddRecentFile(string path)
+    {
+        var recent = RecentFiles.Where(other => !string.Equals(other, path, StringComparison.OrdinalIgnoreCase));
+        Save(Load() with { RecentFiles = [path, .. recent.Take(RecentFileLimit - 1)] });
+    }
+
+    /// <summary>How big the app shows its text. Takes effect on the next start.</summary>
+    public static TextSize TextSize => Enum.IsDefined(Load().TextSize) ? Load().TextSize : TextSize.Normal;
+
+    public static void SetTextSize(TextSize size)
+    {
+        if (size != TextSize)
+        {
+            Save(Load() with { TextSize = size });
+        }
+    }
+
     private static Stored Load()
     {
         if (_stored is null)
@@ -116,7 +139,9 @@ internal static class AppSettings
         string? SignaturePath = null,
         SaveLocation SaveLocation = SaveLocation.NextToOriginal,
         string? SaveFolder = null,
-        int EmailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes);
+        int EmailSizeLimitMegabytes = CompressSession.DefaultEmailSizeLimitMegabytes,
+        List<string>? RecentFiles = null,
+        TextSize TextSize = TextSize.Normal);
 }
 
 /// <summary>Where the save dialog opens.</summary>
@@ -126,4 +151,12 @@ internal enum SaveLocation
     Documents,
     Desktop,
     ChosenFolder,
+}
+
+/// <summary>How big the app shows its text, for users who find the usual size hard to read.</summary>
+internal enum TextSize
+{
+    Normal,
+    Large,
+    Larger,
 }

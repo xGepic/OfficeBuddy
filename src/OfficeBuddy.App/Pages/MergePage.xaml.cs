@@ -22,6 +22,7 @@ public sealed partial class MergePage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("MergeTitle");
+        Shell.Help = Strings.Get("MergeHelp");
         Shell.Session = _session;
         // Deferred: a move arrives while the ListView is still finishing its own drop handling.
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);

@@ -20,6 +20,7 @@ public sealed partial class ResizeImagePage : Page
         // Here rather than in XAML: Checked would come before the boxes it enables exist.
         ByPercentage.IsChecked = true;
         Shell.Title = Strings.Get("ResizeImageTitle");
+        Shell.Help = Strings.Get("ResizeImageHelp");
         Shell.Opens = OpenableFiles.Images;
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);

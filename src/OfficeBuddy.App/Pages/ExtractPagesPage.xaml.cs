@@ -13,6 +13,7 @@ public sealed partial class ExtractPagesPage : Page
     {
         InitializeComponent();
         Shell.Title = Strings.Get("ExtractPagesTitle");
+        Shell.Help = Strings.Get("ExtractPagesHelp");
         Shell.Session = _session;
         _session.Changed += (_, _) => DispatcherQueue.TryEnqueue(Refresh);
     }
