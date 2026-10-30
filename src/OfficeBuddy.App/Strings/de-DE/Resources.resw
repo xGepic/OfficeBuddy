@@ -66,6 +66,8 @@
   <data name="ToolPdfPasswordDescription" xml:space="preserve"><value>Ein Passwort entfernen, das Sie kennen, oder ein neues festlegen</value></data>
   <data name="ToolRepairName" xml:space="preserve"><value>PDF reparieren</value></data>
   <data name="ToolRepairDescription" xml:space="preserve"><value>Beschädigte PDF-Dateien wieder lesbar machen</value></data>
+  <data name="ToolPdfAName" xml:space="preserve"><value>In PDF/A umwandeln</value></data>
+  <data name="ToolPdfADescription" xml:space="preserve"><value>Für Ämter und Online-Portale, die PDF/A verlangen, und zum Archivieren</value></data>
 
   <!-- Settings -->
   <data name="SettingsHeading.Text" xml:space="preserve"><value>Einstellungen</value></data>
@@ -392,6 +394,16 @@ Klicken Sie auf „Reparierte Datei speichern“.</value></data>
   <data name="RepairFailed" xml:space="preserve"><value>„{0}“ ist so stark beschädigt, dass nichts davon gerettet werden konnte.</value></data>
   <data name="RepairSave.Text" xml:space="preserve"><value>Reparierte Datei speichern</value></data>
   <data name="RepairSaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Reparierte Datei speichern</value></data>
+
+  <!-- PDF/A -->
+  <data name="PdfATitle" xml:space="preserve"><value>PDF-Datei in PDF/A umwandeln</value></data>
+  <data name="PdfAHelp" xml:space="preserve"><value>Klicken Sie auf „Öffnen“ und wählen Sie die PDF-Datei, die Sie als PDF/A brauchen – oder ziehen Sie sie in dieses Fenster.
+Sehen Sie die Seiten durch: So wird auch die PDF/A-Datei aussehen.
+Klicken Sie auf „Als PDF/A speichern“. Die neue Datei können Sie dann z. B. bei einem Amt oder Online-Portal hochladen.</value></data>
+  <data name="PdfAEmptyHint.Text" xml:space="preserve"><value>Öffnen Sie die PDF-Datei, die Sie als PDF/A brauchen – oder ziehen Sie sie einfach hierher.</value></data>
+  <data name="PdfAReady.Message" xml:space="preserve"><value>Beim Speichern wird daraus eine PDF/A-Datei (PDF/A-2b), wie sie Ämter und Online-Portale oft verlangen. Sie sieht aus wie vorher und lässt sich auch in vielen Jahren noch genauso öffnen.</value></data>
+  <data name="PdfASave.Text" xml:space="preserve"><value>Als PDF/A speichern</value></data>
+  <data name="PdfASaveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve"><value>Als PDF/A speichern</value></data>
 
   <!-- Compress -->
   <data name="CompressTitle" xml:space="preserve"><value>PDF-Datei verkleinern</value></data>

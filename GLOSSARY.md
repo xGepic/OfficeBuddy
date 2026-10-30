@@ -140,6 +140,10 @@ _Avoid_: Unlock, crack, encrypt, decrypt
 Rebuilding a damaged Document, such as a broken-off download, into one that opens again, with whatever Pages could be saved. A Document that isn't damaged needs no repair. UI term: *PDF reparieren*.
 _Avoid_: Fix, recover, restore
 
+**PDF/A**:
+Saving a Document as PDF/A-2b, the archive format offices and upload portals ask for: every font embedded, colours in sRGB, and nothing that could look different in years to come. The Pages look as before. UI term: *In PDF/A umwandeln*.
+_Avoid_: Archive, convert, export
+
 **Tool group**:
 The heading a Tool's tile is shown under on the start screen, by what it works on: putting PDF Pages in order (*PDF-Seiten ordnen*), changing a whole PDF (*PDF-Dateien bearbeiten*), from pictures to PDF and back (*PDF und Bilder umwandeln*), and photos (*Fotos und Bilder*).
 _Avoid_: Category, section, tab

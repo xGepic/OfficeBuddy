@@ -5,8 +5,8 @@ namespace OfficeBuddy.Core.Pdf;
 
 /// <summary>
 /// The Ghostscript bundled next to the app (ADR-0001), run as a separate process to rewrite a PDF:
-/// with smaller images, without its password, or rebuilt from a damaged file. Text, fonts, colours
-/// and the Pages' rotation stay as they are.
+/// with smaller images, without its password, rebuilt from a damaged file, or as PDF/A. Text, fonts
+/// and the Pages' rotation stay as they are, and colours too except for PDF/A.
 /// </summary>
 internal static class Ghostscript
 {
@@ -28,7 +28,41 @@ internal static class Ghostscript
     /// opened with <paramref name="password"/> comes out without one.
     /// </summary>
     /// <exception cref="InvalidOperationException">Ghostscript could not read it, e.g. because of a wrong password, or found no Pages in it.</exception>
-    public static async Task<byte[]> RewriteAsync(byte[] content, string? password = null)
+    public static Task<byte[]> RewriteAsync(byte[] content, string? password = null) =>
+        WriteAnewAsync(content,
+        [
+            "-sColorConversionStrategy=LeaveColorUnchanged",
+            .. password is null ? Array.Empty<string>() : [$"-sPDFPassword={password}"],
+        ], prologue: []);
+
+    /// <summary>
+    /// Writes the PDF <paramref name="content"/> anew as PDF/A-2b, the archive format offices and
+    /// upload portals ask for: every font embedded, colours in sRGB, which the file names as the
+    /// screen it was made for. Anything PDF/A doesn't allow is left out rather than failing.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Ghostscript could not read it or found no Pages in it.</exception>
+    public static Task<byte[]> ConvertToPdfAAsync(byte[] content) =>
+        WriteAnewAsync(content,
+            ["-dPDFA=2", "-dPDFACompatibilityPolicy=1", "-sColorConversionStrategy=RGB"],
+            prologue: ["-c", SrgbOutputIntent, "-f"]);
+
+    /// <summary>
+    /// What PDF/A needs before the first Page: the sRGB colour profile compiled into Ghostscript,
+    /// named in the file's catalog as the one its colours are meant for.
+    /// </summary>
+    private const string SrgbOutputIntent =
+        "[/_objdef {icc_PDFA} /type /stream /OBJ pdfmark"
+        + " [{icc_PDFA} << /N 3 >> /PUT pdfmark"
+        + " [{icc_PDFA} (%rom%iccprofiles/srgb.icc) (r) file /PUT pdfmark"
+        + " [/_objdef {OutputIntent_PDFA} /type /dict /OBJ pdfmark"
+        + " [{OutputIntent_PDFA} << /Type /OutputIntent /S /GTS_PDFA1 /DestOutputProfile {icc_PDFA} /OutputConditionIdentifier (sRGB) >> /PUT pdfmark"
+        + " [{Catalog} << /OutputIntents [ {OutputIntent_PDFA} ] >> /PUT pdfmark";
+
+    /// <summary>
+    /// Writes the PDF <paramref name="content"/> anew with pdfwrite and <paramref name="options"/>,
+    /// running the PostScript in <paramref name="prologue"/> once the new file is open.
+    /// </summary>
+    private static async Task<byte[]> WriteAnewAsync(byte[] content, IEnumerable<string> options, IEnumerable<string> prologue)
     {
         var workFolder = Directory.CreateDirectory(
             Path.Combine(Path.GetTempPath(), "OfficeBuddy", Guid.NewGuid().ToString("N"))).FullName;
@@ -42,10 +76,10 @@ internal static class Ghostscript
             [
                 "-dBATCH", "-dNOPAUSE", "-dSAFER",
                 "-sDEVICE=pdfwrite",
-                "-sColorConversionStrategy=LeaveColorUnchanged",
                 "-dAutoRotatePages=/None",
-                .. password is null ? Array.Empty<string>() : [$"-sPDFPassword={password}"],
+                .. options,
                 $"-sOutputFile={rewritten}",
+                .. prologue,
                 original,
             ], pageStarted: _ => Interlocked.Increment(ref pages));
             if (pages == 0)

@@ -9,7 +9,7 @@ public enum ToolGroup
     /// <summary>Putting PDF Pages together, in order, or apart.</summary>
     PdfPages,
 
-    /// <summary>Changing a whole PDF: smaller, signed, searchable, with or without a password, repaired.</summary>
+    /// <summary>Changing a whole PDF: smaller, signed, searchable, with or without a password, repaired, as PDF/A.</summary>
     PdfFiles,
 
     /// <summary>From pictures to PDF and back.</summary>
@@ -70,6 +70,7 @@ public sealed class ToolTile(string glyph, string resourceKey, ToolGroup group, 
         new("", "RecognizeText", ToolGroup.PdfFiles, typeof(RecognizeTextPage), FileKind.Pdf),
         new("", "PdfPassword", ToolGroup.PdfFiles, typeof(PdfPasswordPage), FileKind.Pdf),
         new("", "Repair", ToolGroup.PdfFiles, typeof(RepairPage), FileKind.Pdf),
+        new("", "PdfA", ToolGroup.PdfFiles, typeof(PdfAPage), FileKind.Pdf),
 
         new("", "ImagesToPdf", ToolGroup.Convert, typeof(ImagesToPdfPage), FileKind.Image, takesSeveral: true),
         new("", "PageToImage", ToolGroup.Convert, typeof(PageToImagePage), FileKind.Pdf),

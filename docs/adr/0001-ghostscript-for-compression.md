@@ -13,4 +13,4 @@ Ghostscript is AGPL. That is fine while the app is used only within the family a
 
 Revisited when the repository went public: Ghostscript stays, and Office Buddy is AGPL too ([ADR-0003](0003-publish-under-agpl.md)).
 
-Later Tools use Ghostscript too, where it already does what no free .NET library does: rewriting a PDF without its password when only the password to open it is known, rebuilding a damaged one, and writing anew one whose owner forbids changes.
+Later Tools use Ghostscript too, where it already does what no free .NET library does: rewriting a PDF without its password when only the password to open it is known, rebuilding a damaged one, writing anew one whose owner forbids changes, and writing PDF/A.
