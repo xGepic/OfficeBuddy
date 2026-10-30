@@ -84,7 +84,7 @@ public sealed partial class StartPage : Page
     /// <summary>Asks what to do with a file saved lately, as if the app was started with it.</summary>
     private void Recent_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.Tag is RecentFile file)
+        if (sender is FrameworkElement { Tag: RecentFile file })
         {
             ShowStart(new ToolLaunch([file.FilePath]));
         }
@@ -92,7 +92,7 @@ public sealed partial class StartPage : Page
 
     private void RecentShowInFolder_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.Tag is RecentFile file)
+        if (sender is FrameworkElement { Tag: RecentFile file })
         {
             FileExplorer.ShowInFolder(file.FilePath);
         }
