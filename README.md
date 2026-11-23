@@ -44,8 +44,6 @@ Every Tool screen has a **So geht's** button (or F1) that explains the Tool in t
 
 Download `OfficeBuddy.exe` from the **latest** release under **Releases** on the repository's front page. It contains everything the app needs, so nothing has to be installed; its first start takes a few seconds while it unpacks itself.
 
-Every push to `main` builds it after the tests pass ([build-exe.yml](.github/workflows/build-exe.yml)) and replaces the release before.
-
 ## Development
 
 Needs Windows 10 (2004) or later and the .NET 10 SDK.

@@ -9,4 +9,4 @@ GPL Ghostscript 10.06.0 (2025-09-09), 64-bit Windows, used by Compress, PDF-Pass
 
 The build copies these files into a `Ghostscript` folder next to the app and next to the tests.
 
-To update: install the new version, copy the two files from its `bin` folder and its `doc\COPYING` here, update the source link above and in [build-exe.yml](../../.github/workflows/build-exe.yml), and run the Compress tests. If a newer Ghostscript needs other runtime files, `strings -a gsdll64.dll | grep -i "\.dll$"` lists what it loads.
+To update: install the new version, copy the two files from its `bin` folder and its `doc\COPYING` here, update the source link above and run the Compress tests. If a newer Ghostscript needs other runtime files, `strings -a gsdll64.dll | grep -i "\.dll$"` lists what it loads.
